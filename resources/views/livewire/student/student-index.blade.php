@@ -45,7 +45,6 @@
                         <td>{{ $student->course->code }}</td>
                         <td>{{ $student->course->name }}</td>
                         <td class="text-center">{{ $student->credit }}</td>
-
                     </tr>
                 @empty
                     <x-table-empty :colspan="8" />
