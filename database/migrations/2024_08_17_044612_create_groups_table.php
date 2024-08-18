@@ -22,7 +22,9 @@ return new class extends Migration
             $table->id();
             $table->string('internship_company', 255);
             $table->string('phone', 255);
+            $table->string('phone_family', 255);
             $table->string('email', 255);
+            $table->unsignedBigInteger('student_id');
             $table->timestamps();
         });
     }

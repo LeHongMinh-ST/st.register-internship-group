@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Group extends Model
+class GroupStudent extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'supervisor', 'topic'];
+    protected $fillable = ['phone', 'internship_company', 'phone_family', 'email', 'student_id'];
 
     public function students(): HasMany
     {
