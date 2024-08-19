@@ -10,6 +10,8 @@ class GroupStudent extends Model
 {
     use HasFactory;
 
+    protected $table = 'group_students';
+
     protected $fillable = ['phone', 'internship_company', 'phone_family', 'email', 'student_id'];
 
     public function students(): HasMany

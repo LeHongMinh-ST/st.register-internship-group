@@ -40,15 +40,19 @@ class InternShipRegisterInfo extends Component
         return [
             'topic' => [
                 'required',
+                'max:255'
             ],
             'dataStudent.*.email' => [
                 'required',
+                'email'
             ],
             'dataStudent.*.phone' => [
                 'required',
+                'max:255'
             ],
             'dataStudent.*.phone_family' => [
                 'required',
+                'max:255'
             ],
             'dataStudent.*.internship_company' => [
                 'required',
@@ -102,7 +106,7 @@ class InternShipRegisterInfo extends Component
                 'supervisor' => $this->supervisor,
             ]);
 
-            foreach ($this->studentChecked as$code =>  $student) {
+            foreach ($this->dataStudent as $code =>  $item) {
                 $student = Student::query()->where('code', $code)
                     ->where('campaign_id', $this->campaignId)
                     ->first();
@@ -113,21 +117,18 @@ class InternShipRegisterInfo extends Component
                     throw new \Exception();
                 }
 
-                $student->update([
-                    'group_id' => $group->id,
-                ]);
+                $student->group_id = $group->id;
                 $student->save();
 
                 GroupStudent::create([
-                    'email' => $student->email,
-                    'phone' => $student->phone,
-                    'phone_family' => $student->phone_family,
-                    'internship_company' => $student->internship_company,
+                    'email' => $item['email'],
+                    'phone' => $item['phone'],
+                    'phone_family' => $item['phone_family'],
+                    'internship_company' => $item['internship_company'],
                     'student_id' => $student->id,
                 ]);
             }
             DB::commit();
-            $this->dispatch('alert', type: "success", message: "Tạo nhóm thực tập thành công");
             $this->dispatch('nextSuccess')->to(InternShipRegister::class);
         }catch (\Exception $exception) {
             $this->dispatch('alert', type: "error", message: "Tạo nhóm thực tập thất bại");
