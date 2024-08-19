@@ -63,10 +63,10 @@
                                     <i class="ph-arrow-circle-right"></i>
                                     Đăng ký
                                 </button>
-                                <button type="button" class="btn btn-success">
-                                    <i class="ph-magnifying-glass"></i>
-                                    Tra cứu nhóm
-                                </button>
+{{--                                <button type="button" class="btn btn-success">--}}
+{{--                                    <i class="ph-magnifying-glass"></i>--}}
+{{--                                    Tra cứu nhóm--}}
+{{--                                </button>--}}
                             </div>
 
                         </div>
