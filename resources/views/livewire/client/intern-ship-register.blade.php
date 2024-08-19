@@ -2,7 +2,7 @@
     use App\Enums\StepRegisterEnum;
 @endphp
 <div class="content login-wrapper">
-    <div class="card">
+    <div class="card w-100">
         <div class="card-body">
             @if($step == StepRegisterEnum::StepOne)
                 <div class="row login-row" wire:transition>
