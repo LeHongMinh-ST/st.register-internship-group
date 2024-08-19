@@ -42,7 +42,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <input type="checkbox" @if(($countMember == count($studentChecked) + 1) && !in_array($student->code, $studentChecked) ) disabled @endif :key="{{$student->id}}"
-                                            wire:click="clickCheckBox({{$student->code}})"   value="{{$student->code}}" id="{{$student->code}}"
+                                            wire:click="clickCheckBox({{$student->code}})" @if(in_array($student->code, $studentChecked) ) checked @endif   value="{{$student->code}}" id="{{$student->code}}"
                                            class="cursor-pointer">
                                     <label class="ms-2" for="{{$student->code}}"></label>
                                 </div>
@@ -61,7 +61,8 @@
                 </table>
             </div>
         </div>
-        <div class="mb-3 d-flex justify-content-end">
+        <div class="mb-3 d-flex justify-content-between">
+           <button wire:click="preStep" class="btn btn-warning"><i class="ph-arrow-circle-left"></i> Quay lại</button>
            <button wire:click="nextStep" class="btn btn-primary"><i class="ph-arrow-circle-right"></i> Tiếp tục</button>
         </div>
     </div>

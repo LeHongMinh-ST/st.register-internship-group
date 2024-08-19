@@ -10,7 +10,7 @@ class Group extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'supervisor', 'topic'];
+    protected $fillable = ['supervisor', 'topic'];
 
     public function students(): HasMany
     {

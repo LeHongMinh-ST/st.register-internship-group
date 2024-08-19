@@ -81,6 +81,9 @@
                 <livewire:client.intern-ship-register-info :code="$code" :dob="$dob" :campaignId="$campaignId"
                                                            :studentChecked="$studentChecked"/>
             @endif
+            @if($step == StepRegisterEnum::StepFour)
+                <livewire:client.intern-ship-register-success />
+            @endif
         </div>
     </div>
 </div>

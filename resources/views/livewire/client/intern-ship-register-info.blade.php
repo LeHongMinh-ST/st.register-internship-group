@@ -10,10 +10,6 @@
             <h5 class="mb-0">Đăng ký nhóm thực tập chuyên ngành </h5>
         </div>
 
-        {{--        <div class="mb-3">--}}
-        {{--            <div>Chọn thành viên cho nhóm, tối đã mỗi nhóm }} thành viên</div>--}}
-        {{--        </div>--}}
-
         <div class="">
             <div class="card">
                 <div class="card-header">
@@ -22,24 +18,28 @@
 
                 <div class="card-body">
                     <form class="form-validate-jquery" action="#">
-                            <div class="mb-4">
-                                <!-- Maximum number -->
-                                <div class="row mb-3">
-                                    <label class="col-form-label col-lg-3">Tên đề tài <span
-                                            class="text-danger">*</span></label>
-                                    <div class="col-lg-9">
-                                        <input type="text" name="title" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-form-label col-lg-3">Giáo viên hướng dẫn mong muốn
-                                    </label>
-                                    <div class="col-lg-9">
-                                        <input type="text" name="teacher_name" class="form-control" >
-                                    </div>
+                        <div class="mb-4">
+                            <!-- Maximum number -->
+                            <div class="row mb-3">
+                                <label class="col-form-label col-lg-3">Tên đề tài <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-9">
+                                    <input type="text" wire:model.live="topic" class="form-control" required>
+                                    @error('topic')
+                                    <label id="error-topic" class="validation-error-label text-danger"
+                                           for="topic">{{ $message }}</label>
+                                    @enderror
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <label class="col-form-label col-lg-3">Giáo viên hướng dẫn mong muốn
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="text" wire:model.live="supervisor"  class="form-control" >
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -51,152 +51,77 @@
 
                 <div class="card-body">
                     <div class="accordion" id="accordion_collapsed">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#always_open1">
-                                    Accordion Item #1
-                                </button>
-                            </h2>
-                            <div id="always_open1" class="accordion-collapse collapse ">
-                                <div class="accordion-body">
-                                    <form class="form-validate-jquery" action="#">
-                                        <div class="mb-4">
-                                            <!-- Maximum number -->
-                                            <div class="row mb-3">
-                                                <label class="col-form-label col-lg-3">Email <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-lg-9">
-                                                    <input type="text" name="maximum_number" class="form-control" required
-                                                           >
+                        @foreach($students as $key => $student)
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#st{{$student->code}}">
+                                        {{$student->name}} - Mã sinh viên: {{ $student->code }}
+                                    </button>
+                                </h2>
+                                <div id="st{{$student->code}}" class="accordion-collapse collapse show" wire:ignore.self>
+                                    <div class="accordion-body">
+                                        <form class="form-validate-jquery" action="#">
+                                            <div class="mb-4">
+                                                <!-- Maximum number -->
+                                                <div class="row mb-3">
+                                                    <label class="col-form-label col-lg-3">Email <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.email" class="form-control" required>
+                                                        @error('dataStudent.'.$student->code.'.email')
+                                                        <label id="error-{{$student->code}}-email" class="validation-error-label text-danger"
+                                                               for="email-{{$student->code}}">{{ $message }}</label>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-form-label col-lg-3">Số điện thoại <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-lg-9">
-                                                    <input type="text" name="maximum_number" class="form-control" required
-                                                           >
+                                                <div class="row mb-3">
+                                                    <label class="col-form-label col-lg-3">Số điện thoại <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.phone" class="form-control" required>
+                                                        @error('dataStudent.'.$student->code.'.phone')
+                                                        <label id="error-{{$student->code}}-phone" class="validation-error-label text-danger"
+                                                               for="phone-{{$student->code}}">{{ $message }}</label>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-form-label col-lg-3">Số điện thoại phụ huynh<span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-lg-9">
-                                                    <input type="text" name="maximum_number" class="form-control" required
-                                                           >
+                                                <div class="row mb-3">
+                                                    <label class="col-form-label col-lg-3">Số điện thoại phụ huynh<span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.phone_family"  class="form-control" required>
+                                                        @error('dataStudent.'.$student->code.'.phone_family')
+                                                        <label id="error-{{$student->code}}-phone_family" class="validation-error-label text-danger"
+                                                               for="phone_family-{{$student->code}}">{{ $message }}</label>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-form-label col-lg-3">Tên công ty thực tập<span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-lg-9">
-                                                    <input type="text" name="maximum_number" class="form-control" required
-                                                           >
+                                                <div class="row mb-3">
+                                                    <label class="col-form-label col-lg-3">Tên công ty thực tập<span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.internship_company"  class="form-control" required>
+                                                        @error('dataStudent.'.$student->code.'.internship_company')
+                                                        <label id="error-{{$student->code}}-internship_company" class="validation-error-label text-danger"
+                                                               for="internship_company-{{$student->code}}">{{ $message }}</label>
+                                                        @enderror
+                                                    </div>
                                                 </div>
+                                                <!-- /maximum number -->
                                             </div>
-                                            <!-- /maximum number -->
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#always_open2">
-                                    Accordion Item #2
-                                </button>
-                            </h2>
-                            <div id="always_open2" class="accordion-collapse collapse ">
-                                <div class="accordion-body">
-                                    <span class="fw-semibold">This is the second item's accordion body.</span> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#always_open3">
-                                    Accordion Item #3
-                                </button>
-                            </h2>
-                            <div id="always_open3" class="accordion-collapse collapse ">
-                                <div class="accordion-body">
-                                    <span class="fw-semibold">This is the third item's accordion body.</span> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <!-- /always open -->
-            <!-- Collapsed atate -->
-{{--            <div class="accordion" id="accordion_expanded">--}}
-{{--                <div class="accordion-item">--}}
-{{--                    <h2 class="accordion-header">--}}
-{{--                        <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse"--}}
-{{--                                data-bs-target="#expanded_item1">--}}
-{{--                            Accordion Item #1--}}
-{{--                        </button>--}}
-{{--                    </h2>--}}
-{{--                    <div id="expanded_item1" class="accordion-collapse collapse show"--}}
-{{--                         data-bs-parent="#accordion_expanded">--}}
-{{--                        <div class="accordion-body">--}}
-{{--                            <span class="fw-semibold">This is the first item's accordion body.</span> It is shown by--}}
-{{--                            default, until the collapse plugin adds the appropriate classes that we use to style each--}}
-{{--                            element. These classes control the overall appearance, as well as the showing and hiding via--}}
-{{--                            CSS transitions. You can modify any of this with custom CSS or overriding our default--}}
-{{--                            variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>,--}}
-{{--                            though the transition does limit overflow.--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="accordion-item">--}}
-{{--                    <h2 class="accordion-header">--}}
-{{--                        <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse"--}}
-{{--                                data-bs-target="#expanded_item2">--}}
-{{--                            Accordion Item #2--}}
-{{--                        </button>--}}
-{{--                    </h2>--}}
-{{--                    <div id="expanded_item2" class="accordion-collapse collapse" data-bs-parent="#accordion_expanded">--}}
-{{--                        <div class="accordion-body">--}}
-{{--                            <span class="fw-semibold">This is the second item's accordion body.</span> It is hidden by--}}
-{{--                            default, until the collapse plugin adds the appropriate classes that we use to style each--}}
-{{--                            element. These classes control the overall appearance, as well as the showing and hiding via--}}
-{{--                            CSS transitions. You can modify any of this with custom CSS or overriding our default--}}
-{{--                            variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>,--}}
-{{--                            though the transition does limit overflow.--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="accordion-item">--}}
-{{--                    <h2 class="accordion-header">--}}
-{{--                        <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse"--}}
-{{--                                data-bs-target="#expanded_item3">--}}
-{{--                            Accordion Item #3--}}
-{{--                        </button>--}}
-{{--                    </h2>--}}
-{{--                    <div id="expanded_item3" class="accordion-collapse collapse" data-bs-parent="#accordion_expanded">--}}
-{{--                        <div class="accordion-body">--}}
-{{--                            <span class="fw-semibold">This is the third item's accordion body.</span> It is hidden by--}}
-{{--                            default, until the collapse plugin adds the appropriate classes that we use to style each--}}
-{{--                            element. These classes control the overall appearance, as well as the showing and hiding via--}}
-{{--                            CSS transitions. You can modify any of this with custom CSS or overriding our default--}}
-{{--                            variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>,--}}
-{{--                            though the transition does limit overflow.--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            <!-- /collapsed state -->
-            <!-- Form validation -->
-            <!-- /form validation -->
         </div>
-        <div class="mb-3 d-flex justify-content-end">
-            <button wire:click="nextStep" class="btn btn-primary"><i class="ph-arrow-circle-right"></i> Tiếp tục
-            </button>
+        <div class="mb-3 d-flex justify-content-between">
+            <button wire:click="preStep" class="btn btn-warning"><i class="ph-arrow-circle-left"></i> Quay lại</button>
+            <button wire:click="nextStepFinish" class="btn btn-primary"><i class="ph-arrow-circle-right"></i> Tiếp tục</button>
         </div>
+
     </div>
 </div>

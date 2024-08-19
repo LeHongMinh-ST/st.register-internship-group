@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class InternShipRegister extends Component
 {
-    public StepRegisterEnum $step = StepRegisterEnum::StepThree;
+    public StepRegisterEnum $step = StepRegisterEnum::StepOne;
 
     #[Validate(as: 'mã sinh viên')]
     public string $code = '';
@@ -23,8 +23,27 @@ class InternShipRegister extends Component
     public array $studentChecked = [];
 
     protected $listeners = [
-        'nextStepThree' => 'nextStepThree'
+        'nextStepThree' => 'nextStepThree',
+        'nextSuccess' => 'nextSuccess',
+        'preStepOne' => 'preStepOne',
+        'preStepTwo' => 'preStepTwo',
     ];
+
+    public function nextSuccess()
+    {
+        $this->step = StepRegisterEnum::StepFour;
+    }
+
+    public function preStepOne()
+    {
+        $this->step = StepRegisterEnum::StepOne;
+        $this->studentChecked = [];
+    }
+
+    public function preStepTwo()
+    {
+        $this->step = StepRegisterEnum::StepTwo;
+    }
 
     public function nextStepThree($data)
     {
@@ -44,8 +63,6 @@ class InternShipRegister extends Component
     {
         $this->campaignId = $campaignId;
     }
-
-
 
     public function rules(): array
     {
@@ -69,12 +86,13 @@ class InternShipRegister extends Component
     public function render()
     {
         return view('livewire.client.intern-ship-register');
-//        return view('livewire.client.intern-ship-register-info');
+        //        return view('livewire.client.intern-ship-register-info');
 
     }
 
     public function nextStepTwo()
     {
+        $this->validate();
         $this->dob = str_replace('/', '-', $this->dob);
 
         $student = Student::query()
@@ -84,19 +102,22 @@ class InternShipRegister extends Component
             ->with('campaign')
             ->first();
 
-        if (!$student) {
-            $this->dispatch('alert', type:'error', message: 'Sinh viên không tồn tại hoặc không nằm trong danh sách đủ điều kiện làm thực tập chuyên ngành');
+        if (! $student) {
+            $this->dispatch('alert', type: 'error', message: 'Sinh viên không tồn tại hoặc không nằm trong danh sách đủ điều kiện làm thực tập chuyên ngành');
+
             return;
         }
 
         if ($student->group_id) {
-            $this->dispatch('alert', type:'error', message: 'Bạn đã có nhóm thực tập! Vui lòng tra cứu thông tin nhóm tại mục tra cứu');
+            $this->dispatch('alert', type: 'error', message: 'Bạn đã có nhóm thực tập! Vui lòng tra cứu thông tin nhóm tại mục tra cứu');
+
             return;
         }
 
         $now = Carbon::now()->timestamp;
         if (Carbon::make($student->campaign->start)->timestamp > $now || $now > Carbon::make($student->campaign->end)->timestamp) {
-            $this->dispatch('alert', type:'error', message: 'Đã hết thời hạn đăng ký');
+            $this->dispatch('alert', type: 'error', message: 'Đã hết thời hạn đăng ký');
+
             return;
         }
 

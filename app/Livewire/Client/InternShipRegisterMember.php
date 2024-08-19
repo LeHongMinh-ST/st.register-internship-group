@@ -70,4 +70,11 @@ class InternShipRegisterMember extends Component
            'studentChecked'  => $this->studentChecked
         ])->to(InternShipRegister::class);
     }
+
+    public function preStep()
+    {
+        $this->dispatch('preStepOne')->to(InternShipRegister::class);
+    }
+
+
 }
