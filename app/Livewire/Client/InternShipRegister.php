@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class InternShipRegister extends Component
 {
-    public StepRegisterEnum $step = StepRegisterEnum::StepOne;
+    public StepRegisterEnum $step = StepRegisterEnum::StepThree;
 
     #[Validate(as: 'mã sinh viên')]
     public string $code = '';
@@ -69,6 +69,8 @@ class InternShipRegister extends Component
     public function render()
     {
         return view('livewire.client.intern-ship-register');
+//        return view('livewire.client.intern-ship-register-info');
+
     }
 
     public function nextStepTwo()
