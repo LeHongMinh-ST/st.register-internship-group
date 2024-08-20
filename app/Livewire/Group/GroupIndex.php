@@ -17,9 +17,19 @@ class GroupIndex extends Component
 
     public int|string $campaignId;
 
+    public string $search = '';
+
+    public function updatingSearch()
+    {
+        $this->resetPage('studentPage');
+    }
+
+
+
     public function render()
     {
         $groups = Group::query()
+            ->search($this->search)
             ->where('campaign_id', $this->campaignId)
             ->with(['students', 'students.groupStudent'])
             ->orderBy('created_at', 'asc')

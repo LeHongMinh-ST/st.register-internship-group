@@ -11,6 +11,8 @@ class GroupMemberIndex extends Component
 
     public Group $group;
 
+
+
     public function render()
     {
         return view('livewire.group.group-member-index');

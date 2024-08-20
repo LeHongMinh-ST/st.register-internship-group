@@ -24,4 +24,19 @@ class Group extends Model
             $q->where('is_captain', true);
         });
     }
+
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->whereHas('students', function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('code', 'like', '%'.$search.'%');
+            });
+
+
+        }
+
+        return $query;
+    }
 }
