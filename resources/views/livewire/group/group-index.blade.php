@@ -51,6 +51,6 @@
             </table>
         </div>
     </div>
-    {{ $groups->links('vendor.pagination.theme') }}
+    {{ $groups->links('vendor.pagination.groups') }}
 </div>
 

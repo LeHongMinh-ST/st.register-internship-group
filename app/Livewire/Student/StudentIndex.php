@@ -21,7 +21,7 @@ class StudentIndex extends Component
 
     public function updatingSearch()
     {
-        $this->resetPage('studentPage');
+        $this->resetPage();
     }
 
     public function render()
@@ -31,7 +31,7 @@ class StudentIndex extends Component
             ->where('campaign_id', $this->campaignId)
             ->with('course')
             ->orderBy('created_at', 'desc')
-            ->paginate(Constants::PER_PAGE_ADMIN, ['*'], 'studentPage');
+            ->paginate(Constants::PER_PAGE_ADMIN);
 
         return view('livewire.student.student-index', [
             'students' => $students

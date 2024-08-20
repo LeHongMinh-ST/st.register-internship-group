@@ -14,17 +14,14 @@ class GroupIndex extends Component
 {
     use WithPagination;
 
-
     public int|string $campaignId;
 
     public string $search = '';
 
     public function updatingSearch()
     {
-        $this->resetPage('studentPage');
+        $this->resetPage('groupsPage');
     }
-
-
 
     public function render()
     {
@@ -33,7 +30,7 @@ class GroupIndex extends Component
             ->where('campaign_id', $this->campaignId)
             ->with(['students', 'students.groupStudent'])
             ->orderBy('created_at', 'asc')
-            ->paginate(Constants::PER_PAGE, ['*'], 'groupPage');
+            ->paginate(Constants::PER_PAGE, ['*'], 'groupsPage');
 
         return view('livewire.group.group-index', [
             'groups' => $groups
