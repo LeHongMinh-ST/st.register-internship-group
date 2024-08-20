@@ -11,12 +11,32 @@ use Livewire\Component;
 
 class ClientResearch extends Component
 {
+    #[Validate(as: 'mã sinh viên')]
     public string $code = '';
 
+    #[Validate(as: 'ngày sinh')]
+    public string $dob = '';
     public int|string $campaignId;
 
     public $group;
     public $student;
+
+    public function updated($field): void
+    {
+        $this->resetValidation($field);
+    }
+
+    protected $listeners = [
+        'update-dob' => 'updateDob',
+    ];
+
+    public function updateDob($value): void
+    {
+        if ($value) {
+            $this->resetValidation('dob');
+        }
+        $this->dob = str_replace('/', '-', $value);
+    }
 
     public function render()
     {
@@ -28,10 +48,29 @@ class ClientResearch extends Component
         $this->campaignId = $campaignId;
     }
 
+    public function rules(): array
+    {
+        return [
+            'code' => [
+                'required',
+            ],
+
+            'dob' => [
+                'required',
+            ],
+
+        ];
+    }
+
     public function filterGroup()
     {
+
+        $this->validate();
+        $this->dob = str_replace('/', '-', $this->dob);
+
         $this->student = Student::query()
             ->where('code', $this->code)
+            ->whereDate('dob', Carbon::make($this->dob))
             ->where('campaign_id', $this->campaignId)
             ->whereNotNull('group_id')
             ->first();
