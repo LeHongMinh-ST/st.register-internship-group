@@ -40,7 +40,6 @@ class InternShipRegisterInfo extends Component
     {
         return [
             'topic' => [
-                'required',
                 'max:255'
             ],
             'dataStudent.*.email' => [
