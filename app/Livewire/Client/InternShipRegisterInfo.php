@@ -39,9 +39,7 @@ class InternShipRegisterInfo extends Component
     public function rules(): array
     {
         return [
-            'topic' => [
-                'max:255'
-            ],
+
             'dataStudent.*.email' => [
                 'required',
                 'email'
