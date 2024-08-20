@@ -27,7 +27,9 @@ class InternShipRegister extends Component
         'nextSuccess' => 'nextSuccess',
         'preStepOne' => 'preStepOne',
         'preStepTwo' => 'preStepTwo',
+        'update-dob' => 'updateDob',
     ];
+
 
     public function nextSuccess()
     {
