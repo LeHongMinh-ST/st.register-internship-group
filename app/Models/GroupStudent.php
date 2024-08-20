@@ -12,7 +12,7 @@ class GroupStudent extends Model
 
     protected $table = 'group_students';
 
-    protected $fillable = ['phone', 'internship_company', 'phone_family', 'email', 'student_id'];
+    protected $fillable = ['phone', 'internship_company', 'phone_family', 'email', 'student_id', 'is_captain'];
 
     public function students(): HasMany
     {

@@ -22,7 +22,6 @@
                             @csrf
                             <div class="mb-3 text-center">
                                 <div class="gap-1 mt-2 mb-4 d-inline-flex align-items-center justify-content-center">
-                                    <img src="{{ asset('assets/images/VNUA.png') }}" class="h-64px" alt="">
                                      <img src="{{asset('assets/images/FITA.png')}}" class="h-64px" alt="">
                                      <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
                                 </div>

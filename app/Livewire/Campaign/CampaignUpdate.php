@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Campaign;
 
+use App\Common\Constants;
 use App\Models\Campaign;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -44,8 +45,8 @@ class CampaignUpdate extends Component
         $campaign = Campaign::query()->find($id);
         $this->campaignId = $id;
         $this->name = $campaign->name;
-        $this->start = $campaign->start;
-        $this->end = $campaign->end;
+        $this->start = Carbon::make($campaign->start)->format(Constants::FORMAT_DATE);
+        $this->end = Carbon::make($campaign->end)->format(Constants::FORMAT_DATE);
         $this->max_student_group = $campaign->max_student_group;
     }
 

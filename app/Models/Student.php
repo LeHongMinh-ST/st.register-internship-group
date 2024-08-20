@@ -21,6 +21,8 @@ class Student extends Model
         return $this->belongsTo(Campaign::class);
     }
 
+
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
@@ -29,6 +31,11 @@ class Student extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function groupStudent()
+    {
+        return $this->hasOne(GroupStudent::class);
     }
 
     public function scopeSearch($query, $search)

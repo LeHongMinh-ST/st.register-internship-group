@@ -7,6 +7,7 @@ use App\Models\Group;
 use App\Models\GroupStudent;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use function Symfony\Component\String\s;
 
@@ -54,9 +55,7 @@ class InternShipRegisterInfo extends Component
                 'required',
                 'max:255'
             ],
-            'dataStudent.*.internship_company' => [
-                'required',
-            ],
+
 
         ];
     }
@@ -104,6 +103,7 @@ class InternShipRegisterInfo extends Component
             $group = Group::create([
                 'topic' => $this->topic,
                 'supervisor' => $this->supervisor,
+                'campaign_id' => $this->campaignId
             ]);
 
             foreach ($this->dataStudent as $code =>  $item) {
@@ -126,11 +126,15 @@ class InternShipRegisterInfo extends Component
                     'phone_family' => $item['phone_family'],
                     'internship_company' => $item['internship_company'],
                     'student_id' => $student->id,
+                    'is_captain' => $this->code == $code
                 ]);
             }
             DB::commit();
             $this->dispatch('nextSuccess')->to(InternShipRegister::class);
         }catch (\Exception $exception) {
+            Log::error('create group', [
+                'message' => $exception->getMessage(),
+            ]);
             $this->dispatch('alert', type: "error", message: "Tạo nhóm thực tập thất bại");
             DB::rollBack();
         }

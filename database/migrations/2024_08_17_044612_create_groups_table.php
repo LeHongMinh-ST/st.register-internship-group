@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->string('supervisor', 255);
-            $table->text('topic');
+            $table->string('supervisor', 255)->nullable();
+            $table->text('topic')->nullable();
+            $table->unsignedBigInteger('campaign_id');
             $table->timestamps();
         });
 
         Schema::create('group_students', function (Blueprint $table) {
             $table->id();
-            $table->string('internship_company', 255);
+            $table->string('internship_company', 255)->nullable();
             $table->string('phone', 255);
             $table->string('phone_family', 255);
             $table->string('email', 255);
@@ -35,5 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('groups');
+        Schema::dropIfExists('group_students');
     }
 };

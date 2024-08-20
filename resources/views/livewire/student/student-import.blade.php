@@ -17,7 +17,7 @@
                         <label id="error-name" class="validation-error-label text-danger"
                                for="name">{{ $message }}</label>
                         @enderror
-                        <span class="cursor-pointer text-primary" wire:click="downloadFileTemplate()">Tải file mẫu</span>
+                        <a class="cursor-pointer text-primary d-inline-block mt-2" target="_blank" href="{{route('admin.campaigns.downloadTemplateStudent')}}">Tải file mẫu</a>
                     </div>
                 </div>
             </div>

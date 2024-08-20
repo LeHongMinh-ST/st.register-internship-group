@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="mb-3 text-center">
             <div class="gap-1 mt-2 mb-4 d-inline-flex align-items-center justify-content-center">
-                <img src="{{ asset('assets/images/VNUA.png') }}" class="h-64px" alt="">
                 <img src="{{asset('assets/images/FITA.png')}}" class="h-64px" alt="">
                 <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
             </div>
             {{--                            <span class="d-block text-muted">Chào mừng bạn đến với</span>--}}
-            <h5 class="mb-0">Đăng ký nhóm thực tập chuyên ngành </h5>
+            <h5 class="mb-0">Đăng ký nhóm TTCN/KLTN</h5>
         </div>
 
         <div class="mb-3">
-            <div>Chọn thành viên cho nhóm, tối đã mỗi nhóm {{$countMember}} thành viên</div>
+            <div class="bold mb-2">Nhóm sinh viên: {{ $student->name }} - Mã sinh viên: {{ $student->code }} - Lớp: {{ $student->code }}</div>
+            <div class="mb-2">Đăng ký học phần <b>{{ $student->course->name }}</b> - <b>{{ $student->course->code }}</b> </div>
         </div>
 
         <div class="card">
@@ -21,7 +21,7 @@
                         <input wire:model.live="search" type="text" class="form-control" placeholder="Tìm kiếm...">
                     </div>
                     <div>
-                        Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}}
+                        Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}} (Tối đa {{$countMember}} thành viên)
                     </div>
                 </div>
             </div>
@@ -31,14 +31,13 @@
                     <tr>
                         <th></th>
                         <th>Họ và tên</th>
-                        <th>Ngày sinh</th>
                         <th>Mã sinh viên</th>
                         <th>Lớp</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($students as $student)
-                        <tr>
+                        <tr class="@if(in_array($student->code, $studentChecked) ) table-light @endif">
                             <td>
                                 <div class="d-flex align-items-center">
                                     <input type="checkbox" @if(($countMember == count($studentChecked) + 1) && !in_array($student->code, $studentChecked) ) disabled @endif :key="{{$student->id}}"
@@ -48,8 +47,6 @@
                                 </div>
                             </td>
                             <td>{{ $student->name }}</td>
-                            <td>{{ \Carbon\Carbon::make($student->dob)->format('d/m/Y') }}</td>
-
                             <td>{{ $student->code }}</td>
                             <td>{{ $student->class }}</td>
 

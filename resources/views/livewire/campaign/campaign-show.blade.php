@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="js-tab2" role="tabpanel">
-                    test2
+                    <livewire:group.group-index :campaignId="$campaignId"/>
                 </div>
             </div>
         </div>

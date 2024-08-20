@@ -103,8 +103,7 @@ class InternShipRegister extends Component
             ->first();
 
         if (! $student) {
-            $this->dispatch('alert', type: 'error', message: 'Sinh viên không tồn tại hoặc không nằm trong danh sách đủ điều kiện làm thực tập chuyên ngành');
-
+            $this->dispatch('alert', type: 'error', message: 'Sinh viên không tồn tại hoặc không nằm trong danh sách đủ điều kiện làm TTCN hoặc KLTN');
             return;
         }
 
