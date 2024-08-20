@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\RegisterController;
+use App\Http\Controllers\Client\ResearchController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +43,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
     Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
 });
 Route::get('internship/{campaign}/register', [RegisterController::class, 'index'])->name('internship.register');
+Route::get('internship/{campaign}/research', [ResearchController::class, 'index'])->name('internship.research');

@@ -24,7 +24,7 @@
                                     <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
                                 </div>
                                 {{--                            <span class="d-block text-muted">Chào mừng bạn đến với</span>--}}
-                                <h5 class="mb-0">Đăng ký nguyện vọng TTCN và KLTN</h5>
+                                <h5 class="mb-0">Đăng ký nguyện vọng TTCN/KLTN</h5>
                             </div>
 
                             <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
@@ -56,18 +56,17 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
+                            <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
                                 <button wire:click="nextStepTwo()" type="button"
                                         class="btn btn-primary">
                                     <i class="ph-arrow-circle-right"></i>
                                     Đăng ký
                                 </button>
-{{--                                <button type="button" class="btn btn-success">--}}
-{{--                                    <i class="ph-magnifying-glass"></i>--}}
-{{--                                    Tra cứu nhóm--}}
-{{--                                </button>--}}
                             </div>
 
+                            <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
+                                <a href="{{route('internship.research', $campaignId)}}" class="text-primary"><i class="ph-magnifying-glass"></i>Tra cứu thông tin nhóm</a>
+                            </div>
                         </div>
                     </div>
                 </div>
