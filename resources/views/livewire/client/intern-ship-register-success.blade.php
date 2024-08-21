@@ -6,7 +6,7 @@
                 <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
             </div>
             {{--                            <span class="d-block text-muted">Chào mừng bạn đến với</span>--}}
-            <h5 class="mb-0">Đăng ký nhóm thực tập chuyên ngành thành công </h5>
+            <h5 class="mb-0">Đăng ký nhóm nguyện vọng TTCN/KLTN thành công </h5>
         </div>
 
 

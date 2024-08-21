@@ -5,8 +5,8 @@
                 <img src="{{asset('assets/images/FITA.png')}}" class="h-64px" alt="">
                 <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
             </div>
-            {{--                            <span class="d-block text-muted">Chào mừng bạn đến với</span>--}}
-            <h5 class="mb-0">Đăng ký nguyện vọng TTCN và KLTN</h5>
+            <span class="d-block text-muted">Đăng ký</span>
+            <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
         </div>
 
         <div class="mb-3">

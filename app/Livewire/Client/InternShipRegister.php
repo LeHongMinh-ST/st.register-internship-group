@@ -3,6 +3,7 @@
 namespace App\Livewire\Client;
 
 use App\Enums\StepRegisterEnum;
+use App\Models\Campaign;
 use App\Models\Student;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
@@ -87,9 +88,11 @@ class InternShipRegister extends Component
 
     public function render()
     {
-        return view('livewire.client.intern-ship-register');
-        //        return view('livewire.client.intern-ship-register-info');
+        $campaign = Campaign::find($this->campaignId);
 
+        return view('livewire.client.intern-ship-register', [
+            'campaign' => $campaign,
+        ]) ;
     }
 
     public function nextStepTwo()

@@ -67,9 +67,11 @@ class InternShipRegisterInfo extends Component
     {
         $students = Student::query()->whereIn('code',[$this->code, ...$this->studentChecked])
             ->where('campaign_id', $this->campaignId)->get();
+        $campaign = Campaign::find($this->campaignId);
 
         return view('livewire.client.intern-ship-register-info', [
-            'students' => $students
+            'students' => $students,
+            'campaign' => $campaign,
         ]);
     }
 

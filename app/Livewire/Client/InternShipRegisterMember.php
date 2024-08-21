@@ -58,9 +58,12 @@ class InternShipRegisterMember extends Component
             ->where('campaign_id', $this->campaignId)
             ->get();
 
+        $campaign = Campaign::find($this->campaignId);
+
         return view('livewire.client.intern-ship-register-member', [
             'student' => $student,
-            'students' => $students
+            'students' => $students,
+            'campaign' => $campaign,
         ]);
     }
 
