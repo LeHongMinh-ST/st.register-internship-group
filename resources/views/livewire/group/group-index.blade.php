@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="gap-2 d-flex flex-wrap">
-                <p>Tổng số nhóm đăng ký: <b>{{ $groups->count() }}</b></p>
+                <p>Tổng số nhóm đăng ký: <b>{{ $groups->total() }}</b></p>
                 <p>Tổng số sinh viên đăng ký: <b>{{ $studentRegister }}</b></p>
             </div>
             <div class="gap-2 d-flex">

@@ -10,13 +10,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $now = Carbon::now();
-        $campaign = Campaign::query()->where('start', '<', $now)
-            ->where('end', '>', $now)->first();
-        if (!$campaign) {
-            abort(404);
-        }
+        $campaigns = Campaign::query()
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
 
-        return redirect()->route('internship.register', $campaign->id);
+
+        return view('pages.client.home', compact('campaigns'));
     }
 }
