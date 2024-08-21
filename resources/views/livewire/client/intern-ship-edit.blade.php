@@ -9,7 +9,7 @@
                             <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
                         </div>
                         <span class="d-block text-muted">Đăng ký</span>
-                        <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
+                        <h5 class="mb-0 p-2">{{ $campaign?->name }}</h5>
                     </div>
 
                     <div class="mb-3">
@@ -25,12 +25,12 @@
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button fw-semibold" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#st{{$student->code}}">
-                                                    {{$student->name}} - Mã sinh viên: {{ $student->code }} -
-                                                    Lớp: {{ $student->class }}
+                                                        data-bs-target="#st{{$student?->code}}">
+                                                    {{$student?->name}} - Mã sinh viên: {{ $student?->code }} -
+                                                    Lớp: {{ $student?->class }}
                                                 </button>
                                             </h2>
-                                            <div id="st{{$student->code}}" class="accordion-collapse collapse show"
+                                            <div id="st{{$student?->code}}" class="accordion-collapse collapse show"
                                                  wire:ignore.self>
                                                 <div class="accordion-body">
                                                     <form class="form-validate-jquery" action="#">
@@ -41,12 +41,12 @@
                                                                         class="text-danger">*</span></label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
-                                                                           wire:model.live="dataStudent.{{$student->code}}.email"
+                                                                           wire:model.live="dataStudent.{{$student?->code}}.email"
                                                                            class="form-control" required>
-                                                                    @error('dataStudent.'.$student->code.'.email')
-                                                                    <label id="error-{{$student->code}}-email"
+                                                                    @error('dataStudent.'.$student?->code.'.email')
+                                                                    <label id="error-{{$student?->code}}-email"
                                                                            class="validation-error-label text-danger"
-                                                                           for="email-{{$student->code}}">{{ $message }}</label>
+                                                                           for="email-{{$student?->code}}">{{ $message }}</label>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -56,12 +56,12 @@
                                                                         class="text-danger">*</span></label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
-                                                                           wire:model.live="dataStudent.{{$student->code}}.phone"
+                                                                           wire:model.live="dataStudent.{{$student?->code}}.phone"
                                                                            class="form-control" required>
-                                                                    @error('dataStudent.'.$student->code.'.phone')
-                                                                    <label id="error-{{$student->code}}-phone"
+                                                                    @error('dataStudent.'.$student?->code.'.phone')
+                                                                    <label id="error-{{$student?->code}}-phone"
                                                                            class="validation-error-label text-danger"
-                                                                           for="phone-{{$student->code}}">{{ $message }}</label>
+                                                                           for="phone-{{$student?->code}}">{{ $message }}</label>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -71,12 +71,12 @@
                                                                         class="text-danger">*</span></label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
-                                                                           wire:model.live="dataStudent.{{$student->code}}.phone_family"
+                                                                           wire:model.live="dataStudent.{{$student?->code}}.phone_family"
                                                                            class="form-control" required>
-                                                                    @error('dataStudent.'.$student->code.'.phone_family')
-                                                                    <label id="error-{{$student->code}}-phone_family"
+                                                                    @error('dataStudent.'.$student?->code.'.phone_family')
+                                                                    <label id="error-{{$student?->code}}-phone_family"
                                                                            class="validation-error-label text-danger"
-                                                                           for="phone_family-{{$student->code}}">{{ $message }}</label>
+                                                                           for="phone_family-{{$student?->code}}">{{ $message }}</label>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -85,13 +85,13 @@
                                                                     tập</label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
-                                                                           wire:model.live="dataStudent.{{$student->code}}.internship_company"
+                                                                           wire:model.live="dataStudent.{{$student?->code}}.internship_company"
                                                                            class="form-control" required>
-                                                                    @error('dataStudent.'.$student->code.'.internship_company')
+                                                                    @error('dataStudent.'.$student?->code.'.internship_company')
                                                                     <label
-                                                                        id="error-{{$student->code}}-internship_company"
+                                                                        id="error-{{$student?->code}}-internship_company"
                                                                         class="validation-error-label text-danger"
-                                                                        for="internship_company-{{$student->code}}">{{ $message }}</label>
+                                                                        for="internship_company-{{$student?->code}}">{{ $message }}</label>
                                                                     @enderror
                                                                 </div>
                                                             </div>
