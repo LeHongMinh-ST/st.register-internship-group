@@ -5,12 +5,11 @@ namespace App\Livewire\Student;
 use App\Common\Constants;
 use App\Models\Student;
 use Livewire\Component;
-use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 class StudentIndex extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination;
 
     public int|string $campaignId;
 

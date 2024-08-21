@@ -4,7 +4,7 @@
             <div class="page-header-content d-lg-flex">
                 <div class="d-flex">
                     <h4 class="mb-0 page-title">
-                        Chiến dịch - <span class="fw-normal">Chỉnh sửa chiến dịch</span>
+                       Đợt đăng ký - <span class="fw-normal">Thông tin</span>
                     </h4>
                 </div>
 

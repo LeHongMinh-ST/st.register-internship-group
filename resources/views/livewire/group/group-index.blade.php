@@ -23,38 +23,79 @@
         </div>
 
         <div class="table-responsive-md">
-            <table class="table fs-table">
+            <table class="table fs-table table-hover">
                 <thead>
-                <tr class="table-light table-hover">
+                <tr class="table-light ">
                     <th>Nhóm</th>
                     <th>Tên đề tài</th>
                     <th>Giáo viên hướng dẫn</th>
                     <th>Số lượng sinh viên</th>
                     <th>Ngày tạo</th>
+                    <th class="text-center">Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
                 @forelse($groups as $group)
-                    <tr class="bold cursor-pointer"  data-bs-toggle="collapse" data-bs-target="#st{{$group->id}}">
-                        <td>{{ $loop->index + 1 + $groups->perPage() * ($groups->currentPage() - 1) }}</td>
-                        <td>{{ $group->topic ?: "Chưa có" }}</td>
-                        <td>{{ $group->supervisor ?: "Chưa có" }}</td>
-                        <td>{{ $group->students->count() }}</td>
-                        <td>{{ $group->created_at->format('h:i d/m/Y') }}</td>
+                    <tr class="bold cursor-pointer">
+                        <td data-bs-toggle="collapse"
+                            data-bs-target="#st{{$group->id}}">{{ $loop->index + 1 + $groups->perPage() * ($groups->currentPage() - 1) }}</td>
+                        <td data-bs-toggle="collapse"
+                            data-bs-target="#st{{$group->id}}">{{ $group->topic ?: "Chưa có" }}</td>
+                        <td data-bs-toggle="collapse"
+                            data-bs-target="#st{{$group->id}}">{{ $group->supervisor ?: "Chưa có" }}</td>
+                        <td data-bs-toggle="collapse"
+                            data-bs-target="#st{{$group->id}}">{{ $group->students->count() }}</td>
+                        <td data-bs-toggle="collapse"
+                            data-bs-target="#st{{$group->id}}">{{ $group->created_at->format('H:i d/m/Y') }}</td>
+                        <td class="text-center">
+                            <div class="dropdown ">
+                                <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                    <i class="ph-list"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a type="button" wire:click="openDeleteModal({{ $group->id }})"
+                                       class="dropdown-item">
+                                        <i class="ph-trash px-1"></i>
+                                        Xóa
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     <tr id="st{{$group->id}}" class="accordion-collapse collapse" wire:ignore.self>
-                        <td colspan="6">
+                        <td colspan="7">
                             <livewire:group.group-member-index :group="$group" wire:key="group-{{ $group->id }}"/>
                         </td>
                     </tr>
 
                 @empty
-                    <x-table-empty :colspan="6" />
+                    <x-table-empty :colspan="7"/>
                 @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-    {{ $groups->links('vendor.pagination.theme') }}
+    {{ $groups->links('vendor.pagination.groups') }}
 </div>
 
+@script
+<script>
+
+    window.addEventListener('openDeleteModal', () => {
+        new swal({
+            title: "Bạn có chắc chắn?",
+            text: "Dữ liệu sau khi xóa không thể phục hồi!",
+            showCancelButton: true,
+            confirmButtonColor: "#FF7043",
+            confirmButtonText: "Đồng ý!",
+            cancelButtonText: "Đóng!"
+        }).then((value) => {
+            if (value.isConfirmed) {
+                Livewire.dispatch('deleteGroup')
+            }
+        })
+    })
+
+
+</script>
+@endscript

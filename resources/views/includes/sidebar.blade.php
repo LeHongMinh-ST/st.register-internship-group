@@ -6,7 +6,7 @@
         <!-- Sidebar header -->
         <div class="sidebar-section">
             <div class="sidebar-section-body d-flex justify-content-center">
-                <h5 class="my-auto sidebar-resize-hide flex-grow-1">ST Lucky</h5>
+                <h5 class="my-auto sidebar-resize-hide flex-grow-1">ST Internship Group</h5>
 
                 <div>
                     <button type="button"
