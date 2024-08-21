@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,5 +25,12 @@ class Campaign extends Model
         }
 
         return $query;
+    }
+
+    public function isExpired()
+    {
+        $now = Carbon::now()->timestamp;
+        $end = Carbon::make($this->end)->endOfDay()->timestamp;
+        return $end < $now;
     }
 }

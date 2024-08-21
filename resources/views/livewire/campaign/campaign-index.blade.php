@@ -37,8 +37,8 @@
                     <tr>
                         <td>{{ $loop->index + 1 + $campaigns->perPage() * ($campaigns->currentPage() - 1)   }}</td>
                         <td><a href="{{route('admin.campaigns.show', $campaign->id)}}">{{ $campaign->name }}</a></td>
-                        <td>{{ $campaign->start }}</td>
-                        <td>{{ $campaign->end }}</td>
+                        <td>{{ \Carbon\Carbon::make($campaign->start)->format('d/m/Y') }}</td>
+                        <td>{{ \Carbon\Carbon::make($campaign->end)->format('d/m/Y') }}</td>
                         <td>{{ $campaign->created_at->format('d/m/Y') }}</td>
                         <td class="text-center">
                             <div class="dropdown ">

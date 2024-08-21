@@ -115,8 +115,7 @@ class InternShipRegister extends Component
             return;
         }
 
-        $now = Carbon::now()->timestamp;
-        if (Carbon::make($student->campaign->start)->timestamp > $now || $now > Carbon::make($student->campaign->end)->timestamp) {
+        if ($student->campaign->isExpired()) {
             $this->dispatch('alert', type: 'error', message: 'Đã hết thời hạn đăng ký');
             return;
         }

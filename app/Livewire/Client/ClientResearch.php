@@ -3,6 +3,7 @@
 namespace App\Livewire\Client;
 
 use App\Common\Constants;
+use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\Student;
 use Carbon\Carbon;
@@ -40,7 +41,11 @@ class ClientResearch extends Component
 
     public function render()
     {
-        return view('livewire.client.client-research');
+        $campaign = Campaign::find($this->campaignId);
+
+        return view('livewire.client.client-research', [
+            'campaign' => $campaign,
+        ]);
     }
 
     public function mount($campaignId)

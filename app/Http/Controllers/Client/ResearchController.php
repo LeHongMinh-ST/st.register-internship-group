@@ -11,7 +11,7 @@ class ResearchController extends Controller
     public function index(Campaign $campaign)
     {
         return view('pages.client.research', [
-            'campaignId' => $campaign->id
+            'campaignId' => $campaign->id,
         ]);
     }
 }

@@ -14,8 +14,8 @@
                                 <img src="{{asset('assets/images/FITA.png')}}" class="h-64px" alt="">
                                 <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
                             </div>
-                            {{--                            <span class="d-block text-muted">Chào mừng bạn đến với</span>--}}
-                            <h5 class="mb-0">Tra cứu nhóm đăng ký nguyện vọng TTCN/KLTN</h5>
+                            <span class="d-block text-muted">Tra cứu thông tin</span>
+                            <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
                         </div>
 
                         <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
@@ -53,9 +53,13 @@
                                 Tra cứu
                             </button>
                         </div>
-                        <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
-                            <a href="{{route('internship.register', $campaignId)}}" class="text-primary"> <i class="ph-arrow-circle-left"></i>Đăng ký nhóm</a>
-                        </div>
+                        @if(!$campaign->isExpired())
+                            <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
+                                <a href="{{route('internship.register', $campaignId)}}" class="text-primary"> <i
+                                        class="ph-arrow-circle-left"></i>Đăng ký nhóm</a>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
 
