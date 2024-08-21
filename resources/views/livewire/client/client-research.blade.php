@@ -74,7 +74,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
-                                    <b>Học phần {{$this->student->course->name}} - {{$this->student->course->code}}</b>
+                                    <b>Học phần {{$this->student?->course?->name}} - {{$this->student?->course?->code}}</b>
                                 </div>
                                 <div class="card-body p-2">
                                     <div class="accordion" id="accordion_collapsed">
