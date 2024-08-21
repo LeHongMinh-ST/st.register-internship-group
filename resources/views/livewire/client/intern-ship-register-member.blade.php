@@ -12,6 +12,9 @@
         <div class="mb-3">
             <div class="bold mb-2">Nhóm sinh viên: {{ $student->name }} - Mã sinh viên: {{ $student->code }} - Lớp: {{ $student->code }}</div>
             <div class="mb-2">Đăng ký học phần <b>{{ $student->course->name }}</b> - <b>{{ $student->course->code }}</b> </div>
+            <div class="mb-2">
+                Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}} (Tối đa {{$countMember}} thành viên)
+            </div>
         </div>
 
         <div class="card">
@@ -21,7 +24,7 @@
                         <input wire:model.live="search" type="text" class="form-control" placeholder="Tìm kiếm...">
                     </div>
                     <div>
-                        Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}} (Tối đa {{$countMember}} thành viên)
+                        Tìm, chọn thành viên vào nhóm (nếu có)
                     </div>
                 </div>
             </div>
