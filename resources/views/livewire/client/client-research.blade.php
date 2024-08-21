@@ -71,7 +71,6 @@
                         </div>
                     @else
                         <div class="group-info">
-
                             <div class="card">
                                 <div class="card-header">
                                     <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
@@ -121,6 +120,15 @@
                                     <div>Tên GVHD: <b>{{ $group->supervisor ?: "Chưa có" }}</b></div>
                                 </div>
                             </div>
+                            @if($this->student->groupStudent->is_captain)
+                                <div class="mt-2">
+                                    <button class="btn btn-primary" wire:click="sendMailEdit">
+                                        <i wire:loading class="ph-circle-notch spinner"></i>
+                                        <i wire:loading.remove class="ph-paper-plane-tilt"></i>
+                                        Yêu cầu chỉnh sửa
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     @endif
 

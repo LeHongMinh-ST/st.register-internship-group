@@ -39,4 +39,9 @@ class Group extends Model
 
         return $query;
     }
+
+    public function groupKey()
+    {
+        return $this->hasOne(GroupKey::class)->orderBy('created_at', 'desc');
+    }
 }

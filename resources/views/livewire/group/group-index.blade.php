@@ -53,6 +53,14 @@
                                     <i class="ph-list"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
+                                    @if(isset($group->groupKey) && $group->groupKey->active && !$group->groupKey->isExpired())
+                                        <a href="javascript:void(0)" class="dropdown-item copy-link"
+                                           data-link="{{route('internship.edit', $group->groupKey->key)}}">
+                                            <i class="ph-note-pencil px-1"></i>
+                                            Lấy đường dẫn chỉnh sửa
+                                        </a>
+                                    @endif
+
                                     <a type="button" wire:click="openDeleteModal({{ $group->id }})"
                                        class="dropdown-item">
                                         <i class="ph-trash px-1"></i>
@@ -80,7 +88,24 @@
 
 @script
 <script>
+    $('.copy-link').on('click', function () {
+        const link = $(this).data('link');
 
+        const $tempInput = $('<input>');
+
+        $('body').append($tempInput);
+
+        $tempInput.val(link).select();
+
+        document.execCommand('copy');
+
+        $tempInput.remove();
+
+        Livewire.dispatch('alert', {
+            type: 'success',
+            message: 'Đường dẫn chỉnh sửa đã được sao chép vào clipboard'
+        })
+    });
     window.addEventListener('openDeleteModal', () => {
         new swal({
             title: "Bạn có chắc chắn?",

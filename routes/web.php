@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Client\EditGroupController;
 use App\Http\Controllers\Client\RegisterController;
 use App\Http\Controllers\Client\ResearchController;
 use App\Http\Controllers\HomeController;
@@ -44,3 +45,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
 });
 Route::get('internship/{campaign}/register', [RegisterController::class, 'index'])->name('internship.register');
 Route::get('internship/{campaign}/research', [ResearchController::class, 'index'])->name('internship.research');
+Route::get('internship/{key}/edit', [EditGroupController::class, 'index'])->name('internship.edit');

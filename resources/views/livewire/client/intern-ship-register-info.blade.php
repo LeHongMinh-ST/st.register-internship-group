@@ -118,7 +118,11 @@
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <button wire:click="preStep" class="btn btn-warning"><i class="ph-arrow-circle-left"></i> Quay lại</button>
-            <button wire:click="nextStepFinish" class="btn btn-primary"><i class="ph-arrow-circle-right"></i> Tiếp tục</button>
+            <button wire:click="nextStepFinish" class="btn btn-primary">
+                <i wire:loading.remove class="ph-arrow-circle-right"></i>
+                <i wire:loading class="ph-circle-notch spinner"></i>
+                Tạo nhóm
+            </button>
         </div>
 
     </div>
