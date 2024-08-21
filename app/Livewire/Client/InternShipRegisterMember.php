@@ -27,6 +27,17 @@ class InternShipRegisterMember extends Component
         if (in_array($code, $this->studentChecked)) {
             $this->studentChecked = array_diff($this->studentChecked, [$code]);
         } else {
+
+            $student = Student::query()->where('code', $code)
+                ->whereNotNull('group_id')
+                ->where('campaign_id', $this->campaignId)
+                ->first();
+
+            if ($student) {
+                $this->dispatch('alert', type: 'error', message: 'Sinh viên ' . $student->name . '-' . $student->code . 'đã đăng ký nhóm TTCN/KLTN');
+                $this->dispatch('$refresh');
+                return;
+            }
             $this->studentChecked[] = $code;
         }
     }
@@ -41,7 +52,7 @@ class InternShipRegisterMember extends Component
 
         $students = Student::query()
             ->search($this->search)
-            ->whereNotIn('id',[$student->id])
+            ->whereNotIn('id', [$student->id])
             ->where('course_id', $student->course_id)
             ->where('group_id', null)
             ->where('campaign_id', $this->campaignId)
@@ -67,7 +78,7 @@ class InternShipRegisterMember extends Component
     public function nextStep()
     {
         $this->dispatch('nextStepThree', [
-           'studentChecked'  => $this->studentChecked
+            'studentChecked' => $this->studentChecked
         ])->to(InternShipRegister::class);
     }
 
