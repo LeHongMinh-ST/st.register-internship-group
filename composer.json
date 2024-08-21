@@ -13,6 +13,7 @@
         "laravolt/avatar": "^5.1",
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
+        "margatampu/laravel-teams-logging": "^1.2",
         "marvinlabs/laravel-discord-logger": "^1.4"
     },
     "require-dev": {

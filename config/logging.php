@@ -1,5 +1,6 @@
 <?php
 
+use MargaTampu\LaravelTeamsLogging\LoggerChannel;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -54,7 +55,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single', 'discord'],
+            'channels' => ['single', 'discord', 'teams'],
             'ignore_exceptions' => false,
         ],
 
@@ -134,6 +135,15 @@ return [
             'url'    => env('LOG_DISCORD_WEBHOOK_URL'),
             'ignore_exceptions' => env('LOG_DISCORD_IGNORE_EXCEPTIONS', false),
         ],
+        'teams' => [
+            'driver'    => 'custom',
+            'via'       => LoggerChannel::class,
+            'level'     => 'debug',
+            'url'       => env('INCOMING_WEBHOOK_URL'),
+            'style'     => 'simple',
+            'name'      => env('INCOMING_WEBHOOK_NAME', 'Intern Group'),
+        ],
+
     ],
 
 ];
