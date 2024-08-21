@@ -3,7 +3,7 @@
         <h6>Thông tin sinh viên:</h6>
     </div>
     <div class="card">
-        <table class="table table-striped">
+        <table class="table table-striped table-scrollable">
             <thead>
             <tr class="table-light">
                 <th>Họ và tên</th>

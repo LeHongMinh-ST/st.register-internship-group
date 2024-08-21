@@ -23,13 +23,14 @@
         </div>
 
         <div class="table-responsive-md">
-            <table class="table fs-table table-hover">
+            <table class="table fs-table table-hover table-scrollable">
                 <thead>
                 <tr class="table-light ">
                     <th>Nhóm</th>
                     <th>Tên đề tài</th>
                     <th>Giáo viên hướng dẫn</th>
                     <th>Số lượng sinh viên</th>
+                    <th>Link chỉnh sửa</th>
                     <th>Ngày tạo</th>
                     <th class="text-center">Hành động</th>
                 </tr>
@@ -47,6 +48,16 @@
                             data-bs-target="#st{{$group->id}}">{{ $group->students->count() }}</td>
                         <td data-bs-toggle="collapse"
                             data-bs-target="#st{{$group->id}}">{{ $group->created_at->format('H:i d/m/Y') }}</td>
+                        <td>
+                            @if(isset($group->groupKey) && $group->groupKey->active && !$group->groupKey->isExpired())
+                                <a href="{{route('internship.edit', $group->groupKey->key)}}"
+                                   data-link="{{route('internship.edit', $group->groupKey->key)}}">
+                                    {{route('internship.edit', $group->groupKey->key)}}
+                                </a>
+                            @else
+                                Không có
+                            @endif
+                        </td>
                         <td class="text-center">
                             <div class="dropdown ">
                                 <a href="#" class="text-body" data-bs-toggle="dropdown">
