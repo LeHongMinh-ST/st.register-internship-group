@@ -10,6 +10,7 @@ use App\Models\GroupKey;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
@@ -118,7 +119,10 @@ class ClientResearch extends Component
 
                 Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
                 $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi yêu cầu chỉnh sửa. Vui lòng check email bạn đã đăng ký để có thể nhận mã yêu cầu!");
-            }catch (\Exception) {
+            }catch (\Exception $exception) {
+                Log::error('send mail edit group', [
+                    'message' => $exception->getMessage(),
+                ]);
                 $this->dispatch('alert', type: "error", message: "Có lỗi sảy ra vui lòng thử lại sau!");
             }
             $this->isLoading = false;
