@@ -52,7 +52,6 @@
                             <td>{{ $student->name }}</td>
                             <td>{{ $student->code }}</td>
                             <td>{{ $student->class }}</td>
-
                         </tr>
                     @empty
                         <x-table-empty :colspan="8"/>

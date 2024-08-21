@@ -4,15 +4,16 @@ namespace App\Livewire\Group;
 
 use App\Common\Constants;
 use App\Exports\ExportGroupStudent;
-use App\Exports\ResultExport;
 use App\Models\Group;
+use App\Models\Student;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GroupIndex extends Component
 {
-    use WithPagination;
+    use WithPagination, WithoutUrlPagination;
 
     public int|string $campaignId;
 
@@ -20,7 +21,7 @@ class GroupIndex extends Component
 
     public function updatingSearch()
     {
-        $this->resetPage('groupsPage');
+        $this->resetPage();
     }
 
     public function render()
@@ -30,10 +31,14 @@ class GroupIndex extends Component
             ->where('campaign_id', $this->campaignId)
             ->with(['students', 'students.groupStudent'])
             ->orderBy('created_at', 'asc')
-            ->paginate(Constants::PER_PAGE, ['*'], 'groupsPage');
+            ->paginate(Constants::PER_PAGE);
+
+        $studentRegister = Student::query()->where('campaign_id', $this->campaignId)
+            ->whereNotNull('group_id')->count();
 
         return view('livewire.group.group-index', [
-            'groups' => $groups
+            'groups' => $groups,
+            'studentRegister' => $studentRegister,
         ]);
     }
 

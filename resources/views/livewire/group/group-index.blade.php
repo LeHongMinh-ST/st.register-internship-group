@@ -6,6 +6,10 @@
                     <input wire:model.live="search" type="text" class="form-control" placeholder="Tìm kiếm...">
                 </div>
             </div>
+            <div class="gap-2 d-flex flex-wrap">
+                <p>Tổng số nhóm đăng ký: <b>{{ $groups->count() }}</b></p>
+                <p>Tổng số sinh viên đăng ký: <b>{{ $studentRegister }}</b></p>
+            </div>
             <div class="gap-2 d-flex">
                 <div>
                     <button type="button" class="px-2 btn btn-success btn-icon" wire:click="export()">
@@ -40,7 +44,7 @@
                     </tr>
                     <tr id="st{{$group->id}}" class="accordion-collapse collapse" wire:ignore.self>
                         <td colspan="6">
-                            <livewire:group.group-member-index :group="$group"/>
+                            <livewire:group.group-member-index :group="$group" wire:key="group-{{ $group->id }}"/>
                         </td>
                     </tr>
 
@@ -51,6 +55,6 @@
             </table>
         </div>
     </div>
-    {{ $groups->links('vendor.pagination.groups') }}
+    {{ $groups->links('vendor.pagination.theme') }}
 </div>
 

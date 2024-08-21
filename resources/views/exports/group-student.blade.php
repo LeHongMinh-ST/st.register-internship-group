@@ -18,10 +18,13 @@
     </tr>
     </thead>
     <tbody>
+    @php
+        $index = 1;
+    @endphp
     @foreach($groups as $key => $group)
         @foreach($group->students as $student)
             <tr>
-                <td>{{ $loop->index + 1 }}</td>
+                <td>{{ $index }}</td>
                 <td>{{ $key+ 1 }}</td>
                 <td>{{ $student->name }}</td>
                 <td>{{ \Carbon\Carbon::make($student->dob)->format('d/m/Y') }}</td>
@@ -36,6 +39,9 @@
                 <td>{{ $student->groupStudent->phone }}</td>
                 <td>{{ $student->groupStudent->phone_family }}</td>
             </tr>
+            @php
+                $index++;
+            @endphp
         @endforeach
     @endforeach
     </tbody>
