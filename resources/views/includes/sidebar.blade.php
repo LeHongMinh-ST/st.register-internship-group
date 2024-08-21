@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.campaigns.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.campaigns.index') ? 'active' : '' }}">
+                       class="nav-link {{ request()->routeIs('admin.campaigns.*') ? 'active' : '' }}">
                         <i class="ph-telegram-logo"></i>
                         <span>Đợt đăng ký</span>
                     </a>
@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.users.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
+                       class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                         <i class="ph-user"></i>
                         <span>Người dùng</span>
                     </a>
