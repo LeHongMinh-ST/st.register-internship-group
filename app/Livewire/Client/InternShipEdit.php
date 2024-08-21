@@ -71,11 +71,12 @@ class InternShipEdit extends Component
     public function mount($keyEdit)
     {
         $this->key = $keyEdit;
-        $groupKey = GroupKey::query()->where('key', $this->key)->first();
+        $groupKey = GroupKey::query()
+            ->where('key', $this->key)->first();
         $students = $groupKey->group->students;
         $this->topic = $groupKey->group->topic;
         $this->supervisor = $groupKey->group->supervisor;
-        $this->campaignId = $groupKey->group_id;
+        $this->campaignId = $groupKey->group->campaign_id;
 
         foreach ($students as $student) {
             $this->dataStudent[$student->code] = [
