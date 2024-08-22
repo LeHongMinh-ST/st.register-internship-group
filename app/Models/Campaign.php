@@ -18,6 +18,11 @@ class Campaign extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function groups(): HasMany
+    {
+        return $this->hasMany(Group::class);
+    }
+
     public function scopeSearch($query, $search)
     {
         if ($search) {
@@ -32,5 +37,20 @@ class Campaign extends Model
         $now = Carbon::now()->timestamp;
         $end = Carbon::make($this->end)->endOfDay()->timestamp;
         return $end < $now;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($campaign) {
+            GroupStudent::query()
+                ->whereIn('student_id', $campaign->students->pluck('id')->toArray())
+                ->delete();
+
+            Student::query()->where('campaign_id', $campaign->id)->delete();
+            GroupKey::query()->whereIn('group_id', $campaign->groups->pluck('id')->toArray())->delete();
+            Group::query()->where('campaign_id', $campaign->id)->delete();
+        });
     }
 }
