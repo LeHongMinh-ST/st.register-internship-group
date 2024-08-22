@@ -3,6 +3,7 @@
 namespace App\Livewire\Client;
 
 use App\Common\Constants;
+use App\Jobs\SendRequestEditMailJob;
 use App\Mail\RequestEditMail;
 use App\Models\Campaign;
 use App\Models\Group;
@@ -117,7 +118,8 @@ class ClientResearch extends Component
 
                 $mailTo = env('APP_ENV') == 'local' ? "hongminhle290@gmail.com" : $this->student->groupStudent->email;
 
-                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
+                SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
+//                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
                 $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi yêu cầu chỉnh sửa. Vui lòng check email bạn đã đăng ký để có thể nhận mã yêu cầu!");
             }catch (\Exception $exception) {
                 Log::error('send mail edit group', [
