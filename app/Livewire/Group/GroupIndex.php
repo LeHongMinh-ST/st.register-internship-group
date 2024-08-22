@@ -46,8 +46,14 @@ class GroupIndex extends Component
             ->orderBy('created_at', 'asc')
             ->paginate(Constants::PER_PAGE, ['*'], 'groupsPage');
 
+        $groupAll = Group::query()
+            ->search($this->search)
+            ->where('campaign_id', $this->campaignId)
+            ->with(['students', 'students.groupStudent'])
+            ->orderBy('created_at', 'asc')->get();
+
         $studentRegister = Student::query()
-            ->whereIn('group_id', $groups->pluck('id')->toArray())
+            ->whereIn('group_id', $groupAll->pluck('id')->toArray())
             ->count();
 
         return view('livewire.group.group-index', [
