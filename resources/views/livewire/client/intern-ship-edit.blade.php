@@ -108,7 +108,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="mb-0">Thông tin Đề tài và Giáo viên hướng dẫn</h5>
+                                <h5 class="mb-0">Thông tin đề tài và giáo viên hướng dẫn</h5>
                             </div>
 
                             <div class="card-body">
@@ -116,7 +116,7 @@
                                     <div class="mb-4">
                                         <!-- Maximum number -->
                                         <div class="row mb-3">
-                                            <label class="col-form-label col-lg-3">Tên đề tài </label>
+                                            <label class="col-form-label col-lg-3">Nguyện vọng đề tài </label>
                                             <div class="col-lg-9">
                                                 <input type="text" wire:model.live="topic" class="form-control"
                                                        required>
