@@ -26,8 +26,8 @@
             <table class="table fs-table table-hover table-scrollable">
                 <thead>
                 <tr class="table-light ">
-                    <th>Nhóm</th>
-                    <th>Tên đề tài</th>
+                    <th class="w-16px">Nhóm</th>
+                    <th class="w-25">Tên đề tài</th>
                     <th>Giáo viên hướng dẫn</th>
                     <th>Số lượng sinh viên</th>
                     <th>Link chỉnh sửa</th>
@@ -37,12 +37,12 @@
                 </thead>
                 <tbody>
                 @forelse($groups as $group)
-                    <tr class="bold cursor-pointer">
-                        <td data-bs-toggle="collapse"
+                    <tr class=" cursor-pointer">
+                        <td data-bs-toggle="collapse" class="bold"
                             data-bs-target="#st{{$group->id}}">{{ $loop->index + 1 + $groups->perPage() * ($groups->currentPage() - 1) }}</td>
-                        <td data-bs-toggle="collapse"
+                        <td data-bs-toggle="collapse" class="bold"
                             data-bs-target="#st{{$group->id}}">{{ $group->topic ?: "Chưa có" }}</td>
-                        <td data-bs-toggle="collapse"
+                        <td data-bs-toggle="collapse" class="bold"
                             data-bs-target="#st{{$group->id}}">{{ $group->supervisor ?: "Chưa có" }}</td>
                         <td data-bs-toggle="collapse"
                             data-bs-target="#st{{$group->id}}">{{ $group->students->count() }}</td>
@@ -50,7 +50,7 @@
                             @if(isset($group->groupKey) && $group->groupKey->active && !$group->groupKey->isExpired())
                                 <a href="{{route('internship.edit', $group->groupKey->key)}}"
                                    data-link="{{route('internship.edit', $group->groupKey->key)}}">
-                                    {{route('internship.edit', $group->groupKey->key)}}
+                                    <i class="ph-arrow-square-out"></i> Link chỉnh sửa
                                 </a>
                             @else
                                 Không có
