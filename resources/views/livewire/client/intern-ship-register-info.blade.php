@@ -121,7 +121,7 @@
             <button wire:click="nextStepFinish" class="btn btn-primary">
                 <i wire:loading.remove class="ph-arrow-circle-right"></i>
                 <i wire:loading class="ph-circle-notch spinner"></i>
-                Tạo nhóm
+                Đăng ký
             </button>
         </div>
 
