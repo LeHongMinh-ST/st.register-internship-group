@@ -16,8 +16,10 @@ class CampaignIndex extends Component
     public string $search = '';
 
     protected $listeners = [
-        'delete-campaign' => 'handleDeleteCampaign',
+        'deleteCampaign' => 'handleDeleteCampaign',
     ];
+
+
 
     public function render()
     {
