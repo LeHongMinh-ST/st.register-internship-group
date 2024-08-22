@@ -25,6 +25,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-link"  wire:click="closeImportModal()">Đóng</button>
                 @if($file)
+                    <button wire:loading wire:target="submit" type="button" class="btn btn-primary" > <i class="ph-circle-notch spinner"></i>Lưu</button>
                     <button type="button" class="btn btn-primary" wire:click="submit()">Lưu</button>
                 @endif
             </div>

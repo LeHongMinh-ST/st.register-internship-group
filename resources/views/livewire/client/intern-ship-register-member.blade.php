@@ -10,10 +10,13 @@
         </div>
 
         <div class="mb-3">
-            <div class="bold mb-2">Nhóm sinh viên: {{ $student->name }} - Mã sinh viên: {{ $student->code }} - Lớp: {{ $student->class }}</div>
-            <div class="mb-2">Đăng ký học phần <b>{{ $student->course->name }}</b> - <b>{{ $student->course->code }}</b> </div>
+            <div class="bold mb-2">Nhóm sinh viên: {{ $student->name }} - Mã sinh viên: {{ $student->code }} -
+                Lớp: {{ $student->class }}</div>
+            <div class="mb-2">Đăng ký học phần <b>{{ $student->course->name }}</b> - <b>{{ $student->course->code }}</b>
+            </div>
             <div class="mb-2">
-                Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}} (Tối đa {{$countMember}} thành viên)
+                Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}} (Tối đa {{$countMember}} thành
+                viên)
             </div>
         </div>
 
@@ -43,8 +46,12 @@
                         <tr class="@if(in_array($student->code, $studentChecked) ) table-light @endif">
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <input type="checkbox" @if(($countMember == count($studentChecked) + 1) && !in_array($student->code, $studentChecked) ) disabled @endif :key="{{$student->id}}"
-                                            wire:click="clickCheckBox({{$student->code}})" @if(in_array($student->code, $studentChecked) ) checked @endif   value="{{$student->code}}" id="{{$student->code}}"
+                                    <input type="checkbox"
+                                           @if(($countMember == count($studentChecked) + 1) && !in_array($student->code, $studentChecked) ) disabled
+                                           @endif :key="{{$student->id}}"
+                                           wire:click="clickCheckBox({{$student->code}})"
+                                           @if(in_array($student->code, $studentChecked) ) checked
+                                           @endif   value="{{$student->code}}" id="{{$student->code}}"
                                            class="cursor-pointer">
                                     <label class="ms-2" for="{{$student->code}}"></label>
                                 </div>
@@ -61,12 +68,15 @@
             </div>
         </div>
         <div class="mb-3 d-flex justify-content-between">
-           <button wire:click="preStep" class="btn btn-warning"><i class="ph-arrow-circle-left"></i> Quay lại</button>
-           <button wire:click="nextStep" class="btn btn-primary">
-               <i wire:loading.remove class="ph-arrow-circle-right"></i>
-               <i wire:loading class="ph-circle-notch spinner"></i>
-
-               Tiếp tục</button>
+            <button wire:click="preStep" class="btn btn-warning"><i class="ph-arrow-circle-left"></i> Quay lại</button>
+            <button wire:loading wire:target="nextStep" class="btn btn-primary">
+                <i class="ph-circle-notch spinner"></i>
+                Tiếp tục
+            </button>
+            <button wire:loading.remove wire:click="nextStep" class="btn btn-primary">
+                <i class="ph-arrow-circle-right"></i>
+                Tiếp tục
+            </button>
         </div>
     </div>
 </div>

@@ -141,9 +141,12 @@
                         <!-- Always open -->
                     </div>
                     <div class="mb-3 d-flex justify-content-between">
-                        <button wire:click="submit" class="btn btn-primary">
-                            <i wire:loading.remove class="ph-floppy-disk"></i>
-                            <i wire:loading class="ph-circle-notch spinner"></i>
+                        <button wire:loading wire:target="submit" class="btn btn-primary">
+                            <i class="ph-circle-notch spinner"></i>
+                            Lưu
+                        </button>
+                        <button wire:click="submit" wire:loading.remove class="btn btn-primary">
+                            <i class="ph-floppy-disk"></i>
                             Lưu
                         </button>
                     </div>

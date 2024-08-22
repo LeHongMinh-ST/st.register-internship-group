@@ -20,11 +20,14 @@
                         @foreach($students as $key => $student)
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#st{{$student->code}}">
-                                        {{$student->name}} - Mã sinh viên: {{ $student->code }} - Lớp: {{ $student->class }}
+                                    <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#st{{$student->code}}">
+                                        {{$student->name}} - Mã sinh viên: {{ $student->code }} -
+                                        Lớp: {{ $student->class }}
                                     </button>
                                 </h2>
-                                <div id="st{{$student->code}}" class="accordion-collapse collapse show" wire:ignore.self>
+                                <div id="st{{$student->code}}" class="accordion-collapse collapse show"
+                                     wire:ignore.self>
                                     <div class="accordion-body">
                                         <form class="form-validate-jquery" action="#">
                                             <div class="mb-4">
@@ -33,9 +36,12 @@
                                                     <label class="col-form-label col-lg-3">Email <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-9">
-                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.email" class="form-control" required>
+                                                        <input type="text"
+                                                               wire:model.live="dataStudent.{{$student->code}}.email"
+                                                               class="form-control" required>
                                                         @error('dataStudent.'.$student->code.'.email')
-                                                        <label id="error-{{$student->code}}-email" class="validation-error-label text-danger"
+                                                        <label id="error-{{$student->code}}-email"
+                                                               class="validation-error-label text-danger"
                                                                for="email-{{$student->code}}">{{ $message }}</label>
                                                         @enderror
                                                     </div>
@@ -44,9 +50,12 @@
                                                     <label class="col-form-label col-lg-3">Số điện thoại <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-9">
-                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.phone" class="form-control" required>
+                                                        <input type="text"
+                                                               wire:model.live="dataStudent.{{$student->code}}.phone"
+                                                               class="form-control" required>
                                                         @error('dataStudent.'.$student->code.'.phone')
-                                                        <label id="error-{{$student->code}}-phone" class="validation-error-label text-danger"
+                                                        <label id="error-{{$student->code}}-phone"
+                                                               class="validation-error-label text-danger"
                                                                for="phone-{{$student->code}}">{{ $message }}</label>
                                                         @enderror
                                                     </div>
@@ -55,9 +64,12 @@
                                                     <label class="col-form-label col-lg-3">Số điện thoại phụ huynh<span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-9">
-                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.phone_family"  class="form-control" required>
+                                                        <input type="text"
+                                                               wire:model.live="dataStudent.{{$student->code}}.phone_family"
+                                                               class="form-control" required>
                                                         @error('dataStudent.'.$student->code.'.phone_family')
-                                                        <label id="error-{{$student->code}}-phone_family" class="validation-error-label text-danger"
+                                                        <label id="error-{{$student->code}}-phone_family"
+                                                               class="validation-error-label text-danger"
                                                                for="phone_family-{{$student->code}}">{{ $message }}</label>
                                                         @enderror
                                                     </div>
@@ -65,9 +77,12 @@
                                                 <div class="row mb-3">
                                                     <label class="col-form-label col-lg-3">Tên công ty thực tập</label>
                                                     <div class="col-lg-9">
-                                                        <input type="text" wire:model.live="dataStudent.{{$student->code}}.internship_company"  class="form-control" required>
+                                                        <input type="text"
+                                                               wire:model.live="dataStudent.{{$student->code}}.internship_company"
+                                                               class="form-control" required>
                                                         @error('dataStudent.'.$student->code.'.internship_company')
-                                                        <label id="error-{{$student->code}}-internship_company" class="validation-error-label text-danger"
+                                                        <label id="error-{{$student->code}}-internship_company"
+                                                               class="validation-error-label text-danger"
                                                                for="internship_company-{{$student->code}}">{{ $message }}</label>
                                                         @enderror
                                                     </div>
@@ -107,7 +122,7 @@
                                 <label class="col-form-label col-lg-3">Giáo viên đã nhận hướng dẫn
                                 </label>
                                 <div class="col-lg-9">
-                                    <input type="text" wire:model.live="supervisor"  class="form-control" >
+                                    <input type="text" wire:model.live="supervisor" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -118,9 +133,12 @@
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <button wire:click="preStep" class="btn btn-warning"><i class="ph-arrow-circle-left"></i> Quay lại</button>
-            <button wire:click="nextStepFinish" class="btn btn-primary">
-                <i wire:loading.remove class="ph-arrow-circle-right"></i>
-                <i wire:loading class="ph-circle-notch spinner"></i>
+            <button wire:loading wire:target="nextStepFinish" class="btn btn-primary">
+                <i class="ph-circle-notch spinner"></i>
+                Đăng ký
+            </button>
+            <button wire:loading.remove wire:click="nextStepFinish" class="btn btn-primary">
+                <i class="ph-arrow-circle-right"></i>
                 Đăng ký
             </button>
         </div>

@@ -57,11 +57,14 @@
                             </div>
 
                             <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
-                                <button wire:click="nextStepTwo()" type="button"
+                                <button wire:loading wire:target="nextStepTwo" type="button"
                                         class="btn btn-primary">
-                                    <i wire:loading.remove class="ph-arrow-circle-right"></i>
-                                    <i wire:loading class="ph-circle-notch spinner"></i>
-
+                                    <i class="ph-circle-notch spinner"></i>
+                                    Đăng ký
+                                </button>
+                                <button wire:loading.remove wire:click="nextStepTwo()" type="button"
+                                        class="btn btn-primary">
+                                    <i class="ph-arrow-circle-right"></i>
                                     Đăng ký
                                 </button>
                             </div>

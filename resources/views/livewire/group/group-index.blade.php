@@ -12,9 +12,13 @@
             </div>
             <div class="gap-2 d-flex">
                 <div>
-                    <button type="button" class="px-2 btn btn-success btn-icon" wire:click="export()">
+                    <button  wire:loading wire:target="export" type="button" class="px-2 btn btn-success btn-icon" >
+                        <i class="px-1 ph-circle-notch spinner"></i><span>Export danh sách</span>
+                    </button  >
+                    <button wire:loading.remove type="button" class="px-2 btn btn-success btn-icon" wire:click="export()">
                         <i class="px-1 ph-microsoft-excel-logo"></i><span>Export danh sách</span>
                     </button>
+
                     <button type="button" class="px-2 btn btn-light btn-icon" wire:click="$refresh">
                         <i class="px-1 ph-arrows-clockwise"></i><span>Tải lại</span>
                     </button>

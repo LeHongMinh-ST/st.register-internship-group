@@ -74,7 +74,8 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
-                                    <b>Học phần {{$this->student?->course?->name}} - {{$this->student?->course?->code}}</b>
+                                    <b>Học phần {{$this->student?->course?->name}}
+                                        - {{$this->student?->course?->code}}</b>
                                 </div>
                                 <div class="card-body p-2">
                                     <div class="accordion" id="accordion_collapsed">
@@ -122,9 +123,13 @@
                             </div>
                             @if($this->student->groupStudent->is_captain)
                                 <div class="mt-2">
-                                    <button class="btn btn-primary" wire:click="sendMailEdit">
-                                        <i wire:loading class="ph-circle-notch spinner"></i>
-                                        <i wire:loading.remove class="ph-paper-plane-tilt"></i>
+                                    <button wire:loading class="btn btn-primary" wire:target="sendMailEdit">
+                                        <i class="ph-circle-notch spinner"></i>
+                                        Yêu cầu chỉnh sửa
+                                    </button>
+
+                                    <button wire:loading.removeclass="btn btn-primary" wire:click="sendMailEdit">
+                                        <i class="ph-paper-plane-tilt"></i>
                                         Yêu cầu chỉnh sửa
                                     </button>
                                 </div>
