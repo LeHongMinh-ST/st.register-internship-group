@@ -46,8 +46,6 @@
                             data-bs-target="#st{{$group->id}}">{{ $group->supervisor ?: "Chưa có" }}</td>
                         <td data-bs-toggle="collapse"
                             data-bs-target="#st{{$group->id}}">{{ $group->students->count() }}</td>
-                        <td data-bs-toggle="collapse"
-                            data-bs-target="#st{{$group->id}}">{{ $group->created_at->format('H:i d/m/Y') }}</td>
                         <td>
                             @if(isset($group->groupKey) && $group->groupKey->active && !$group->groupKey->isExpired())
                                 <a href="{{route('internship.edit', $group->groupKey->key)}}"
@@ -58,6 +56,9 @@
                                 Không có
                             @endif
                         </td>
+                        <td data-bs-toggle="collapse"
+                            data-bs-target="#st{{$group->id}}">{{ $group->created_at->format('H:i d/m/Y') }}</td>
+
                         <td class="text-center">
                             <div class="dropdown ">
                                 <a href="#" class="text-body" data-bs-toggle="dropdown">
