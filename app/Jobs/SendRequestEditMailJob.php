@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendRequestEditMailJob implements ShouldQueue
@@ -32,12 +33,18 @@ class SendRequestEditMailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if (env('MAIL_DEBUG', false)) {
-            Mail::to("hongminhle290@gmail.com")
-                ->send(new RequestEditMail($this->student, $this->key));
-        } else {
-            Mail::to($this->email)
-                ->send(new RequestEditMail($this->student, $this->key));
+        try {
+            if (env('MAIL_DEBUG', false)) {
+                Mail::to("hongminhle290@gmail.com")
+                    ->send(new RequestEditMail($this->student, $this->key));
+            } else {
+                Mail::to($this->email)
+                    ->send(new RequestEditMail($this->student, $this->key));
+            }
+        }catch (\Exception $exception){
+            Log::error("job send mail", [
+                'message' => $exception->getMessage(),
+            ]);
         }
     }
 }
