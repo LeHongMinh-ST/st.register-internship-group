@@ -121,7 +121,7 @@
                                     <div>Tên GVHD: <b>{{ $group->supervisor ?: "Chưa có" }}</b></div>
                                 </div>
                             </div>
-                            @if($this->student->groupStudent->is_captain &&  !$campaign->is)
+                            @if($this->student->groupStudent->is_captain &&  !$campaign->isExpired())
                                 <div class="mt-2">
                                     <button wire:loading class="btn btn-primary" wire:target="sendMailEdit">
                                         <i class="ph-circle-notch spinner"></i>
