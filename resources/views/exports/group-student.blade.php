@@ -1,9 +1,12 @@
+@php use App\Common\Helpers @endphp
 <table class="table">
     <thead>
     <tr class="table-light">
         <th>STT</th>
         <th>Nhóm</th>
-        <th>Họ và tên</th>
+        <th>Sô lượng sinh viên</th>
+        <th>Họ đệm</th>
+        <th>Tên</th>
         <th>Ngày sinh</th>
         <th>Mã sinh viên</th>
         <th>Lớp</th>
@@ -26,7 +29,9 @@
             <tr>
                 <td>{{ $index }}</td>
                 <td>{{ $key+ 1 }}</td>
-                <td>{{ $student->name }}</td>
+                <td>{{ $group->students->count() }}</td>
+                <td>{{ Helpers::splitName($student->name)['lastName'] }}</td>
+                <td>{{ Helpers::splitName($student->name)['firstName'] }}</td>
                 <td>{{ \Carbon\Carbon::make($student->dob)->format('d/m/Y') }}</td>
                 <td>{{ $student->code }}</td>
                 <td>{{ $student->class }}</td>

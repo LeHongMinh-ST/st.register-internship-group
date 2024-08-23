@@ -43,4 +43,24 @@ class Helpers
             return false;
         }
     }
+
+    public static function splitName($fullName): array
+    {
+        // Remove any extra spaces
+        $fullName = trim($fullName);
+
+        // Split the full name into parts
+        $parts = explode(" ", $fullName);
+
+        // Get the last part as the first name
+        $firstName = array_pop($parts);
+
+        // The remaining parts are the last name + middle name
+        $lastName = implode(" ", $parts);
+
+        return [
+            'lastName' => $lastName,
+            'firstName' => $firstName,
+        ];
+    }
 }
