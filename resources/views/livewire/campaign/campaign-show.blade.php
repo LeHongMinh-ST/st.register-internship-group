@@ -27,7 +27,13 @@
 
                 <li class="nav-item" role="presentation">
                     <a href="#js-tab2" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">
-                        Nhóm đăng ký
+                        Nhóm nguyện vọng
+                    </a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a href="#js-tab3" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">
+                        Nhóm chính thức
                     </a>
                 </li>
             </ul>
@@ -39,6 +45,9 @@
 
                 <div class="tab-pane fade" id="js-tab2" role="tabpanel">
                     <livewire:group.group-index :campaignId="$campaignId"/>
+                </div>
+                <div class="tab-pane fade" id="js-tab3" role="tabpanel">
+                    <livewire:group.group-official-index :campaignId="$campaignId"/>
                 </div>
             </div>
         </div>

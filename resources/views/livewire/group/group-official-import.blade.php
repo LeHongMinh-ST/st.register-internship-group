@@ -1,8 +1,8 @@
-<div id="model-import" wire:ignore.self class="modal fade" >
+<div id="model-import-group" wire:ignore.self class="modal fade" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Import Sinh viên</h5>
+                <h5 class="modal-title">Import Nhóm Sinh viên chính thức</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -17,7 +17,7 @@
                         <label id="error-name" class="validation-error-label text-danger"
                                for="name">{{ $message }}</label>
                         @enderror
-                        <a class="cursor-pointer text-primary d-inline-block mt-2" target="_blank" href="{{route('admin.campaigns.downloadTemplateStudent')}}">Tải file mẫu</a>
+                        <a class="cursor-pointer text-primary d-inline-block mt-2" target="_blank" href="{{route('admin.campaigns.downloadTemplateStudentGroup')}}">Tải file mẫu</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <button type="button" class="btn btn-link"  wire:click="closeImportModal()">Đóng</button>
                 @if($file)
                     <button wire:loading wire:target="submit" type="button" class="btn btn-primary" > <i class="ph-circle-notch spinner"></i>Lưu</button>
-                    <button wire:loading.remove  type="button" class="btn btn-primary" wire:click="submit()">Lưu</button>
+                    <button wire:loading.remove type="button" class="btn btn-primary" wire:click="submit()">Lưu</button>
                 @endif
             </div>
         </div>

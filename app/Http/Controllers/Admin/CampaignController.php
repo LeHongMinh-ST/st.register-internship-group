@@ -48,4 +48,10 @@ class CampaignController extends Controller
         $filePath = public_path('templates/student.xlsx');
         return response()->download($filePath);
     }
+
+    public function downloadTemplateStudentGroup()
+    {
+        $filePath = public_path('templates/student-group.xlsx');
+        return response()->download($filePath);
+    }
 }

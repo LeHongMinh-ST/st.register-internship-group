@@ -31,6 +31,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
         Route::get('/', [CampaignController::class, 'index'])->name('admin.campaigns.index');
         Route::get('/create', [CampaignController::class, 'create'])->name('admin.campaigns.create');
         Route::get('/download-template-student', [CampaignController::class, 'downloadTemplateStudent'])->name('admin.campaigns.downloadTemplateStudent');
+        Route::get('/download-template-student-group', [CampaignController::class, 'downloadTemplateStudentGroup'])->name('admin.campaigns.downloadTemplateStudentGroup');
         Route::get('/{campaign}', [CampaignController::class, 'show'])->name('admin.campaigns.show');
         Route::get('/{campaign}/edit', [CampaignController::class, 'edit'])->name('admin.campaigns.edit');
 

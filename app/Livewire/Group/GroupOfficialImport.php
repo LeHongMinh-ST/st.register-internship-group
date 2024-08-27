@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Livewire\Student;
+namespace App\Livewire\Group;
 
-use App\Imports\StudentCourseImport;
-use Illuminate\Support\Facades\Storage;
+use App\Imports\GroupStudentOfficalImport;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 
-class StudentImport extends Component
+class GroupOfficialImport extends Component
 {
 
     use WithFileUploads;
@@ -20,6 +19,11 @@ class StudentImport extends Component
     public function mount($campaignId)
     {
         $this->campaignId = $campaignId;
+    }
+
+    public function closeImportModal()
+    {
+        $this->dispatch('close-import-group-modal');
     }
 
 
@@ -36,12 +40,7 @@ class StudentImport extends Component
 
     public function render()
     {
-        return view('livewire.student.student-import');
-    }
-
-    public function closeImportModal()
-    {
-        $this->dispatch('close-import-modal');
+        return view('livewire.group.group-official-import');
     }
 
     public function submit()
@@ -49,10 +48,10 @@ class StudentImport extends Component
         $this->validate();
 
         try {
-            Excel::import(new StudentCourseImport($this->campaignId), $this->file);
+            Excel::import(new GroupStudentOfficalImport($this->campaignId), $this->file);
             $this->dispatch('alert', type: 'success', message: 'Import thành công!');
             $this->closeImportModal();
-            $this->dispatch('refresh-student');
+            $this->dispatch('refresh-student-group');
         }catch (\Exception $e) {
             $this->dispatch('alert', type: 'error', message: 'Import thất bại!');
         }
