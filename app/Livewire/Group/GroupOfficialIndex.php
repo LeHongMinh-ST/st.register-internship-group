@@ -16,6 +16,10 @@ class GroupOfficialIndex extends Component
 
     public string $search = '';
 
+    protected $listeners = [
+        'refresh-student-group' => '$refresh'
+    ];
+
     public function updatingSearch()
     {
         $this->resetPage('groupsPageOfficial');

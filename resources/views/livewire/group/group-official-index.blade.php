@@ -37,8 +37,8 @@
                 <tr class="table-light ">
                     <th class="w-16px">Nhóm</th>
                     <th class="w-25">Tên đề tài</th>
-                    <th>Bộ môn phụ trách</th>
-                    <th>Giảng viên phụ trách</th>
+                    <th>Bộ môn quản lý</th>
+                    <th>Giảng viên hướng dẫn</th>
                     <th>Số lượng sinh viên</th>
                     <th>Ngày tạo</th>
                 </tr>

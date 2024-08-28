@@ -37,6 +37,14 @@ class ClientResearchOfficial extends Component
         'update-dob' => 'updateDob',
     ];
 
+    public function resetData()
+    {
+        $this->group = null;
+        $this->student = null;
+        $this->dob = '';
+        $this->code = '';
+    }
+
     public function updateDob($value): void
     {
         if ($value) {

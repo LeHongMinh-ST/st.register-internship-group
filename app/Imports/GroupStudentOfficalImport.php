@@ -23,8 +23,8 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
     }
 
 
-    public const START_ROW = 7;
-    public const HEADER_INDEX = 6;
+    public const START_ROW = 2;
+    public const HEADER_INDEX = 1;
 
     /**
      * @param Collection $collection
@@ -53,8 +53,23 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                         'code' => $row['nhom'],
                         'campaign_id' => $this->campaignId,
                         'department' => $row['bo_mon_quan_ly'],
-                        'supervisor_official' => $row['phan_cong_gvhd'],
-                        'supervisor' => $row['giao_vien_huong_dan'],
+                        'supervisor_official' => $row['phan_cong_giao_vien_huong_dan'],
+                        'supervisor_code' => $row['ma_gv'],
+                        'supervisor_email' => $row['so_dien_thoai_cua_giao_vien_huong_dan'],
+                        'supervisor_phone' => $row['email_cua_giao_vien_huong_dan'],
+                        'supervisor' => $row['giao_vien_huong_dan_da_nhan_sinh_vien'],
+                        'topic' => $row['de_tai_thuc_tap']
+                    ]);
+                } else {
+                    GroupOfficial::where('id', $group->id)->update([
+                        'code' => $row['nhom'],
+                        'campaign_id' => $this->campaignId,
+                        'department' => $row['bo_mon_quan_ly'],
+                        'supervisor_official' => $row['phan_cong_giao_vien_huong_dan'],
+                        'supervisor_code' => $row['ma_gv'],
+                        'supervisor_email' => $row['so_dien_thoai_cua_giao_vien_huong_dan'],
+                        'supervisor_phone' => $row['email_cua_giao_vien_huong_dan'],
+                        'supervisor' => $row['giao_vien_huong_dan_da_nhan_sinh_vien'],
                         'topic' => $row['de_tai_thuc_tap']
                     ]);
                 }
@@ -72,6 +87,9 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     'email' => $row['email'],
                     'phone_family' => $row['so_dien_thoai_phu_huynh'],
                     'phone' => $row['so_dien_thoai'],
+                    'supervisor_company' => $row['ho_ten_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                    'supervisor_company_email' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                    'supervisor_company_phone' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap']
                 ]);
 
 

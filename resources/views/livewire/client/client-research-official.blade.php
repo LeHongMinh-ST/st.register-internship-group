@@ -52,6 +52,14 @@
                                 <i class="ph-magnifying-glass"></i>
                                 Tra cứu
                             </button>
+                            @if($group)
+                                <button wire:click="resetData()" type="button"
+                                        class="btn btn-warning">
+                                    <i class="ph ph-arrow-clockwise"></i>
+                                    Đặt lại
+                                </button>
+                            @endif
+
                         </div>
                         @if(!$campaign->isExpired())
                             <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
@@ -102,8 +110,18 @@
                                                         <div>Số điện thoại phụ huynh:
                                                             <b>{{ $item->studentGroupOfficial->phone_family ?: "Chưa có" }}</b>
                                                         </div>
+
                                                         <div>Công ty thực tập:
                                                             <b>{{ $item->studentGroupOfficial->internship_company ?: "Chưa có" }}</b>
+                                                        </div>
+                                                        <div>Cán bộ hướng dẫn thực tập:
+                                                            <b>{{ $item->studentGroupOfficial->supervisior_company ?: "Chưa có" }}</b>
+                                                        </div>
+                                                        <div>Email Cán bộ hướng dẫn thực tập:
+                                                            <b>{{ $item->studentGroupOfficial->supervisior_company_email ?: "Chưa có" }}</b>
+                                                        </div>
+                                                        <div>SĐT Cán bộ hướng dẫn thực tập:
+                                                            <b>{{ $item->studentGroupOfficial->supervisior_company_phone ?: "Chưa có" }}</b>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,8 +137,10 @@
                                 </div>
                                 <div class="card-body p-2">
                                     <div>Tên đề tài: <b>{{ $group->topic ?: "Chưa có" }}</b></div>
-                                    <div>Tên Giảng viên phụ trách: <b>{{ $group->supervisor_official ?: "Chưa có" }}</b></div>
-                                    <div>Bộ môn phụ trách: <b>{{ $group->department ?: "Chưa có" }}</b></div>
+                                    <div>Giảng viên hướng dẫn: <b>{{ $group->supervisor_official ?: "Chưa có" }} - {{$group->supervisor_code}}</b></div>
+                                    <div>Email Giảng viên hướng dẫn: <b>{{ $group->supervisor_official_email ?: "Chưa có" }}</b></div>
+                                    <div>SĐT Giảng viên hướng dẫn: <b>{{ $group->supervisor_official_phone ?: "Chưa có" }}</b></div>
+                                    <div>Bộ môn quản lý: <b>{{ $group->department ?: "Chưa có" }}</b></div>
                                 </div>
                             </div>
                         </div>
