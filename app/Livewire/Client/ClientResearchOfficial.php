@@ -100,7 +100,7 @@ class ClientResearchOfficial extends Component
         }
         $this->group = GroupOfficial::query()
             ->where('id', $this->student->group_official_id)
-            ->with(['students', 'students.studentGroupOfficial'])
+            ->with(['students', 'students.studentGroupOfficial', 'teacher'])
             ->first();
     }
 

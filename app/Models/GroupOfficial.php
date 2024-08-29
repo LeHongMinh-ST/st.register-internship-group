@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GroupOfficial extends Model
@@ -11,11 +12,16 @@ class GroupOfficial extends Model
     use HasFactory;
 
 
-    protected $fillable = ['supervisor', 'topic', 'campaign_id', 'supervisor_official', 'department', 'code'];
+    protected $fillable = ['supervisor', 'topic', 'campaign_id', 'teacher_id', 'department', 'code'];
 
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(Teacher::class);
     }
 
     public function scopeSearch($query, $search)

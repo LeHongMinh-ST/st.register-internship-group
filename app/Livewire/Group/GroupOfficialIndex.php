@@ -32,14 +32,14 @@ class GroupOfficialIndex extends Component
         $groups = GroupOfficial::query()
             ->search($this->search)
             ->where('campaign_id', $this->campaignId)
-            ->with(['students', 'students.studentGroupOfficial'])
+            ->with(['students', 'students.studentGroupOfficial', 'teacher'])
             ->orderBy('code', 'asc')
             ->paginate(Constants::PER_PAGE, ['*'], 'groupsPageOfficial');
 
         $groupAll = GroupOfficial::query()
             ->search($this->search)
             ->where('campaign_id', $this->campaignId)
-            ->with(['students', 'students.studentGroupOfficial'])
+            ->with(['students', 'students.studentGroupOfficial', 'teacher'])
             ->orderBy('created_at', 'asc')->get();
 
         $studentRegister = Student::query()

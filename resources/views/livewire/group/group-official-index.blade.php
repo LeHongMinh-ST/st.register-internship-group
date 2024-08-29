@@ -54,7 +54,7 @@
                         <td data-bs-toggle="collapse" class="bold"
                             data-bs-target="#st{{$group->id}}">{{ $group->department ?: "Chưa có" }}</td>
                         <td data-bs-toggle="collapse" class="bold"
-                            data-bs-target="#st{{$group->id}}">{{ $group->supervisor_official ?: "Chưa có" }}</td>
+                            data-bs-target="#st{{$group->id}}">{{ $group->teacher?->name ?: "Chưa có" }}</td>
                         <td data-bs-toggle="collapse"
                             data-bs-target="#st{{$group->id}}">{{ $group->students->count() }}</td>
 

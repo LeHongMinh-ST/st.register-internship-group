@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\GroupOfficial;
 use App\Models\Student;
 use App\Models\StudentGroupOfficial;
+use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -48,15 +49,35 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     ->where('campaign_id', $this->campaignId)
                     ->first();
 
+                $teacher = Teacher::query()->where('code', $row['ma_gv'])->first();
+
+
+                $dataTeacher = [
+                    'code' => $row['ma_gv'],
+                    'name' => $row['phan_cong_giao_vien_huong_dan'],
+                ];
+
+                if (!empty($row['email_cua_giao_vien_huong_dan'])) {
+                    $dataTeacher['email'] = $row['email_cua_giao_vien_huong_dan'];
+                }
+
+                if (!empty($row['so_dien_thoai_cua_giao_vien_huong_dan'])) {
+                    $dataTeacher['phone'] = $row['so_dien_thoai_cua_giao_vien_huong_dan'];
+                }
+
+                if (!$teacher) {
+                    $teacher = Teacher::create($dataTeacher);
+                } else {
+                    Teacher::where('id', $teacher->id)->update($dataTeacher);
+                }
+
+
                 if (!$group) {
                     $group = GroupOfficial::create([
                         'code' => $row['nhom'],
                         'campaign_id' => $this->campaignId,
                         'department' => $row['bo_mon_quan_ly'],
-                        'supervisor_official' => $row['phan_cong_giao_vien_huong_dan'],
-                        'supervisor_code' => $row['ma_gv'],
-                        'supervisor_email' => $row['so_dien_thoai_cua_giao_vien_huong_dan'],
-                        'supervisor_phone' => $row['email_cua_giao_vien_huong_dan'],
+                        'teacher_id' => $teacher->id,
                         'supervisor' => $row['giao_vien_huong_dan_da_nhan_sinh_vien'],
                         'topic' => $row['de_tai_thuc_tap']
                     ]);
@@ -65,10 +86,7 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                         'code' => $row['nhom'],
                         'campaign_id' => $this->campaignId,
                         'department' => $row['bo_mon_quan_ly'],
-                        'supervisor_official' => $row['phan_cong_giao_vien_huong_dan'],
-                        'supervisor_code' => $row['ma_gv'],
-                        'supervisor_email' => $row['so_dien_thoai_cua_giao_vien_huong_dan'],
-                        'supervisor_phone' => $row['email_cua_giao_vien_huong_dan'],
+                        'teacher_id' => $teacher->id,
                         'supervisor' => $row['giao_vien_huong_dan_da_nhan_sinh_vien'],
                         'topic' => $row['de_tai_thuc_tap']
                     ]);

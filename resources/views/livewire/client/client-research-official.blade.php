@@ -137,9 +137,9 @@
                                 </div>
                                 <div class="card-body p-2">
                                     <div>Tên đề tài: <b>{{ $group->topic ?: "Chưa có" }}</b></div>
-                                    <div>Giảng viên hướng dẫn: <b>{{ $group->supervisor_official ?: "Chưa có" }} - {{$group->supervisor_code}}</b></div>
-                                    <div>Email Giảng viên hướng dẫn: <b>{{ $group->supervisor_official_email ?: "Chưa có" }}</b></div>
-                                    <div>SĐT Giảng viên hướng dẫn: <b>{{ $group->supervisor_official_phone ?: "Chưa có" }}</b></div>
+                                    <div>Giảng viên hướng dẫn: <b>{{ $group->teacher?->name ?: "Chưa có" }}</b></div>
+                                    <div>Email Giảng viên hướng dẫn: <b>{{ $group->teacher?->email ?: "Chưa có" }}</b></div>
+                                    <div>SĐT Giảng viên hướng dẫn: <b>{{ $group->teacher?->phone ?: "Chưa có" }}</b></div>
                                     <div>Bộ môn quản lý: <b>{{ $group->department ?: "Chưa có" }}</b></div>
                                 </div>
                             </div>
