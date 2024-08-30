@@ -98,6 +98,7 @@ class ClientResearchOfficial extends Component
             $this->dispatch('alert', type: 'error', message: 'Không tìm thấy nhóm tương ứng');
             return;
         }
+
         $this->group = GroupOfficial::query()
             ->where('id', $this->student->group_official_id)
             ->with(['students', 'students.studentGroupOfficial', 'teacher'])

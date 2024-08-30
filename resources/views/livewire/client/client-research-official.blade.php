@@ -98,7 +98,7 @@
                                                         Lớp: {{ $item->class }}
                                                     </button>
                                                 </h2>
-                                                <div id="st{{$item->code}}" class="accordion-collapse collapse show"
+                                                <div id="st{{$item->code}}" class="accordion-collapse @if(count($group->students) <= 1) show @endif collapse "
                                                      wire:ignore.self>
                                                     <div class="accordion-body">
                                                         <div>Email:
@@ -115,13 +115,13 @@
                                                             <b>{{ $item->studentGroupOfficial->internship_company ?: "Chưa có" }}</b>
                                                         </div>
                                                         <div>Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial->supervisior_company ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company ?? "Chưa có" }}</b>
                                                         </div>
                                                         <div>Email Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial->supervisior_company_email ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_email ?? "Chưa có" }}</b>
                                                         </div>
                                                         <div>SĐT Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial->supervisior_company_phone ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_email ?? "Chưa có" }}</b>
                                                         </div>
                                                     </div>
                                                 </div>

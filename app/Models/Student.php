@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -33,14 +34,14 @@ class Student extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function groupStudent()
+    public function groupStudent(): HasOne
     {
         return $this->hasOne(GroupStudent::class);
     }
 
-    public function studentGroupOfficial()
+    public function studentGroupOfficial(): HasOne
     {
-        return $this->hasOne(StudentGroupOfficial::class);
+        return $this->hasOne(StudentGroupOfficial::class, 'student_id');
     }
 
     public function scopeSearch($query, $search)
