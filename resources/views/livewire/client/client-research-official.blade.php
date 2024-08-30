@@ -121,7 +121,7 @@
                                                             <b>{{ $item->studentGroupOfficial?->supervisor_company_email ?? "Chưa có" }}</b>
                                                         </div>
                                                         <div>SĐT Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_email ?? "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_phone ?? "Chưa có" }}</b>
                                                         </div>
                                                     </div>
                                                 </div>

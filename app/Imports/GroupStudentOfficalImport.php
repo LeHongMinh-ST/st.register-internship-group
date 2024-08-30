@@ -106,8 +106,8 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     'phone_family' => $row['so_dien_thoai_phu_huynh'],
                     'phone' => $row['so_dien_thoai'],
                     'supervisor_company' => $row['ho_ten_can_bo_huong_dan_tai_co_so_thuc_tap'],
-                    'supervisor_company_email' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
-                    'supervisor_company_phone' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap']
+                    'supervisor_company_email' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                    'supervisor_company_phone' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap']
                 ]);
 
 
