@@ -93,7 +93,7 @@
                                                 <h2 class="accordion-header">
                                                     <button class="accordion-button fw-semibold" type="button"
                                                             data-bs-toggle="collapse"
-                                                            data-bs-target="#st{{$item->code}}">
+                                                            data-bs-target="#st{{$item->code}}">@if($item->studentGroupOfficial->is_captain) <span class="text-danger">*</span> @endif
                                                         {{$item->name}} - Mã sinh viên: {{ $item->code }} -
                                                         Lớp: {{ $item->class }}
                                                     </button>
