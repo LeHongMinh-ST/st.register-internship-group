@@ -19,7 +19,7 @@
             <tbody>
             @forelse($group->students as $student)
                 <tr>
-                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->name }} @if($student->studentGroupOfficial->is_captain) <span class="text-danger">*</span>@endif</td>
                     <td>{{ $student->code }}</td>
                     <td>{{ $student->class }}</td>
                     <td>{{ $student->course->code }}</td>

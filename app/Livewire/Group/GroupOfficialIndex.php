@@ -45,7 +45,7 @@ class GroupOfficialIndex extends Component
             ->orderBy('created_at', 'asc')->get();
 
         $studentRegister = Student::query()
-            ->whereIn('group_id', $groupAll->pluck('id')->toArray())
+            ->whereIn('group_official_id', $groupAll->pluck('id')->toArray())
             ->count();
 
         return view('livewire.group.group-official-index', [

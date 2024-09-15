@@ -5,6 +5,7 @@
                 <div class="col-md-9 col-12">
                     <h6 class="fw-semibold">{{$campaign?->name}}</h6>
                     <p class="mb-3"><b>Thời gian</b>: {{ \Carbon\Carbon::make($campaign->start)->format('d/m/Y') }} -  {{ \Carbon\Carbon::make($campaign->end)->format('d/m/Y') }}</a></p>
+                    <p class="mb-3"><b>Thời gian chỉnh sửa chính thức</b>: {{$campaign->official_end ? \Carbon\Carbon::make($campaign->official_end)->format('d/m/Y') : ""}}</a></p>
                     <p class="mb-3"><b>Số thành viên tối đa mỗi nhóm</b>: {{$campaign->max_student_group}}</p>
                     <p class="mb-3"><b>Link đăng ký</b>: <a href="{{route('internship.register', $campaign->id)}}" target="_blank">{{ route('internship.register', $campaign->id) }}</a></p>
                 </div>

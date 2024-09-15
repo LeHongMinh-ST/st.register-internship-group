@@ -26,7 +26,6 @@
                         </button>
                     @endif
 
-
                     <button type="button" class="px-2 btn btn-light btn-icon" wire:click="$refresh">
                         <i class="px-1 ph-arrows-clockwise"></i><span>Tải lại</span>
                     </button>
@@ -43,6 +42,7 @@
                     <th>Bộ môn quản lý</th>
                     <th>Giảng viên hướng dẫn</th>
                     <th>Số lượng sinh viên</th>
+                    <th>Link chỉnh sửa</th>
                     <th>Ngày tạo</th>
                 </tr>
                 </thead>
@@ -60,7 +60,16 @@
                             data-bs-target="#st{{$group->id}}">{{ $group->teacher?->name ?: "Chưa có" }}</td>
                         <td data-bs-toggle="collapse"
                             data-bs-target="#st{{$group->id}}">{{ $group->students->count() }}</td>
-
+                        <td>
+                            @if(isset($group->groupKey) && $group->groupKey->active && !$group->groupKey->isExpired())
+                                <a href="{{route('internship.edit', $group->groupKey->key)}}"
+                                   data-link="{{route('internship.edit', $group->groupKey->key)}}">
+                                    <i class="ph-arrow-square-out"></i> Link chỉnh sửa
+                                </a>
+                            @else
+                                Không có
+                            @endif
+                        </td>
                         <td data-bs-toggle="collapse"
                             data-bs-target="#st{{$group->id}}">{{ $group->created_at->format('H:i d/m/Y') }}</td>
 

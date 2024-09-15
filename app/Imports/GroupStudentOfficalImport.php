@@ -97,6 +97,8 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     'group_official_id' => $group->id,
                 ]);
 
+                $countStudent = $group->students()->count();
+
                 StudentGroupOfficial::query()->updateOrCreate([
                     'student_id' => $student->id,
                 ], [
@@ -107,7 +109,8 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     'phone' => $row['so_dien_thoai'],
                     'supervisor_company' => $row['ho_ten_can_bo_huong_dan_tai_co_so_thuc_tap'],
                     'supervisor_company_email' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
-                    'supervisor_company_phone' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap']
+                    'supervisor_company_phone' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                    'is_captain' => $countStudent == 1,
                 ]);
 
 

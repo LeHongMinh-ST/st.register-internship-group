@@ -143,7 +143,7 @@
                                     <div>Bộ môn quản lý: <b>{{ $group->department ?: "Chưa có" }}</b></div>
                                 </div>
                             </div>
-                            @if( !$campaign->isEditOfficialExpired())
+                            @if( !$campaign->isEditOfficialExpired() && $this->student->studentGroupOfficial->is_captain)
                                 <div class="mt-2">
                                     <button wire:loading class="btn btn-primary" wire:target="sendMailEdit">
                                         <i class="ph-circle-notch spinner"></i>

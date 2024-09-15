@@ -10,7 +10,7 @@ class StudentGroupOfficial extends Model
 {
     protected $table = 'student_group_officials';
 
-    protected $fillable = ['phone', 'internship_company', 'phone_family', 'email', 'student_id', 'supervisor_company', 'supervisor_company_email', 'supervisor_company_phone'];
+    protected $fillable = ['phone', 'internship_company', 'phone_family', 'email', 'student_id', 'supervisor_company', 'supervisor_company_email', 'supervisor_company_phone', 'is_captain'];
 
 
     use HasFactory;
