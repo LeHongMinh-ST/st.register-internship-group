@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\GroupKey;
+use App\Models\GroupOfficial;
 use Illuminate\Http\Request;
 
 class EditGroupController extends Controller
@@ -30,7 +31,13 @@ class EditGroupController extends Controller
             abort(419);
         }
 
-        return view('pages.client.edit-group', [
+        $view = 'pages.client.edit-group';
+
+        if ($firstKey->group_type == GroupOfficial::class) {
+            $view = 'pages.client.edit-group-official';
+        }
+
+        return view($view, [
             'key' => $key,
         ]);
     }

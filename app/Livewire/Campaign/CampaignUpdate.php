@@ -28,11 +28,14 @@ class CampaignUpdate extends Component
     #[Validate( as: 'số lượng thành viên trong nhóm')]
     public int $max_student_group = 0;
 
+    public string  $official_end = '';
+
     public bool $isLoading = false;
 
     protected $listeners = [
         'update-start-date' => 'updateStartDate',
         'update-end-date' => 'updateEndDate',
+        'update-official-end-date' => 'updateOfficialEndDate',
     ];
 
     public function render()
@@ -47,6 +50,7 @@ class CampaignUpdate extends Component
         $this->name = $campaign->name;
         $this->start = Carbon::make($campaign->start)->format(Constants::FORMAT_DATE);
         $this->end = Carbon::make($campaign->end)->format(Constants::FORMAT_DATE);
+        $this->official_end = Carbon::make($campaign->official_end ?? now())->format(Constants::FORMAT_DATE);
         $this->max_student_group = $campaign->max_student_group;
     }
 
@@ -91,6 +95,14 @@ class CampaignUpdate extends Component
         $this->end = str_replace('/', '-', $value);
     }
 
+    public function updateOfficialEndDate($value): void
+    {
+        if ($value) {
+            $this->resetValidation('end');
+        }
+        $this->official_end = str_replace('/', '-', $value);
+    }
+
 
     public function submit(): RedirectResponse|Redirector|null
     {
@@ -100,12 +112,14 @@ class CampaignUpdate extends Component
             $this->isLoading = true;
             $this->start = str_replace('/', '-', $this->start);
             $this->end = str_replace('/', '-', $this->end);
+            $this->official_end = str_replace('/', '-', $this->official_end);
             // store
             try {
                 Campaign::where('id', $this->campaignId)->update([
                     'name' => $this->name,
                     'start' => Carbon::make($this->start),
                     'end' => Carbon::make($this->end),
+                    'official_end' => Carbon::make($this->official_end),
                     'max_student_group' => $this->max_student_group
                 ]);
                 $this->dispatch('alert', type: 'success', message: 'Cập nhật thành công!');

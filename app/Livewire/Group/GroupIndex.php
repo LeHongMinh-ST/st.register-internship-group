@@ -42,10 +42,9 @@ class GroupIndex extends Component
         $groups = Group::query()
             ->search($this->search)
             ->where('campaign_id', $this->campaignId)
-            ->with(['students', 'students.groupStudent'])
+            ->with(['students', 'students.groupStudent', 'groupKey'])
             ->orderBy('created_at', 'asc')
             ->paginate(Constants::PER_PAGE, ['*'], 'groupsPage');
-
         $groupAll = Group::query()
             ->search($this->search)
             ->where('campaign_id', $this->campaignId)

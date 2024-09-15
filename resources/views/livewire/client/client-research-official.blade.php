@@ -143,6 +143,20 @@
                                     <div>Bộ môn quản lý: <b>{{ $group->department ?: "Chưa có" }}</b></div>
                                 </div>
                             </div>
+                            @if( !$campaign->isEditOfficialExpired())
+                                <div class="mt-2">
+                                    <button wire:loading class="btn btn-primary" wire:target="sendMailEdit">
+                                        <i class="ph-circle-notch spinner"></i>
+                                        Yêu cầu chỉnh sửa
+                                    </button>
+
+                                    <button wire:loading.remove class="btn btn-primary" wire:click="sendMailEdit">
+                                        <i class="ph-paper-plane-tilt"></i>
+                                        Yêu cầu chỉnh sửa
+                                    </button>
+                                </div>
+                            @endif
+
                         </div>
                     @endif
 

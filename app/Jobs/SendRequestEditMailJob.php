@@ -33,15 +33,15 @@ class SendRequestEditMailJob implements ShouldQueue
      */
     public function handle(): void
     {
+        $email = $this->email;
         try {
             if (env('MAIL_DEBUG', false)) {
-                Mail::to("hongminhle290@gmail.com")
-                    ->send(new RequestEditMail($this->student, $this->key));
-            } else {
-                Mail::to($this->email)
-                    ->send(new RequestEditMail($this->student, $this->key));
+                $email = 'hongminhle290@gmail.com';
             }
-        }catch (\Exception $exception){
+
+            Mail::to($email)
+                ->send(new RequestEditMail($this->student, $this->key));
+        } catch (\Exception $exception) {
             Log::error("job send mail", [
                 'message' => $exception->getMessage(),
             ]);

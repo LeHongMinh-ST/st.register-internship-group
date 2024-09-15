@@ -5,13 +5,15 @@ namespace App\Livewire\Client;
 use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\GroupKey;
+use App\Models\GroupOfficial;
 use App\Models\GroupStudent;
 use App\Models\Student;
+use App\Models\StudentGroupOfficial;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
-class InternShipEdit extends Component
+class InternShipOfficialEdit extends Component
 {
     public string $key;
     public string|int $campaignId;
@@ -29,7 +31,7 @@ class InternShipEdit extends Component
         $campaign = Campaign::find($this->campaignId);
 
 
-        return view('livewire.client.intern-ship-edit', [
+        return view('livewire.client.intern-ship-official-edit', [
             'campaign' => $campaign,
             'students' => $students,
         ]);
@@ -65,15 +67,19 @@ class InternShipEdit extends Component
         'dataStudent.*.email' => 'email',
         'dataStudent.*.phone' => 'số điện thoại',
         'dataStudent.*.phone_family' => 'số điện thoại phụ huynh',
-        'dataStudent.*.internship_company' => 'internship_company',
+        'dataStudent.*.internship_company' => 'cơ sở thực thập',
+        'dataStudent.*.supervisor_company' => 'cán bộ hướng dẫn',
+        'dataStudent.*.supervisor_company_email' => 'email cán bộ hướng dẫn',
+        'dataStudent.*.supervisor_company_phone' => 'số điện thoại cán bộ hướng dẫn',
     ];
 
     public function mount($keyEdit)
     {
         $this->key = $keyEdit;
         $groupKey = GroupKey::query()
-            ->where('key', $this->key)->first();
-        $group = Group::query()->where('id', $groupKey->group_id)->first();
+            ->where('key', $this->key)
+            ->first();
+        $group = GroupOfficial::query()->where('id', $groupKey->group_id)->first();
         $students = $group->students;
         $this->topic = $group->topic;
         $this->supervisor = $group->supervisor;
@@ -81,10 +87,13 @@ class InternShipEdit extends Component
 
         foreach ($students as $student) {
             $this->dataStudent[$student->code] = [
-                'email' => $student->groupStudent->email,
-                'phone' => $student->groupStudent->phone,
-                'phone_family' => $student->groupStudent->phone_family,
-                'internship_company' => $student->groupStudent->internship_company
+                'email' => $student->studentGroupOfficial->email,
+                'phone' => $student->studentGroupOfficial->phone,
+                'phone_family' => $student->studentGroupOfficial->phone_family,
+                'internship_company' => $student->studentGroupOfficial->internship_company,
+                'supervisor_company' => $student->studentGroupOfficial->supervisor_company,
+                'supervisor_company_email' => $student->studentGroupOfficial->supervisor_company_email,
+                'supervisor_company_phone' => $student->studentGroupOfficial->supervisor_company_phone,
             ];
         }
     }
@@ -96,21 +105,19 @@ class InternShipEdit extends Component
         try {
             $groupKey = GroupKey::query()->where('key', $this->key)->first();
 
-            Group::where('id', $groupKey->group_id)->update([
-                'topic' => $this->topic,
-                'supervisor' => $this->supervisor,
-            ]);
-
             foreach ($this->dataStudent as $code => $item) {
                 $student = Student::query()->where('code', $code)
-                    ->where('group_id', $groupKey->group_id)
+                    ->where('group_official_id', $groupKey->group_id)
                     ->first();
 
-                GroupStudent::where('student_id', $student->id)->update([
+                StudentGroupOfficial::where('student_id', $student->id)->update([
                     'email' => $item['email'],
                     'phone' => $item['phone'],
                     'phone_family' => $item['phone_family'],
                     'internship_company' => $item['internship_company'],
+                    'supervisor_company' => $item['supervisor_company'],
+                    'supervisor_company_email' => $item['supervisor_company_email'],
+                    'supervisor_company_phone' => $item['supervisor_company_phone'],
                 ]);
             }
 
@@ -118,7 +125,7 @@ class InternShipEdit extends Component
             $groupKey->save();
             DB::commit();
             session()->flash('success', 'Chỉnh sửa thành công thành công!');
-            return redirect()->route('internship.research', $this->campaignId);
+            return redirect()->route('internship.research-official', $this->campaignId);
 
         } catch (\Exception $exception) {
             Log::error('create group', [

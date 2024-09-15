@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class GroupOfficial extends Model
 {
@@ -22,6 +23,11 @@ class GroupOfficial extends Model
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function groupKey(): MorphOne
+    {
+        return $this->morphOne(GroupKey::class, 'groupkeyable', 'group_type', 'group_id')->orderBy('created_at', 'desc');
     }
 
     public function scopeSearch($query, $search)

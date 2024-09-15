@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Group extends Model
 {
@@ -40,8 +42,8 @@ class Group extends Model
         return $query;
     }
 
-    public function groupKey()
+    public function groupKey(): MorphOne
     {
-        return $this->hasOne(GroupKey::class)->orderBy('created_at', 'desc');
+        return $this->morphOne(GroupKey::class, 'groupkeyable', 'group_type', 'group_id')->orderBy('created_at', 'desc');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Client;
 
 use App\Jobs\SendRequestEditMailJob;
+use App\Jobs\SendRequestEditMailOfficialJob;
 use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\GroupKey;
@@ -93,7 +94,6 @@ class ClientResearchOfficial extends Component
             ->where('campaign_id', $this->campaignId)
             ->whereNotNull('group_official_id')
             ->first();
-
         if (!$this->student) {
             $this->dispatch('alert', type: 'error', message: 'Không tìm thấy nhóm tương ứng');
             return;
@@ -107,16 +107,13 @@ class ClientResearchOfficial extends Component
 
     public function sendMailEdit()
     {
-        if (!$this->student->groupStudent->is_captain) {
-            return;
-        }
-
         if (!$this->isLoading) {
             $this->isLoading = true;
             try {
                 $groupKey = GroupKey::create([
                     'group_id' => $this->group->id,
                     'key' => Str::random(),
+                    'group_type' => GroupOfficial::class
                 ]);
 
                 $groupKey->active = true;

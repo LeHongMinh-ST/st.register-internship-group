@@ -11,7 +11,7 @@ class Campaign extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'start', 'end', 'max_student_group'];
+    protected $fillable = ['name', 'start', 'end', 'max_student_group', 'official_end'];
 
     public function students(): HasMany
     {
@@ -36,6 +36,14 @@ class Campaign extends Model
     {
         $now = Carbon::now()->timestamp;
         $end = Carbon::make($this->end)->endOfDay()->timestamp;
+        return $end < $now;
+    }
+
+    public function isEditOfficialExpired()
+    {
+        if (!$this->official_end) return true;
+        $now = Carbon::now()->timestamp;
+        $end = Carbon::make($this->official_end)->endOfDay()->timestamp;
         return $end < $now;
     }
 

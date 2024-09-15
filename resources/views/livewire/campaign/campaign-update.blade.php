@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-12 col-md-6 ">
                         <label for="title" class="col-form-label">
-                            Ngày kết kúc <span class="required">*</span>
+                            Ngày kết thúc <span class="required">*</span>
                         </label>
                         <div class="input-group">
                            <span class="input-group-text">
@@ -56,6 +56,33 @@
                                    class="form-control datepicker-basic datepicker-input ">
                         </div>
                         @error('endDate')
+                        <label id="error-username" class="validation-error-label text-danger"
+                               for="username">{{ $message }}</label>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header bold">
+                <i class="ph-clock"></i>
+                Thời gian chỉnh sửa nhóm chính thức
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-12 col-md-6 ">
+                        <label for="title" class="col-form-label">
+                            Ngày kết thúc <span class="required">*</span>
+                        </label>
+                        <div class="input-group">
+                           <span class="input-group-text">
+												<i class="ph-calendar"></i>
+											</span>
+                            <input wire:model="official_end" type="text" id="officialEndDate" value="{{ $this->official_end }}"
+                                   class="form-control datepicker-basic datepicker-input ">
+                        </div>
+                        @error('official_end')
                         <label id="error-username" class="validation-error-label text-danger"
                                for="username">{{ $message }}</label>
                         @enderror
@@ -138,6 +165,26 @@
                 Livewire.dispatch('update-end-date', { value: formattedDate })
             });
         }
+
+
+        const dpBasicElementOfficialEndDate = document.querySelector('#officialEndDate');
+        if (dpBasicElementOfficialEndDate) {
+            new Datepicker(dpBasicElementOfficialEndDate, {
+                container: '.content-inner',
+                buttonClass: 'btn',
+                prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                format: 'dd/mm/yyyy',
+                weekStart: 1,
+                language: 'vi',
+            });
+            dpBasicElementOfficialEndDate.addEventListener('changeDate', function (event) {
+                const selectedDate = new Date(event.detail.date);
+                const formattedDate = formatDateToString(selectedDate);
+                Livewire.dispatch('update-official-end-date', { value: formattedDate })
+            });
+        }
+
 
     });
 </script>
