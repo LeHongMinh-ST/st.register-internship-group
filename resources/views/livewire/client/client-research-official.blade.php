@@ -94,8 +94,8 @@
                                                     <button class="accordion-button fw-semibold" type="button"
                                                             data-bs-toggle="collapse"
                                                             data-bs-target="#st{{$item->code}}">
-                                                        {{$item->name}} - Mã sinh viên: {{ $item->code }} -
-                                                        Lớp: {{ $item->class }}@if($item->studentGroupOfficial->is_captain) <span class="text-danger">*</span> @endif
+                                                        {{$item->name}} <span class="text-danger">*</span> @endif - Mã sinh viên: {{ $item->code }} -
+                                                        Lớp: {{ $item->class }}@if($item->studentGroupOfficial->is_captain)
                                                     </button>
                                                 </h2>
                                                 <div id="st{{$item->code}}" class="accordion-collapse @if(count($group->students) <= 1) show @endif collapse "
