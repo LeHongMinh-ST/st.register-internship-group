@@ -18,8 +18,6 @@ class InternShipOfficialEdit extends Component
     public string $key;
     public string|int $campaignId;
 
-    public string $supervisor = '';
-
     public array $dataStudent = [];
 
     public function render()
@@ -80,7 +78,6 @@ class InternShipOfficialEdit extends Component
             ->first();
         $group = GroupOfficial::query()->where('id', $groupKey->group_id)->first();
         $students = $group->students;
-        $this->supervisor = $group->supervisor;
         $this->campaignId = $group->campaign_id;
 
         foreach ($students as $student) {
