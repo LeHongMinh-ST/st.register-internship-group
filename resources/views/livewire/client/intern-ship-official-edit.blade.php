@@ -147,6 +147,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Thông tin đề tài</h5>
+                            </div>
+
+                            <div class="card-body">
+                                <form class="form-validate-jquery" action="#">
+                                    <div class="mb-4">
+                                        <!-- Maximum number -->
+                                        <div class="row mb-3">
+                                            <label class="col-form-label col-lg-3">Đề tài </label>
+                                            <div class="col-lg-9">
+                                                <input type="text" wire:model.live="topic" class="form-control"
+                                                       required>
+                                                @error('topic')
+                                                <label id="error-topic" class="validation-error-label text-danger"
+                                                       for="topic">{{ $message }}</label>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <!-- Always open -->
                     </div>
                     <div class="mb-3 d-flex justify-content-between">

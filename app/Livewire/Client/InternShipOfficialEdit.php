@@ -17,6 +17,7 @@ class InternShipOfficialEdit extends Component
 {
     public string $key;
     public string|int $campaignId;
+    public string $topic = '';
 
     public array $dataStudent = [];
 
@@ -78,6 +79,7 @@ class InternShipOfficialEdit extends Component
             ->first();
         $group = GroupOfficial::query()->where('id', $groupKey->group_id)->first();
         $students = $group->students;
+        $this->topic = $group?->topic ?? "";
         $this->campaignId = $group->campaign_id;
 
         foreach ($students as $student) {
@@ -99,6 +101,9 @@ class InternShipOfficialEdit extends Component
         DB::beginTransaction();
         try {
             $groupKey = GroupKey::query()->where('key', $this->key)->first();
+            GroupOfficial::where('id', $groupKey->group_id)->update([
+                'topic' => $this->topic,
+            ]);
 
             foreach ($this->dataStudent as $code => $item) {
                 $student = Student::query()->where('code', $code)

@@ -14,6 +14,7 @@
                 <th>Số điện thoại</th>
                 <th>Số điện thoại phụ huynh</th>
                 <th>Công ty thực tập</th>
+                <th>Cán bộ huướng dẫn</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                     <td>{{ $student->studentGroupOfficial->phone }}</td>
                     <td>{{ $student->studentGroupOfficial->phone_family }}</td>
                     <td>{{ $student->studentGroupOfficial->internship_company ?: "Chưa có"}}</td>
+                    <td>{{ $student->studentGroupOfficial->supervisor_company ?: "Chưa có"}}</td>
                 </tr>
             @empty
                 <x-table-empty :colspan="9" />
