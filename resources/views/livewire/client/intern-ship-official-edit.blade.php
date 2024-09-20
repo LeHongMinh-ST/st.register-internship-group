@@ -96,7 +96,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3">
-                                                                <label class="col-form-label col-lg-3">Cán bộ hướng dẫn</label>
+                                                                <label class="col-form-label col-lg-3">Cán bộ hướng dẫn tại công ty thực tập</label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
                                                                            wire:model.live="dataStudent.{{$student?->code}}.supervisor_company"
@@ -110,7 +110,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3">
-                                                                <label class="col-form-label col-lg-3">Email số cán bộ hướng dẫn</label>
+                                                                <label class="col-form-label col-lg-3">Email của cán bộ hướng dẫn</label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
                                                                            wire:model.live="dataStudent.{{$student?->code}}.supervisor_company_email"
@@ -124,7 +124,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3">
-                                                                <label class="col-form-label col-lg-3">Số điện thoại số cán bộ hướng dẫn</label>
+                                                                <label class="col-form-label col-lg-3">Số điện thoại của cán bộ hướng dẫn</label>
                                                                 <div class="col-lg-9">
                                                                     <input type="text"
                                                                            wire:model.live="dataStudent.{{$student?->code}}.supervisor_company_phone"

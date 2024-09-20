@@ -61,7 +61,7 @@
     </div>
     <div class="content">
         <p>Xin chào {{ $student->name }},</p>
-        <p>Chúng tôi nhận được yêu cầu của bạn cần cập nhật thông tin nhóm đăng ký TTCN/KLTN.</p>
+        <p>Hệ thống đã nhận được yêu cầu của bạn cần cập nhật thông tin nhóm đăng ký TTCN/KLTN.</p>
         <p>Vui lòng nhấn vào nút bên dưới để chỉnh sửa thông tin:</p>
         <a href="{{ $editLink }}" class="button">Chỉnh sửa thông tin</a>
         <p>Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.</p>
