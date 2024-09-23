@@ -18,7 +18,7 @@ class ExportGroupOfficialStudent implements FromView
             'groups' => GroupOfficial::query()
                 ->where('campaign_id', $this->campaignId)
                 ->with(['students', 'students.studentGroupOfficial', 'teacher'])
-                ->orderBy('created_at')
+                ->orderBy('code')
                 ->get()
         ]);
     }
