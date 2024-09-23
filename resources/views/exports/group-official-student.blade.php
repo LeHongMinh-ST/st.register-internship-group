@@ -35,7 +35,7 @@
         @foreach($group->students as $student)
             <tr>
                 <td>{{ $index }}</td>
-                <td>{{ $key+ 1 }}</td>
+                <td>{{ $group->code }}</td>
                 <td>{{ $group->students->count() }}</td>
                 <td>{{ Helpers::splitName($student->name)['lastName'] }}</td>
                 <td>{{ Helpers::splitName($student->name)['firstName'] }}</td>
