@@ -54,6 +54,8 @@ class StudentCourseImport implements ToCollection, WithStartRow, WithHeadingRow
                         'credit' => $row[StudentAttributesEnum::SO_TIN_CHI->value],
                         'condition' => $row[StudentAttributesEnum::DIEU_KIEN_TRONG_DANH_MUC_CTDT->value],
                         'note' => $row[StudentAttributesEnum::GHI_CHU->value],
+                        'email' => $row[StudentAttributesEnum::EMAIL->value],
+                        'phone' => $row[StudentAttributesEnum::SO_DIEN_THOAI->value],
                     ]);
                 }
 

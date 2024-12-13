@@ -15,4 +15,6 @@ enum StudentAttributesEnum: string
     case SO_TIN_CHI = 'so_tin_chi';
     case DIEU_KIEN_TRONG_DANH_MUC_CTDT = 'dieu_kien_trong_danh_muc_ctdt';
     case GHI_CHU = 'ghi_chu';
+    case EMAIL = 'email';
+    case SO_DIEN_THOAI = 'so_dien_thoai';
 }
