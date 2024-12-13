@@ -27,6 +27,8 @@
                     <th>Ngày sinh</th>
                     <th>Mã sinh viên</th>
                     <th>Lớp</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
                     <th>Mã học phần</th>
                     <th>Tên học phần</th>
                     <th class="text-center">Số tín chỉ</th>
@@ -42,6 +44,8 @@
 
                         <td>{{ $student->code }}</td>
                         <td>{{ $student->class }}</td>
+                        <td>{{ $student->email }}</td>
+                        <td>{{ $student->phone }}</td>
                         <td>{{ $student->course->code }}</td>
                         <td>{{ $student->course->name }}</td>
                         <td class="text-center">{{ $student->credit }}</td>

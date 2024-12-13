@@ -123,7 +123,7 @@ class InternShipRegister extends Component
             return;
         }
 
-        if ($this->campaign->max_student_group === 1) {
+        if ($student->campaign->max_student_group === 1) {
             $this->step = StepRegisterEnum::StepThree;
         } else {
             $this->step = StepRegisterEnum::StepTwo;

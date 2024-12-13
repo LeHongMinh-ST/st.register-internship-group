@@ -78,11 +78,10 @@ class InternShipEdit extends Component
         $this->topic = $group->topic;
         $this->supervisor = $group->supervisor;
         $this->campaignId = $group->campaign_id;
-
         foreach ($students as $student) {
             $this->dataStudent[$student->code] = [
-                'email' => $student->groupStudent->email,
-                'phone' => $student->groupStudent->phone,
+                'email' => $student->groupStudent->email ?? $student->email,
+                'phone' => $student->groupStudent->phone ?? $student->phone,
                 'phone_family' => $student->groupStudent->phone_family,
                 'internship_company' => $student->groupStudent->internship_company
             ];
