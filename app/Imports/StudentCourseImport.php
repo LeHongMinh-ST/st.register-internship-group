@@ -39,28 +39,26 @@ class StudentCourseImport implements ToCollection, WithStartRow, WithHeadingRow
                     ]);
                 }
 
-                $student = Student::query()
-                    ->where('code', $row[StudentAttributesEnum::MA_SV->value])
-                    ->where('campaign_id', $this->campaignId)->first();
+//                $student = Student::query()
+//                    ->where('code', $row[StudentAttributesEnum::MA_SV->value])
+//                    ->where('campaign_id', $this->campaignId)->first();
 
-                if (!$student) {
-                    Student::query()->updateOrCreate([
-                        'campaign_id' => $this->campaignId,
-                        'code' => $row[StudentAttributesEnum::MA_SV->value],
-                    ], [
-                        'name' => $row[StudentAttributesEnum::HO_DEM->value] . ' ' . $row[StudentAttributesEnum::TEN->value],
-                        'course_id' => $course->id,
-                        'campaign_id' => $this->campaignId,
-                        'code' => $row[StudentAttributesEnum::MA_SV->value],
-                        'dob' => Carbon::createFromFormat('d/m/y', $row[StudentAttributesEnum::NGAY_SINH->value]),
-                        'class' => $row[StudentAttributesEnum::LOP->value],
-                        'credit' => $row[StudentAttributesEnum::SO_TIN_CHI->value],
-                        'condition' => $row[StudentAttributesEnum::DIEU_KIEN_TRONG_DANH_MUC_CTDT->value],
-                        'note' => $row[StudentAttributesEnum::GHI_CHU->value],
-                        'email' => $row[StudentAttributesEnum::EMAIL->value],
-                        'phone' => $row[StudentAttributesEnum::SO_DIEN_THOAI->value],
-                    ]);
-                }
+                Student::query()->updateOrCreate([
+                    'campaign_id' => $this->campaignId,
+                    'code' => $row[StudentAttributesEnum::MA_SV->value],
+                ], [
+                    'name' => $row[StudentAttributesEnum::HO_DEM->value] . ' ' . $row[StudentAttributesEnum::TEN->value],
+                    'course_id' => $course->id,
+                    'campaign_id' => $this->campaignId,
+                    'code' => $row[StudentAttributesEnum::MA_SV->value],
+                    'dob' => Carbon::createFromFormat('d/m/y', $row[StudentAttributesEnum::NGAY_SINH->value]),
+                    'class' => $row[StudentAttributesEnum::LOP->value],
+                    'credit' => $row[StudentAttributesEnum::SO_TIN_CHI->value],
+                    'condition' => $row[StudentAttributesEnum::DIEU_KIEN_TRONG_DANH_MUC_CTDT->value],
+                    'note' => $row[StudentAttributesEnum::GHI_CHU->value],
+                    'email' => $row[StudentAttributesEnum::EMAIL->value],
+                    'phone' => $row[StudentAttributesEnum::SO_DIEN_THOAI->value],
+                ]);
 
             }
             DB::commit();
