@@ -83,11 +83,11 @@ class InternShipRegisterInfo extends Component
         $this->campaignId = $campaignId;
         $campaign = Campaign::query()->find($campaignId);
         $this->countMember = $campaign->max_student_group;
-
-        foreach ([$this->code, ...$this->studentChecked] as $value) {
-            $this->dataStudent[$value] = [
-                'email' => '',
-                'phone' => '',
+        $students = Student::query()->whereIn('code', [$this->code, ...$this->studentChecked])->where('campaign_id', $this->campaignId)->get();
+        foreach ($students as $student) {
+            $this->dataStudent[$student->code] = [
+                'email' => $student->email,
+                'phone' => $student->phone,
                 'phone_family' => '',
                 'internship_company' => ''
             ];
@@ -141,7 +141,11 @@ class InternShipRegisterInfo extends Component
 
     public function preStep()
     {
-        $this->dispatch('preStepTwo')->to(InternShipRegister::class);
+        if ($this->countMember <= 1) {
+            $this->dispatch('preStepOne')->to(InternShipRegister::class);
+        } else {
+            $this->dispatch('preStepTwo')->to(InternShipRegister::class);
+        }
     }
 
     public function nextPreview()
