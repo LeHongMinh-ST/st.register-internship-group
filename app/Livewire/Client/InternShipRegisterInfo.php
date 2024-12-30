@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\GroupStudent;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -69,9 +70,14 @@ class InternShipRegisterInfo extends Component
             ->where('campaign_id', $this->campaignId)->get();
         $campaign = Campaign::find($this->campaignId);
 
+        $teachers = Teacher::query()
+        ->orderBy('name')
+        ->get();
+
         return view('livewire.client.intern-ship-register-info', [
             'students' => $students,
             'campaign' => $campaign,
+            'teachers' => $teachers,
         ]);
     }
 
@@ -99,9 +105,21 @@ class InternShipRegisterInfo extends Component
         $this->validate();
         DB::beginTransaction();
         try {
+
+            $supervisorName = null;
+            if ($this->supervisor !== 'none' && $this->supervisor !== '') {
+                $teacher = Teacher::where('code', $this->supervisor)->first();
+                if ($teacher) {
+                    $supervisorName = $teacher->name;
+                }
+            }
+
+            $teacher = Teacher::where('code', $this->supervisor)->first();
+
             $group = Group::create([
                 'topic' => $this->topic,
-                'supervisor' => $this->supervisor,
+                // 'supervisor' => $this->supervisor,
+                'supervisor' => $supervisorName ,
                 'campaign_id' => $this->campaignId
             ]);
 
