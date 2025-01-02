@@ -118,13 +118,42 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label class="col-form-label col-lg-3">Giáo viên đã nhận hướng dẫn
-                                </label>
+                            {{-- <div class="row mb-3">
+                                <label class="col-form-label col-lg-3">Giáo viên hướng dẫn đã nhận sinh viên</label>
                                 <div class="col-lg-9">
-                                    <input type="text" wire:model.live="supervisor" class="form-control">
+                                    <select wire:model.live="supervisor" class="form-select">
+                                        <option value="">-- Chọn giảng viên --</option>
+                                        @foreach($teachers as $teacher)
+                                            <option value="{{ $teacher->code }}">
+                                                {{ $teacher->name }}    
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('supervisor')
+                                        <label class="validation-error-label text-danger">{{ $message }}</label>
+                                    @enderror
                                 </div>
-                            </div>
+                            </div> --}}
+                            <div class="row mb-3">
+                                <label class="col-form-label col-lg-3">Giáo viên hướng dẫn đã nhận sinh viên</label>
+                                <div class="col-lg-9">
+                                    <select wire:model.live="supervisor" class="form-select">
+                                        <option value="">-- Chọn giảng viên hướng dẫn --</option>
+                                        <option value="none">Chưa có giảng viên hướng dẫn</option>
+                                        @foreach($teachers as $teacher)
+                                            <option value="{{ $teacher->code }}" 
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="right" 
+                                                title="Hướng đề tài: {{ $teacher->topic }}&#10;Mô tả: {{ $teacher->description }}">
+                                                {{ $teacher->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('supervisor')
+                                        <label class="validation-error-label text-danger">{{ $message }}</label>
+                                    @enderror
+                                </div>
+                            </div>                          
                         </div>
                     </form>
                 </div>
@@ -145,3 +174,6 @@
 
     </div>
 </div>
+
+
+

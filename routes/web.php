@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\EditGroupController;
 use App\Http\Controllers\Client\RegisterController;
@@ -37,9 +38,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
 
     });
 
-    Route::prefix('users')->group(function (): void {
-        Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+    // Route::prefix('users')->group(function (): void {
+    //     Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
 
+    // });
+
+    Route::prefix('teachers')->group(function (): void {
+        Route::get('/', [TeacherController::class, 'index'])->name('admin.teachers.index');
+        Route::get('/download-template-teacher', [TeacherController::class, 'downloadTemplateTeacher'])->name('admin.teachers.downloadTemplateTeacher');
+        Route::get('/edit', [TeacherController::class, 'edit'])->name('admin.teachers.edit');
     });
 
     Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
