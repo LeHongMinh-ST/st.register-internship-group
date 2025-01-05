@@ -128,7 +128,7 @@
                                         Yêu cầu chỉnh sửa
                                     </button>
 
-                                    <button wire:loading.removeclass="btn btn-primary" wire:click="sendMailEdit">
+                                    <button wire:loading.remove class="btn btn-primary" wire:click="sendMailEdit">
                                         <i class="ph-paper-plane-tilt"></i>
                                         Yêu cầu chỉnh sửa
                                     </button>

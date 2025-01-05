@@ -8,6 +8,8 @@ use App\Models\Student;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use App\Models\Teacher;
+use App\Models\Company;
 
 class InternShipRegister extends Component
 {
@@ -90,8 +92,20 @@ class InternShipRegister extends Component
     {
         $campaign = Campaign::find($this->campaignId);
 
+        $teachers = Teacher::query()
+        ->where('status', \App\Enums\TeacherStatusEnum::Accept->value) 
+        ->orderBy('name')
+        ->get();
+
+        $companies = Company::query()
+        ->where('status', \App\Enums\RecruitmentStatusEnum::Open->value) 
+        ->orderBy('name')
+        ->get();
+
         return view('livewire.client.intern-ship-register', [
             'campaign' => $campaign,
+            'teachers' => $teachers,
+            'companies' => $companies,
         ]) ;
     }
 

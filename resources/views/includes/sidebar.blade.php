@@ -27,8 +27,8 @@
         <!-- Main navigation -->
         <div class="sidebar-section">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-                <li class="pt-0 nav-item-header">
-                    <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Vòng quay - Chiến dịch</div>
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Vòng quay - Chiến dịch</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
@@ -51,8 +51,8 @@
                     </a>
                 </li> --}}
 
-                <li class="pt-0 nav-item-header">
-                    <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý giảng viên</div>
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý giảng viên</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
@@ -60,6 +60,18 @@
                        class="nav-link {{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
                         <i class="ph-user"></i>
                         <span>Giảng viên</span>
+                    </a>
+                </li>
+
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý công ty thực tập</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.companies.index')}}"
+                       class="nav-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
+                        <i class="ph-briefcase"></i>
+                        <span>Công ty thực tập</span>
                     </a>
                 </li>
             </ul>

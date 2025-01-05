@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\EditGroupController;
 use App\Http\Controllers\Client\RegisterController;
 use App\Http\Controllers\Client\ResearchController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
         Route::get('/', [TeacherController::class, 'index'])->name('admin.teachers.index');
         Route::get('/download-template-teacher', [TeacherController::class, 'downloadTemplateTeacher'])->name('admin.teachers.downloadTemplateTeacher');
         Route::get('/edit', [TeacherController::class, 'edit'])->name('admin.teachers.edit');
+    });
+
+    Route::prefix('companies')->group(function (): void {
+        Route::get('/', [CompanyController::class, 'index'])->name('admin.companies.index');
+        Route::get('/create', [CompanyController::class, 'create'])->name('admin.companies.create');
+        Route::get('/edit/{id}', [CompanyController::class, 'edit'])->name('admin.companies.edit'); 
     });
 
     Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
