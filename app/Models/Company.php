@@ -5,20 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class Company extends Model
 {
-    protected $fillable = ['code', 'name', 'email', 'phone', 'topic', 'description', 'status'];
-
-
     use HasFactory;
+    protected $fillable = ['name', 'email', 'phone', 'address', 'status', 'description'];
 
     public function scopeSearch($query, $search)
     {
         if ($search) {
             $query->where('name', 'like', '%' . $search . '%')
-                ->orWhere('code', 'like', '%' . $search . '%');
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('phone', 'like', '%' . $search . '%')
+                ->orWhere('address', 'like', '%' . $search . '%');
         }
 
         return $query;
     }
+
 }

@@ -71,6 +71,7 @@ class InternShipRegisterInfo extends Component
         $campaign = Campaign::find($this->campaignId);
 
         $teachers = Teacher::query()
+        ->where('status', \App\Enums\TeacherStatusEnum::Accept->value) 
         ->orderBy('name')
         ->get();
 
@@ -120,7 +121,8 @@ class InternShipRegisterInfo extends Component
                 'topic' => $this->topic,
                 // 'supervisor' => $this->supervisor,
                 'supervisor' => $supervisorName ,
-                'campaign_id' => $this->campaignId
+                'campaign_id' => $this->campaignId,
+                // 'teacher_id' => $teacher ? $teacher->id : null,
             ]);
 
             foreach ($this->dataStudent as $code =>  $item) {

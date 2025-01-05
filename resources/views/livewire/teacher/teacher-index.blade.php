@@ -1,25 +1,10 @@
 <div xmlns:livewire="http://www.w3.org/1999/html">
     <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-9 col-12">
-                    <h6 class="fw-semibold">Quản lý thực tập nghề nghiệp</h6>
-                    <p class="mb-3"><b>Số nhóm sinh viên tối đa GVHD được nhận</b>: 8</p>
-                </div>
-                <div class="col-md-3 col-12 d-flex justify-content-end gap-2">
-                    <a href="{{route('admin.teachers.edit')}}" type="button" class="btn btn-primary d-block" style="height: max-content"><i class="ph-note-pencil"></i> Chỉnh sửa</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
             <div class="gap-2 d-flex">
                 <div>
-                    <input wire:model.live="search" type="text" name="q" 
-                                        class="form-control" 
-                                        placeholder="Tìm kiếm..."
-                                        id="user-search-input">
+                    <input wire:model.live="search" type="text" name="q" class="form-control"
+                        placeholder="Tìm kiếm..." id="user-search-input">
                 </div>
             </div>
 
@@ -47,6 +32,8 @@
                         <th>Số điện thoại</th>
                         <th>Hướng đề tài</th>
                         <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +59,36 @@
                             </td>
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 {{ $teacher->description ?: 'Chưa có' }}
+                            </td>
+                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                                @if ($teacher->status === \App\Enums\TeacherStatusEnum::Refuse->value)
+                                    <span class="badge bg-danger bg-opacity-20 text-danger">
+                                        {{ \App\Enums\TeacherStatusEnum::Refuse->description() }}
+                                    </span>
+                                @elseif($teacher->status === \App\Enums\TeacherStatusEnum::Accept->value)
+                                    <span class="badge bg-success bg-opacity-20 text-success">
+                                        {{ \App\Enums\TeacherStatusEnum::Accept->description() }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                        <i class="ph-list"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <button type="button" wire:click="accept({{ $teacher->id }})"
+                                            class="dropdown-item text-success">
+                                            <i class="ph-check-circle me-2"></i>
+                                            Nhận lời
+                                        </button>
+                                        <button type="button" wire:click="refuse({{ $teacher->id }})"
+                                            class="dropdown-item text-warning">
+                                            <i class="ph-x-circle me-2"></i>
+                                            Từ chối
+                                        </button>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @empty

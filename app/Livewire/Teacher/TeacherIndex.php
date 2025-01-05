@@ -6,12 +6,14 @@ use Livewire\Component;
 use App\Models\Teacher;
 use App\Common\Constants;
 use Livewire\WithPagination;
+use App\Enums\TeacherStatusEnum;
 
 
 class TeacherIndex extends Component
 {
     use WithPagination;
     public $search;
+    public $teacherId;
 
     protected $listeners = [
         'refresh-teacher' => '$refresh'
@@ -36,5 +38,23 @@ class TeacherIndex extends Component
     public function openImportTeacherModal()
     {
         $this->dispatch('open-import-teacher-modal');
+    }
+
+    public function accept($teacherId): void
+    {
+        $teacher = Teacher::find($teacherId);
+        if ($teacher) {
+            $teacher->status = TeacherStatusEnum::Accept->value;
+            $teacher->save();
+        }
+    }
+
+    public function refuse($teacherId): void
+    {
+        $teacher = Teacher::find($teacherId);
+        if ($teacher) {
+            $teacher->status = TeacherStatusEnum::Refuse->value;
+            $teacher->save();
+        }
     }
 }

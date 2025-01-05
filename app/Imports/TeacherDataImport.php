@@ -28,28 +28,33 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
         DB::beginTransaction();
         try {
             foreach ($collection as $row) {
+                if (empty($row['ma_giang_vien']) || empty($row['ten_giang_vien'])) {
+                    continue;
+                }
                 $teacher = Teacher::query()->where('code', $row['ma_giang_vien'])->first();
 
                 $dataTeacher = [
                     'code' => $row['ma_giang_vien'], 
                     'name' => $row['ten_giang_vien'], 
+                    'topic' => $row['huong_de_tai'] ?? null,
+                    'description' => $row['mo_ta'] ?? null,
                 ];
 
                 if (!empty($row['email'])) {
-                    $dataTeacher['email'] = $row['email'];
+                    $dataTeacher['email'] = $row['email'] ?? null;
                 }
 
                 if (!empty($row['so_dien_thoai'])) {
-                    $dataTeacher['phone'] = $row['so_dien_thoai'];
+                    $dataTeacher['phone'] = $row['so_dien_thoai'] ?? null;
                 }
 
-                if (!empty($row['huong_de_tai'])) {
-                    $dataTeacher['topic'] = $row['huong_de_tai'];
-                }
+                // if (!empty($row['huong_de_tai'])) {
+                //     $dataTeacher['topic'] = $row['huong_de_tai'] ?? null;
+                // }
 
-                if (!empty($row['mo_ta'])) {
-                    $dataTeacher['description'] = $row['mo_ta'];
-                }
+                // if (!empty($row['mo_ta'])) {
+                //     $dataTeacher['description'] = $row['mo_ta'] ?? null;
+                // }
 
                 if (!$teacher) {
                     Teacher::create($dataTeacher);
@@ -68,13 +73,13 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
         }
     }
 
-    public function startRow(): int
-    {
-        return self::START_ROW;
-    }
+    // public function startRow(): int
+    // {
+    //     return self::START_ROW;
+    // }
 
-    public function headingRow(): int
-    {
-        return self::HEADER_INDEX;
-    }
+    // public function headingRow(): int
+    // {
+    //     return self::HEADER_INDEX;
+    // }
 }
