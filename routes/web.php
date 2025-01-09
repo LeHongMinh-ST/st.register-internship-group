@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\EditGroupController;
@@ -38,6 +39,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
         Route::get('/{campaign}/edit', [CampaignController::class, 'edit'])->name('admin.campaigns.edit');
 
     });
+    Route::prefix('plans')->group(function (): void {
+        Route::get('/', [PlanController::class, 'index'])->name('admin.plans.index');
+        Route::get('/create', [PlanController::class, 'create'])->name('admin.plans.create');
+        Route::get('/{plan}', [PlanController::class, 'show'])->name('admin.plans.show');
+        Route::get('/{plan}/edit', [PlanController::class, 'edit'])->name('admin.plans.edit');
+        Route::get('/{plan}/detail/create', [PlanController::class, 'createPlanDetail'])->name('admin.plans.createPlanDetail');
+        Route::get('/{planDetail}/detail/edit', [PlanController::class, 'editPlanDetail'])->name('admin.plans.editPlanDetail');
+    });
 
     // Route::prefix('users')->group(function (): void {
     //     Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
@@ -53,10 +62,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
     Route::prefix('companies')->group(function (): void {
         Route::get('/', [CompanyController::class, 'index'])->name('admin.companies.index');
         Route::get('/create', [CompanyController::class, 'create'])->name('admin.companies.create');
-        Route::get('/edit/{id}', [CompanyController::class, 'edit'])->name('admin.companies.edit'); 
+        Route::get('/edit/{id}', [CompanyController::class, 'edit'])->name('admin.companies.edit');
     });
 
-    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
+//    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
 });
 Route::get('internship/{campaign}/register', [RegisterController::class, 'index'])->name('internship.register');
 Route::get('internship/{campaign}/research', [ResearchController::class, 'index'])->name('internship.research');
