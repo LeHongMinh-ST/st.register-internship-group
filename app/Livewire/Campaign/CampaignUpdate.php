@@ -4,6 +4,7 @@ namespace App\Livewire\Campaign;
 
 use App\Common\Constants;
 use App\Models\Campaign;
+use App\Models\Plan;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -30,17 +31,23 @@ class CampaignUpdate extends Component
 
     public string  $official_end = '';
 
+    public int|string|null $planId;
+
     public bool $isLoading = false;
 
     protected $listeners = [
         'update-start-date' => 'updateStartDate',
         'update-end-date' => 'updateEndDate',
         'update-official-end-date' => 'updateOfficialEndDate',
+        'selectedPlan' => 'updatePlan'
     ];
 
     public function render()
     {
-        return view('livewire.campaign.campaign-update');
+        $planTemplates = Plan::all();
+        return view('livewire.campaign.campaign-update')->with([
+            'planTemplates' => $planTemplates
+        ]);
     }
 
     public function mount($id)
@@ -52,6 +59,7 @@ class CampaignUpdate extends Component
         $this->end = Carbon::make($campaign->end)->format(Constants::FORMAT_DATE);
         $this->official_end = Carbon::make($campaign->official_end ?? now())->format(Constants::FORMAT_DATE);
         $this->max_student_group = $campaign->max_student_group;
+        $this->planId = $campaign->plan_template_id;
     }
 
     public function rules(): array
@@ -103,6 +111,10 @@ class CampaignUpdate extends Component
         $this->official_end = str_replace('/', '-', $value);
     }
 
+    public function updatePlan($id): void
+    {
+        $this->planId = $id;
+    }
 
     public function submit(): RedirectResponse|Redirector|null
     {
@@ -120,7 +132,8 @@ class CampaignUpdate extends Component
                     'start' => Carbon::make($this->start),
                     'end' => Carbon::make($this->end),
                     'official_end' => Carbon::make($this->official_end),
-                    'max_student_group' => $this->max_student_group
+                    'max_student_group' => $this->max_student_group,
+                    'plan_template_id' => $this->planId ?? null,
                 ]);
                 $this->dispatch('alert', type: 'success', message: 'Cập nhật thành công!');
             } catch (Exception $e) {

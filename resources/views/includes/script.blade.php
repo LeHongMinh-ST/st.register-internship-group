@@ -15,6 +15,9 @@
 <script src="{{ asset('assets/js/vendor/ui/fullcalendar/main.min.js') }}"></script>
 <script src="{{ asset('assets/js/html2canvas.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/editors/ckeditor/ckeditor_classic.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+
 
 {{--<!-- /theme JS files -->--}}
 
