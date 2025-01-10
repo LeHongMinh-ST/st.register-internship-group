@@ -53,7 +53,7 @@ class ClientResearch extends Component
     {
         $campaign = Campaign::find($this->campaignId);
         $plans = PlanDetail::query()
-            ->where('plan_template_id', $campaign->planTemplate->id)
+            ->where('plan_template_id', $campaign->planTemplate->id ?? null)
             ->paginate(Constants::PER_PAGE_ADMIN);
         return view('livewire.client.client-research', [
             'campaign' => $campaign,

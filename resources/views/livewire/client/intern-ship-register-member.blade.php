@@ -9,16 +9,36 @@
             <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
         </div>
 
-        <div class="mb-3">
-            <div class="bold mb-2">Nhóm sinh viên: {{ $student->name }} - Mã sinh viên: {{ $student->code }} -
-                Lớp: {{ $student->class }}</div>
-            <div class="mb-2">Đăng ký học phần <b>{{ $student->course->name }}</b> - <b>{{ $student->course->code }}</b>
+        <div class="mb-3 d-flex flex-column flex-md-row justify-content-between align-items-start">
+            <div>
+                <div class="bold mb-2">
+                    Nhóm sinh viên: {{ $student->name }} - Mã sinh viên: {{ $student->code }} - Lớp: {{ $student->class }}
+                </div>
+                <div class="mb-2">
+                    Đăng ký học phần <b>{{ $student->course->name }}</b> - <b>{{ $student->course->code }}</b>
+                </div>
+                <div class="mb-2">
+                    Số lượng thành viên trong nhóm: {{ count($studentChecked) + 1 }} (Tối đa {{$countMember}} thành viên)
+                </div>
             </div>
-            <div class="mb-2">
-                Số thành lượng thành viên trong nhóm: {{ count($studentChecked) + 1}} (Tối đa {{$countMember}} thành
-                viên)
+            <div class="mt-2 mt-md-0">
+                <div class="dropdown">
+                    <button class="btn btn-success" href="#" class="text-body" data-bs-toggle="dropdown">
+                        <i class="ph-list-checks"></i> &nbsp; Danh sách GVHD & công ty thực tập
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <button type="button" class="dropdown-item text-success" data-bs-toggle="modal" data-bs-target="#teachersModal">
+                            <i class="ph-chalkboard-teacher"></i> &nbsp; Danh sách giảng viên
+                        </button>
+                        <button type="button" class="dropdown-item text-primary" data-bs-toggle="modal" data-bs-target="#companiesModal">
+                            <i class="ph-briefcase"></i> &nbsp; Danh sách công ty thực tập
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+        
+
 
         <div class="card">
             <div class="py-3 card-header d-flex justify-content-between align-items-center">

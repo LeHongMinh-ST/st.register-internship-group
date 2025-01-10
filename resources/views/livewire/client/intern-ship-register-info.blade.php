@@ -99,15 +99,24 @@
             </div>
 
             <div class="card">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Thông tin đề tài và giáo viên hướng dẫn</h5>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teachersModal">
-                            <i class="ph-chalkboard-teacher"></i> Danh sách giảng viên
-                        </button>                        
+                <div>
+                    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                        <h5 class="mb-2 mb-md-0">Thông tin đề tài và giáo viên hướng dẫn</h5>
+                        <div class="dropdown mt-2 mt-md-0">
+                            <button class="btn btn-success w-100 w-md-auto text-white" data-bs-toggle="dropdown">
+                                <i class="ph-list-checks"></i> &nbsp; GVHD & công ty thực tập
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <button type="button" class="dropdown-item text-success" data-bs-toggle="modal" data-bs-target="#teachersModal">
+                                    <i class="ph-chalkboard-teacher"></i> &nbsp; Danh sách giảng viên
+                                </button>
+                                <button type="button" class="dropdown-item text-primary" data-bs-toggle="modal" data-bs-target="#companiesModal">
+                                    <i class="ph-briefcase"></i> &nbsp; Danh sách công ty thực tập
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 
                 <div class="card-body">
                     <form class="form-validate-jquery" action="#">

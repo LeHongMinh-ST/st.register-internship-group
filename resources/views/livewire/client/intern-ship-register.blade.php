@@ -57,19 +57,6 @@
                             </div>
 
                             <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 d-flex justify-content-between align-items-center">
-                                <div class="dropdown">
-                                    <button class="btn btn-success" href="#" class="text-body" data-bs-toggle="dropdown">
-                                        <i class="ph-puzzle-piece"></i> &nbsp; Tiện ích
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <button type="button" class="dropdown-item text-success" data-bs-toggle="modal" data-bs-target="#teachersModal">
-                                            <i class="ph-chalkboard-teacher"></i> &nbsp; Danh sách giảng viên
-                                        </button>
-                                        <button type="button" class="dropdown-item text-primary" data-bs-toggle="modal" data-bs-target="#companiesModal">
-                                            <i class="ph-briefcase"></i> &nbsp; Danh sách công ty thực tập
-                                        </button>
-                                    </div>
-                                </div>
                                 <button wire:loading wire:target="nextStepTwo" type="button" class="btn btn-primary">
                                     Đăng ký &nbsp;
                                     <i class="ph-circle-notch spinner"></i>
