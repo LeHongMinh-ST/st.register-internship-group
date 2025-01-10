@@ -117,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card-body">
                     <form class="form-validate-jquery" action="#">
                         <div class="mb-4">
@@ -133,12 +133,11 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label class="col-form-label col-lg-3">Giáo viên hướng dẫn đã nhận lời</label>
-                                <div class="col-lg-9">
-                                    <select wire:model.live="supervisor" class="form-select">
-                                        <option value="">-- Chọn giảng viên hướng dẫn --</option>
-                                        <option value="none">Chưa có giảng viên hướng dẫn</option>
+                            <div class="row mb-3" wire:ignore>
+                                <label class="col-form-label col-lg-3">Giáo viên hướng dẫn đã nhận</label>
+                                <div class="col-lg-9 container-teacher">
+                                    <select wire:model="supervisor" class="form-select" id="teacher">
+                                        <option value=""></option>
                                         @foreach ($teachers as $teacher)
                                             <option value="{{ $teacher->code }}">
                                                 {{ $teacher->name }}
@@ -171,3 +170,15 @@
 
     </div>
 </div>
+
+@script
+<script>
+    $('#teacher').select2({
+        placeholder: 'Chọn giảng viên hướng dẫn đã nhận',
+        allowClear: true,
+        dropdownParent: $('.container-teacher')
+    }).change(function (e) {
+        Livewire.dispatch('updateSupervisor', [$(this).val()]);
+    });
+</script>
+@endscript
