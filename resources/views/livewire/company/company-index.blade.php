@@ -54,12 +54,12 @@
                                         <button type="button" wire:click="openRecruitment({{ $company->id }})"
                                             class="dropdown-item text-success">
                                             <i class="ph-check-circle me-2"></i>
-                                            Mở tuyển dụng
+                                            Nhận thực tập
                                         </button>
                                         <button type="button" wire:click="cancelRecruitment({{ $company->id }})"
                                             class="dropdown-item text-warning">
                                             <i class="ph-x-circle me-2"></i>
-                                            Ngưng tuyển dụng
+                                            Tạm dừng
                                         </button>
 
                                         <button type="button" wire:click="showCompanyDetail({{ $company->id }})"
