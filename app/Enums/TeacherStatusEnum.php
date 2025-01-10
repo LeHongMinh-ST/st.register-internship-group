@@ -14,8 +14,8 @@ enum TeacherStatusEnum: string
     public function description(): string
     {
         return match ($this) {
-            self::Accept => 'Nhận lời',
-            self::Refuse => 'Từ chối',
+            self::Accept => 'Hướng dẫn',
+            self::Refuse => 'Tạm dừng',
         };
     }
 

@@ -28,10 +28,9 @@
                         <th class="w-10px">STT</th>
                         <th class="w-10px">Mã giảng viên</th>
                         <th>Tên giảng viên</th>
+                        <th>Bộ môn</th>
                         <th>Email</th>
                         <th>Số điện thoại</th>
-                        <th>Hướng đề tài</th>
-                        <th>Mô tả</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
@@ -46,7 +45,12 @@
                                 {{ $teacher->code ?: 'Chưa có' }}
                             </td>
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
-                                {{ $teacher->name ?: 'Chưa có' }}
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#st{{ $teacher->id }}">
+                                    {{ $teacher->name ?: 'Chưa có' }}
+                                </a>
+                            </td>
+                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                                {{ $teacher->department ?: 'Chưa có' }}
                             </td>
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 {{ $teacher->email ?: 'Chưa có' }}
@@ -54,12 +58,12 @@
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 {{ $teacher->phone ?: 'Chưa có' }}
                             </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                            {{-- <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 {{ $teacher->topic ?: 'Chưa có' }}
                             </td>
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 {{ $teacher->description ?: 'Chưa có' }}
-                            </td>
+                            </td> --}}
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 @if ($teacher->status === \App\Enums\TeacherStatusEnum::Refuse->value)
                                     <span class="badge bg-danger bg-opacity-20 text-danger">
@@ -80,12 +84,12 @@
                                         <button type="button" wire:click="accept({{ $teacher->id }})"
                                             class="dropdown-item text-success">
                                             <i class="ph-check-circle me-2"></i>
-                                            Nhận lời
+                                            Nhận hướng dẫn
                                         </button>
                                         <button type="button" wire:click="refuse({{ $teacher->id }})"
                                             class="dropdown-item text-warning">
                                             <i class="ph-x-circle me-2"></i>
-                                            Từ chối
+                                            Tạm dừng 
                                         </button>
                                     </div>
                                 </div>
@@ -100,6 +104,9 @@
     </div>
     {{ $teachers->links('vendor.pagination.groups-official') }}
     <livewire:teacher.teacher-import />
+    {{-- @foreach($teachers as $teacher)
+        <livewire:teacher.teacher-modal :id="$teacher->id"/>
+    @endforeach --}}
 </div>
 
 @script
