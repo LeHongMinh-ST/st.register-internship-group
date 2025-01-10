@@ -38,6 +38,8 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
                     'name' => $row['ten_giang_vien'], 
                     'topic' => $row['huong_de_tai'] ?? null,
                     'description' => $row['mo_ta'] ?? null,
+                    'status' => 'accept',
+                    'department' => $row['bo_mon'],
                 ];
 
                 if (!empty($row['email'])) {

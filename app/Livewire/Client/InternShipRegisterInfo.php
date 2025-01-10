@@ -32,6 +32,10 @@ class InternShipRegisterInfo extends Component
 
     public array $dataStudent = [];
 
+    protected $listeners = [
+        'updateSupervisor' => 'updateSupervisor',
+    ];
+
     public function updated($field): void
     {
         $this->resetValidation($field);
@@ -71,7 +75,7 @@ class InternShipRegisterInfo extends Component
         $campaign = Campaign::find($this->campaignId);
 
         $teachers = Teacher::query()
-        ->where('status', \App\Enums\TeacherStatusEnum::Accept->value) 
+        ->where('status', \App\Enums\TeacherStatusEnum::Accept->value)
         ->orderBy('name')
         ->get();
 
@@ -99,6 +103,11 @@ class InternShipRegisterInfo extends Component
                 'internship_company' => ''
             ];
         }
+    }
+
+    public function updateSupervisor($value)
+    {
+        $this->supervisor = $value;
     }
 
     public function nextStepFinish()
