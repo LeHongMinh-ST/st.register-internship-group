@@ -65,6 +65,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
         Route::get('/edit/{id}', [CompanyController::class, 'edit'])->name('admin.companies.edit');
     });
 
+    Route::prefix('company-campaign')->group(function (): void {
+        Route::get('/', [CompanyController::class, 'companyCampaignIndex'])->name('admin.company-campaign.index');
+    });
+
 //    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
 });
 Route::get('internship/{campaign}/register', [RegisterController::class, 'index'])->name('internship.register');

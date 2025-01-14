@@ -51,7 +51,7 @@
                 Hành động
             </div>
             <div class="card-body d-flex justify-content-center gap-3">
-                <button class="btn btn-primary flex-fill" wire:click="submit"><i class="ph-floppy-disk"></i> Chỉnh sửa</button>
+                <button class="btn btn-primary flex-fill" wire:click="submit"><i class="ph-floppy-disk"></i> Lưu</button>
                 <a href="{{ route('admin.plans.show', $planId) }}" type="button" class="btn btn-warning flex-fill"><i class="ph-arrow-counter-clockwise"></i> Trở lại</a>
             </div>
         </div>

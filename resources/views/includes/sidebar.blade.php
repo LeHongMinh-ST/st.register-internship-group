@@ -28,7 +28,7 @@
         <div class="sidebar-section">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <li class="nav-item-header">
-                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Vòng quay - Chiến dịch</div>
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Đợt đăng ký</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
@@ -82,7 +82,14 @@
                     <a href="{{route('admin.companies.index')}}"
                        class="nav-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
                         <i class="ph-briefcase"></i>
-                        <span>Công ty thực tập</span>
+                        <span>Danh sách công ty thực tập</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.company-campaign.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.company-campaign.*') ? 'active' : '' }}">
+                        <i class="ph-folder-open"></i>
+                        <span>Phân công công ty theo đợt</span>
                     </a>
                 </li>
             </ul>

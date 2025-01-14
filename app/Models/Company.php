@@ -4,11 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Company extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'email', 'phone', 'address', 'status', 'description'];
+
+    public function campaigns(): BelongsToMany
+    {
+        return $this->belongsToMany(Campaign::class, 'campaign_company')
+            ->withPivot([
+                'amount',
+                'job_description',
+                'amount_recruited',
+            ]);
+    }
 
     public function scopeSearch($query, $search)
     {

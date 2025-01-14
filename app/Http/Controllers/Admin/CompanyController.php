@@ -21,4 +21,9 @@ class CompanyController extends Controller
     {
         return view('pages.company.edit');
     }
+
+    public function companyCampaignIndex()
+    {
+        return view('pages.company-campaign.index');
+    }
 }

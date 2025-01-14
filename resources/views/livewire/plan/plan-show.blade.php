@@ -10,7 +10,7 @@
             <div class="gap-3 d-flex">
                 <div>
                     <a href="{{ route('admin.plans.createPlanDetail', $planId) }}" type="button" class="btn btn-success btn-icon px-2">
-                        <i class="ph-calendar-plus px-1"></i><span>Thêm mới</span>
+                        <i class="ph-calendar-plus px-1"></i><span>Thêm công việc</span>
                     </a>
                     <button type="button" class="px-2 btn btn-light btn-icon" wire:click="$refresh">
                         <i class="px-1 ph-arrows-clockwise"></i><span>Tải lại</span>
