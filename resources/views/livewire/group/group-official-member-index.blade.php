@@ -14,7 +14,7 @@
                 <th>Số điện thoại</th>
                 <th>Số điện thoại phụ huynh</th>
                 <th>Công ty thực tập</th>
-                <th>Cán bộ huướng dẫn</th>
+                <th>Cán bộ hướng dẫn</th>
             </tr>
             </thead>
             <tbody>

@@ -36,6 +36,9 @@ class GroupOfficial extends Model
             $query->whereHas('students', function ($q) use ($search) {
                 $q->where('name', 'like', '%'.$search.'%')
                     ->orWhere('code', 'like', '%'.$search.'%');
+            })
+            ->orWhereHas('teacher', function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%');
             });
         }
 
