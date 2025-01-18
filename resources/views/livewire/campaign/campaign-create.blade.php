@@ -11,10 +11,9 @@
                         <label for="name" class="col-form-label">
                             Tên <span class="required">*</span>
                         </label>
-                        <input wire:model.live="name" type="text" id="name" class="form-control">
+                        <input wire:model.live="name" type="text" id="name" class="form-control @error('name') is-invalid @enderror">
                         @error('name')
-                        <label id="error-name" class="validation-error-label text-danger"
-                               for="name">{{ $message }}</label>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -63,6 +62,7 @@
                 </div>
             </div>
         </div>
+
         <div class="card">
             <div class="card-header bold">
                 <i class="ph-user"></i>
@@ -74,13 +74,27 @@
                         <label for="max_student_group" class="col-form-label">
                             Số lượng thành viên tối đa <span class="required">*</span>
                         </label>
-                        <input wire:model.live="max_student_group" type="number" id="max_student_group" class="form-control">
+                        <input wire:model.live="max_student_group" type="number" id="max_student_group" class="form-control @error('max_student_group') is-invalid @enderror">
                         @error('max_student_group')
-                        <label id="error-max_student_group" class="validation-error-label text-danger"
-                               for="max_student_group">{{ $message }}</label>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="card container-plan-template" wire:ignore>
+            <div class="card-header bold">
+                <i class="ph-calendar"></i>
+                Mẫu kế hoạch
+            </div>
+            <div class="card-body">
+                <select id="planTemplate" class="form-select">
+                    <option value=""></option>
+                    @foreach($planTemplates as $planTemplate)
+                        <option value="{{ $planTemplate->id }}">{{ $planTemplate->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
@@ -91,9 +105,9 @@
                 <i class="ph-gear-six"></i>
                 Hành động
             </div>
-            <div class="card-body d-flex align-items-center gap-1">
-                <button class="btn btn-primary" wire:click="submit"><i class="ph-floppy-disk"></i> Lưu</button>
-                <a href="{{route('admin.campaigns.index')}}" type="button" class="btn btn-warning"><i class="ph-arrow-counter-clockwise"></i> Trở lại</a>
+            <div class="card-body d-flex justify-content-center gap-3">
+                <button class="btn btn-primary flex-fill" wire:click="submit"><i class="ph-floppy-disk"></i> Lưu</button>
+                <a href="{{ route('admin.campaigns.index') }}" type="button" class="btn btn-warning flex-fill"><i class="ph-arrow-counter-clockwise"></i> Trở lại</a>
             </div>
         </div>
     </div>
@@ -139,6 +153,13 @@
             });
         }
 
+    });
+    $('#planTemplate').select2({
+        placeholder: 'Chọn mẫu kế hoạch',
+        allowClear: true,
+        dropdownParent: $('.container-plan-template')
+    }).change(function() {
+        Livewire.dispatch('selectedPlan', [$(this).val()]);
     });
 </script>
 @endscript

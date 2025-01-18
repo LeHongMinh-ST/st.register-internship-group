@@ -111,6 +111,30 @@
             </div>
         </div>
 
+        <div class="card container-plan-template" wire:ignore>
+            <div class="card-header bold">
+                <i class="ph-calendar"></i>
+                Mẫu kế hoạch
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <label for="planTemplate" class="col-form-label">
+                            Chọn mẫu kế hoạch
+                        </label>
+                    </div>
+                    <select id="planTemplate" class="form-select" wire:model="planId">
+                        <option value=""></option>
+                        @foreach($planTemplates as $planTemplate)
+                            <option value="{{ $planTemplate->id }}" {{ $planTemplate->id == $planId ? 'selected' : '' }}>
+                                {{ $planTemplate->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+        </div>
     </div>
     <div class="col-md-3 col-12">
         <div class="card">
@@ -118,9 +142,9 @@
                 <i class="ph-gear-six"></i>
                 Hành động
             </div>
-            <div class="card-body d-flex align-items-center gap-1">
-                <button class="btn btn-primary" wire:click="submit"><i class="ph-floppy-disk"></i> Lưu</button>
-                <a href="{{route('admin.campaigns.index')}}" type="button" class="btn btn-warning"><i class="ph-arrow-counter-clockwise"></i> Trở lại</a>
+            <div class="card-body d-flex justify-content-between gap-3">
+                <button class="btn btn-primary flex-fill" wire:click="submit"><i class="ph-floppy-disk"></i> Chỉnh sửa</button>
+                <a href="{{route('admin.campaigns.index')}}" type="button" class="btn btn-warning flex-fill"><i class="ph-arrow-counter-clockwise"></i> Trở lại</a>
             </div>
         </div>
     </div>
@@ -184,8 +208,14 @@
                 Livewire.dispatch('update-official-end-date', { value: formattedDate })
             });
         }
+    });
 
-
+    $('#planTemplate').select2({
+        placeholder: 'Chọn mẫu kế hoạch',
+        allowClear: true,
+        dropdownParent: $('.container-plan-template')
+    }).change(function() {
+        Livewire.dispatch('selectedPlan', [$(this).val()]);
     });
 </script>
 @endscript

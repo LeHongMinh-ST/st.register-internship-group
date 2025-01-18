@@ -68,11 +68,9 @@
         $('#model-import').modal('show')
     })
 
-
     window.addEventListener('close-import-modal', () => {
         $('#model-import').modal('hide')
     })
-
 
 </script>
 @endscript

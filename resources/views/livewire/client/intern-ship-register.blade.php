@@ -4,7 +4,7 @@
 <div class="content login-wrapper">
     <div class="card w-100">
         <div class="card-body">
-            @if($step == StepRegisterEnum::StepOne)
+            @if ($step == StepRegisterEnum::StepOne)
                 <div class="row login-row" wire:transition>
                     <div class="col-xl-6">
                         <div class="login-image-wrapper">
@@ -20,8 +20,8 @@
 
                             <div class="mb-3 text-center">
                                 <div class="gap-1 mt-2 mb-4 d-inline-flex align-items-center justify-content-center">
-                                    <img src="{{asset('assets/images/FITA.png')}}" class="h-64px" alt="">
-                                    <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
+                                    <img src="{{ asset('assets/images/FITA.png') }}" class="h-64px" alt="">
+                                    <img src="{{ asset('assets/images/logoST.jpg') }}" class="h-64px" alt="">
                                 </div>
                                 <span class="d-block text-muted">Đăng ký</span>
                                 <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
@@ -32,10 +32,10 @@
                                     Mã sinh viên <span class="required">*</span>
                                 </label>
                                 <input wire:model.live="code" type="text" id="name" value="{{ $code }}"
-                                       class="form-control">
+                                    class="form-control">
                                 @error('code')
-                                <label id="error-code" class="validation-error-label text-danger"
-                                       for="code">{{ $message }}</label>
+                                    <label id="error-code" class="validation-error-label text-danger"
+                                        for="code">{{ $message }}</label>
                                 @enderror
                             </div>
                             <div class="mb-3 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
@@ -47,73 +47,71 @@
                                         <i class="ph-calendar"></i>
                                     </span>
                                     <input wire:model="dob" type="text" id="dob" value="{{ $this->dob }}"
-                                           class="form-control datepicker-basic datepicker-input">
+                                        class="form-control datepicker-basic datepicker-input">
                                 </div>
 
                                 @error('dob')
-                                <label id="error-dob" class="validation-error-label text-danger"
-                                       for="dob">{{ $message }}</label>
+                                    <label id="error-dob" class="validation-error-label text-danger"
+                                        for="dob">{{ $message }}</label>
                                 @enderror
                             </div>
 
-                            <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
-                                <button wire:loading wire:target="nextStepTwo" type="button"
-                                        class="btn btn-primary">
+                            <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 d-flex justify-content-between align-items-center">
+                                <button wire:loading wire:target="nextStepTwo" type="button" class="btn btn-primary">
+                                    Đăng ký &nbsp;
                                     <i class="ph-circle-notch spinner"></i>
-                                    Đăng ký
                                 </button>
                                 <button wire:loading.remove wire:click="nextStepTwo()" type="button"
-                                        class="btn btn-primary">
+                                    class="btn btn-primary">
+                                    Đăng ký &nbsp;
                                     <i class="ph-arrow-circle-right"></i>
-                                    Đăng ký
                                 </button>
                             </div>
-
                             <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
-                                <a href="{{route('internship.research', $campaignId)}}" class="text-primary"><i
+                                <a href="{{ route('internship.research', $campaignId) }}" class="text-primary"><i
                                         class="ph-magnifying-glass"></i>Tra cứu thông tin nhóm</a>
                             </div>
                         </div>
                     </div>
                 </div>
             @endif
-            @if($step == StepRegisterEnum::StepTwo)
+            @if ($step == StepRegisterEnum::StepTwo)
                 <livewire:client.intern-ship-register-member :code="$code" :dob="$dob" :campaignId="$campaignId"
-                                                             :studentChecked="$studentChecked"/>
+                    :studentChecked="$studentChecked" />
             @endif
-            @if($step == StepRegisterEnum::StepThree)
+            @if ($step == StepRegisterEnum::StepThree)
                 <livewire:client.intern-ship-register-info :code="$code" :dob="$dob" :campaignId="$campaignId"
-                                                           :studentChecked="$studentChecked"/>
+                    :studentChecked="$studentChecked" />
             @endif
-            @if($step == StepRegisterEnum::StepFour)
-                <livewire:client.intern-ship-register-success/>
+            @if ($step == StepRegisterEnum::StepFour)
+                <livewire:client.intern-ship-register-success />
             @endif
         </div>
     </div>
 </div>
 
 @script
-<script>
-    $(document).ready(function () {
-        const dpBasicElementStartDate = document.querySelector('#dob');
-        if (dpBasicElementStartDate) {
-            new Datepicker(dpBasicElementStartDate, {
-                container: '.content-inner',
-                buttonClass: 'btn',
-                prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
-                nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
-                format: 'dd/mm/yyyy',
-                weekStart: 1,
-                language: 'vi',
-            });
-            dpBasicElementStartDate.addEventListener('changeDate', function (event) {
-                const selectedDate = new Date(event.detail.date);
-                const formattedDate = formatDateToString(selectedDate);
-                Livewire.dispatch('update-dob', {
-                    value: formattedDate
-                })
-            });
-        }
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            const dpBasicElementStartDate = document.querySelector('#dob');
+            if (dpBasicElementStartDate) {
+                new Datepicker(dpBasicElementStartDate, {
+                    container: '.content-inner',
+                    buttonClass: 'btn',
+                    prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                    nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                    format: 'dd/mm/yyyy',
+                    weekStart: 1,
+                    language: 'vi',
+                });
+                dpBasicElementStartDate.addEventListener('changeDate', function(event) {
+                    const selectedDate = new Date(event.detail.date);
+                    const formattedDate = formatDateToString(selectedDate);
+                    Livewire.dispatch('update-dob', {
+                        value: formattedDate
+                    })
+                });
+            }
+        });
+    </script>
 @endscript

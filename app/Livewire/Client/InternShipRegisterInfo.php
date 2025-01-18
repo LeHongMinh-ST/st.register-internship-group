@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\GroupStudent;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -30,6 +31,10 @@ class InternShipRegisterInfo extends Component
     public int|string $campaignId;
 
     public array $dataStudent = [];
+
+    protected $listeners = [
+        'updateSupervisor' => 'updateSupervisor',
+    ];
 
     public function updated($field): void
     {
@@ -69,9 +74,15 @@ class InternShipRegisterInfo extends Component
             ->where('campaign_id', $this->campaignId)->get();
         $campaign = Campaign::find($this->campaignId);
 
+        $teachers = Teacher::query()
+        ->where('status', \App\Enums\TeacherStatusEnum::Accept->value)
+        ->orderBy('name')
+        ->get();
+
         return view('livewire.client.intern-ship-register-info', [
             'students' => $students,
             'campaign' => $campaign,
+            'teachers' => $teachers,
         ]);
     }
 
@@ -94,15 +105,33 @@ class InternShipRegisterInfo extends Component
         }
     }
 
+    public function updateSupervisor($value)
+    {
+        $this->supervisor = $value;
+    }
+
     public function nextStepFinish()
     {
         $this->validate();
         DB::beginTransaction();
         try {
+
+            $supervisorName = null;
+            if ($this->supervisor !== 'none' && $this->supervisor !== '') {
+                $teacher = Teacher::where('code', $this->supervisor)->first();
+                if ($teacher) {
+                    $supervisorName = $teacher->name;
+                }
+            }
+
+            $teacher = Teacher::where('code', $this->supervisor)->first();
+
             $group = Group::create([
                 'topic' => $this->topic,
-                'supervisor' => $this->supervisor,
-                'campaign_id' => $this->campaignId
+                // 'supervisor' => $this->supervisor,
+                'supervisor' => $supervisorName ,
+                'campaign_id' => $this->campaignId,
+                // 'teacher_id' => $teacher ? $teacher->id : null,
             ]);
 
             foreach ($this->dataStudent as $code =>  $item) {

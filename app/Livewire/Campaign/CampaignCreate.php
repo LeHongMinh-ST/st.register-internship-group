@@ -4,6 +4,7 @@ namespace App\Livewire\Campaign;
 
 use App\Common\Constants;
 use App\Models\Campaign;
+use App\Models\Plan;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -27,11 +28,13 @@ class CampaignCreate extends Component
     #[Validate( as: 'số lượng thành viên trong nhóm')]
     public int $max_student_group = 0;
 
+    public int|string $planId;
     public bool $isLoading = false;
 
     protected $listeners = [
         'update-start-date' => 'updateStartDate',
         'update-end-date' => 'updateEndDate',
+        'selectedPlan' => 'updatePlan'
     ];
 
 
@@ -83,10 +86,16 @@ class CampaignCreate extends Component
         $this->end = str_replace('/', '-', $value);
     }
 
-
+    public function updatePlan($id): void
+    {
+        $this->planId = $id;
+    }
     public function render()
     {
-        return view('livewire.campaign.campaign-create');
+        $planTemplates = Plan::all();
+        return view('livewire.campaign.campaign-create')->with([
+            'planTemplates' => $planTemplates
+        ]);
     }
 
     public function submit(): RedirectResponse|Redirector|null
@@ -103,7 +112,8 @@ class CampaignCreate extends Component
                     'name' => $this->name,
                     'start' => Carbon::make($this->start),
                     'end' => Carbon::make($this->end),
-                    'max_student_group' => $this->max_student_group
+                    'max_student_group' => $this->max_student_group,
+                    'plan_template_id' => $this->planId ?? null,
                 ]);
                 session()->flash('success', 'Tạo mới thành công!');
                 $this->isLoading = false;

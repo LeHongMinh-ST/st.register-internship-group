@@ -72,10 +72,15 @@
                     @else
                         <div class="group-info">
                             <div class="card">
-                                <div class="card-header">
-                                    <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
-                                    <b>Học phần {{$this->student?->course?->name}}
-                                        - {{$this->student?->course?->code}}</b>
+                                <div class="card-header d-flex gap-2 justify-content-around">
+                                    <div>
+                                        <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
+                                        <b>Học phần {{$this->student?->course?->name}}
+                                            - {{$this->student?->course?->code}}</b>
+                                    </div>
+                                    <a class="mt-2" wire:click="openPlanModal">
+                                        <i class="ph-calendar"></i>
+                                    </a>
                                 </div>
                                 <div class="card-body p-2">
                                     <div class="accordion" id="accordion_collapsed">
@@ -128,7 +133,7 @@
                                         Yêu cầu chỉnh sửa
                                     </button>
 
-                                    <button wire:loading.removeclass="btn btn-primary" wire:click="sendMailEdit">
+                                    <button wire:loading.remove class="btn btn-primary" wire:click="sendMailEdit">
                                         <i class="ph-paper-plane-tilt"></i>
                                         Yêu cầu chỉnh sửa
                                     </button>
@@ -141,6 +146,49 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div id="modal-plan" wire:ignore.self class="modal fade" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white"> {{ $campaign->name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="table-responsive table-scrollable border-top">
+                        <table class="table fs-table">
+                            <thead>
+                            <tr class="table-light">
+                                <th>STT</th>
+                                <th>Thời gian</th>
+                                <th>Nội dung thực hiện</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @forelse($plans as $plan)
+                                <tr>
+                                    <td>{{ $loop->index + 1 + $plans->perPage() * ($plans->currentPage() - 1) }}</td>
+                                    <td>
+                                        @if($plan->time)
+                                            {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
+                                        @else
+                                            {{ \Carbon\Carbon::make($plan->start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
+                                        @endif
+                                    </td>
+                                    <td>{!! $plan->content  !!}</td>
+                                </tr>
+                            @empty
+                                <x-table-empty :colspan="3"/>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -167,5 +215,9 @@
             });
         }
     });
+
+    window.addEventListener('open-plan-modal', () => {
+        $('#modal-plan').modal('show')
+    })
 </script>
 @endscript

@@ -27,8 +27,8 @@
         <!-- Main navigation -->
         <div class="sidebar-section">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-                <li class="pt-0 nav-item-header">
-                    <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Vòng quay - Chiến dịch</div>
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Đợt đăng ký</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
@@ -39,8 +39,7 @@
                     </a>
                 </li>
 
-
-                <li class="pt-0 nav-item-header">
+                {{-- <li class="pt-0 nav-item-header">
                     <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý hệ thống</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
@@ -49,6 +48,48 @@
                        class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                         <i class="ph-user"></i>
                         <span>Người dùng</span>
+                    </a>
+                </li> --}}
+
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý giảng viên</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.teachers.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
+                        <i class="ph-user"></i>
+                        <span>Giảng viên</span>
+                    </a>
+                </li>
+                <li class="pt-0 nav-item-header mt-2">
+                    <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý kế hoạch</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.plans.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.plans.*') ? 'active' : '' }}">
+                        <i class="ph-calendar"></i>
+                        <span>Kế hoạch</span>
+                    </a>
+                </li>
+
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý công ty thực tập</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.companies.index')}}"
+                       class="nav-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
+                        <i class="ph-briefcase"></i>
+                        <span>Danh sách công ty thực tập</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.company-campaign.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.company-campaign.*') ? 'active' : '' }}">
+                        <i class="ph-folder-open"></i>
+                        <span>Phân công công ty theo đợt</span>
                     </a>
                 </li>
             </ul>

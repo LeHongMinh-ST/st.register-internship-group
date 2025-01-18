@@ -8,6 +8,7 @@ use App\Mail\RequestEditMail;
 use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\GroupKey;
+use App\Models\PlanDetail;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -51,9 +52,12 @@ class ClientResearch extends Component
     public function render()
     {
         $campaign = Campaign::find($this->campaignId);
-
+        $plans = PlanDetail::query()
+            ->where('plan_template_id', $campaign->planTemplate->id ?? null)
+            ->paginate(Constants::PER_PAGE_ADMIN);
         return view('livewire.client.client-research', [
             'campaign' => $campaign,
+            'plans' => $plans,
         ]);
     }
 
@@ -129,7 +133,10 @@ class ClientResearch extends Component
             }
             $this->isLoading = false;
         }
+    }
 
-
+    public function openPlanModal()
+    {
+        $this->dispatch('open-plan-modal');
     }
 }

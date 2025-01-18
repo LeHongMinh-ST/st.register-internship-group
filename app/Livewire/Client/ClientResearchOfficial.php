@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Client;
 
+use App\Common\Constants;
 use App\Jobs\SendRequestEditMailJob;
 use App\Jobs\SendRequestEditMailOfficialJob;
 use App\Models\Campaign;
 use App\Models\Group;
 use App\Models\GroupKey;
 use App\Models\GroupOfficial;
+use App\Models\PlanDetail;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -58,8 +60,12 @@ class ClientResearchOfficial extends Component
     {
         $campaign = Campaign::find($this->campaignId);
 
+        $plans = PlanDetail::query()
+            ->where('plan_template_id', $campaign->planTemplate->id ?? null)
+            ->paginate(Constants::PER_PAGE_ADMIN);
         return view('livewire.client.client-research-official', [
             'campaign' => $campaign,
+            'plans' => $plans,
         ]);
     }
 
@@ -134,5 +140,10 @@ class ClientResearchOfficial extends Component
         }
 
 
+    }
+
+    public function openPlanModal()
+    {
+        $this->dispatch('open-plan-modal');
     }
 }
