@@ -24,8 +24,8 @@
                 <tr class="table-light">
                     <th>STT</th>
                     <th>Tên công ty</th>
-                    <th>Số lượng tuyển dụng </th>
-                    <th>Số lượng đã tuyển dụng</th>
+                    <th>Số lượng nhận thực tập</th>
+                    <th>Số lượng đã nhận thực tập</th>
                     <th>Yêu cầu </th>
                 </tr>
                 </thead>

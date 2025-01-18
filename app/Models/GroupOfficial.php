@@ -25,6 +25,11 @@ class GroupOfficial extends Model
         return $this->belongsTo(Teacher::class);
     }
 
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(StudentGroupOfficial::class);
+    }
+
     public function groupKey(): MorphOne
     {
         return $this->morphOne(GroupKey::class, 'groupkeyable', 'group_type', 'group_id')->orderBy('created_at', 'desc');
@@ -35,7 +40,11 @@ class GroupOfficial extends Model
         if ($search) {
             $query->whereHas('students', function ($q) use ($search) {
                 $q->where('name', 'like', '%'.$search.'%')
-                    ->orWhere('code', 'like', '%'.$search.'%');
+                    ->orWhere('code', 'like', '%'.$search.'%')
+                    ->orWhere('supervisor', 'like', '%'.$search.'%');
+            })
+            ->orWhereHas('teacher', function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%');
             });
         }
 

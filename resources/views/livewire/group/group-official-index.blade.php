@@ -75,7 +75,7 @@
 
                     </tr>
                     <tr id="st{{$group->id}}" class="accordion-collapse collapse" wire:ignore.self>
-                        <td colspan="6">
+                        <td colspan="7">
                             <livewire:group.group-official-member-index :group="$group" wire:key="group-{{ $group->id }}"/>
                         </td>
                     </tr>
