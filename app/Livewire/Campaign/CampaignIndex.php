@@ -19,8 +19,6 @@ class CampaignIndex extends Component
         'deleteCampaign' => 'handleDeleteCampaign',
     ];
 
-
-
     public function render()
     {
         $campaigns = Campaign::query()

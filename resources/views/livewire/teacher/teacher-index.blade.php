@@ -33,6 +33,7 @@
                         <th>Số điện thoại</th>
                         <th>Hướng đề tài</th>
                         <th>Mô tả</th>
+                        <th>Số điện thoại</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
@@ -98,7 +99,7 @@
                             </td>
                         </tr>
                     @empty
-                        <x-table-empty :colspan="6" />
+                        <x-table-empty :colspan="11" />
                     @endforelse
                 </tbody>
             </table>

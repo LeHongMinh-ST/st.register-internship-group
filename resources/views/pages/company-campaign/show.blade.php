@@ -7,7 +7,7 @@
             <div class="page-header-content d-lg-flex">
                 <div class="d-flex">
                     <h4 class="mb-0 page-title">
-                        Phân công công ty theo đợt - <span class="fw-normal">Danh sách đợt đăng ký </span>
+                        Phân công công ty theo đợt - <span class="fw-normal">Danh sách chi tiết </span>
                     </h4>
 
                     <a href="#page_header" class="p-0 border-transparent btn btn-light align-self-center collapsed d-lg-none rounded-pill ms-auto" data-bs-toggle="collapse">
@@ -22,7 +22,7 @@
                     <div class="py-2 breadcrumb">
                         <a href="{{ route('admin.dashboard') }}" class="breadcrumb-item"><i class="ph-house"></i></a>
                         <a href="{{ route('admin.company-campaign.index') }}" class="breadcrumb-item">Phân công công ty theo đợt</a>
-                        <span class="breadcrumb-item active">Danh sách </span>
+                        <span class="breadcrumb-item active">Danh sách chi tiết </span>
                     </div>
 
                     <a href="#breadcrumb_elements" class="p-0 border-transparent btn btn-light align-self-center collapsed d-lg-none rounded-pill ms-auto" data-bs-toggle="collapse">
@@ -36,6 +36,6 @@
 
 
     <div class="content">
-        <livewire:company-campaign.company-campaign-index />
+        <livewire:company-campaign.company-campaign-show :id="$id" />
     </div>
 </x-admin-layout>

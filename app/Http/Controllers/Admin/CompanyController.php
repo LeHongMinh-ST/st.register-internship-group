@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -25,5 +26,12 @@ class CompanyController extends Controller
     public function companyCampaignIndex()
     {
         return view('pages.company-campaign.index');
+    }
+
+    public function companyCampaignShow(Campaign $campaign)
+    {
+        return view('pages.company-campaign.show')->with([
+            'id' => $campaign->id,
+        ]);
     }
 }

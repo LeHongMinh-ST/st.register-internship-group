@@ -153,13 +153,15 @@
             });
         }
 
+        $('#planTemplate').select2({
+            placeholder: 'Chọn mẫu kế hoạch',
+            allowClear: true,
+            dropdownParent: $('.container-plan-template')
+        }).change(function() {
+            alert(1);
+            Livewire.dispatch('selectedPlan', [$(this).val()]);
+        });
     });
-    $('#planTemplate').select2({
-        placeholder: 'Chọn mẫu kế hoạch',
-        allowClear: true,
-        dropdownParent: $('.container-plan-template')
-    }).change(function() {
-        Livewire.dispatch('selectedPlan', [$(this).val()]);
-    });
+
 </script>
 @endscript
