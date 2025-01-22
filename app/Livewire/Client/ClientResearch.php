@@ -124,7 +124,7 @@ class ClientResearch extends Component
 
                 SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
 //                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
-                $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi yêu cầu chỉnh sửa. Vui lòng check email bạn đã đăng ký để có thể nhận mã yêu cầu!");
+                $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.");
             }catch (\Exception $exception) {
                 Log::error('send mail edit group', [
                     'message' => $exception->getMessage(),
