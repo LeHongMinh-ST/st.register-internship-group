@@ -1,4 +1,4 @@
-<div wire:ignore.self id="company-{{ $companyId }}" class="modal fade" tabindex="-1">
+<div wire:ignore.self id="company-detail-{{ $companyId }}" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +28,7 @@
                                 <label class="form-label"> Yêu cầu </label>
                                 <div wire:ignore>
                                     <textarea wire:model.live="jobDescription"
-                                              id="content"
+                                              id="content-{{ $companyId }}"
                                               class="form-control">
                                         {!! $jobDescription !!}
                                     </textarea>
@@ -50,41 +50,71 @@
 
 @section('script_custom')
     <script>
-        const style = document.createElement('style');
+        document.addEventListener('DOMContentLoaded', function () {
+            const editors = {};
 
-        document.head.appendChild(style);
+            function initializeEditor(textarea) {
+                const id = textarea.id;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            ClassicEditor
-                .create(document.querySelector('#content'), {
-                    toolbar: {
-                        items: [
-                            'heading',
-                            '|',
-                            'bold',
-                            'italic',
-                            'bulletedList',
-                            'numberedList',
-                            '|',
-                            'undo',
-                            'redo'
-                        ]
-                    },
-                })
-                .then(editor => {
-                    editor.model.document.on('change:data', () => {
-                    @this.set('content', editor.getData());
-                    });
+                // Khởi tạo CKEditor nếu chưa có
+                if (!editors[id]) {
+                    ClassicEditor
+                        .create(textarea, {
+                            toolbar: {
+                                items: [
+                                    'heading',
+                                    '|',
+                                    'bold',
+                                    'italic',
+                                    'bulletedList',
+                                    'numberedList',
+                                    '|',
+                                    'undo',
+                                    'redo'
+                                ]
+                            },
+                        })
+                        .then(editor => {
+                            editors[id] = editor;
 
-                    Livewire.on('contentUpdated', content => {
-                        editor.setData(content);
-                    });
+                            // Đồng bộ dữ liệu CKEditor với Livewire
+                            editor.model.document.on('change:data', () => {
+                                Livewire.emit('updateJobDescription', id.replace('content-', ''), editor.getData());
+                            });
 
-                    window.editor = editor;
-                })
-                .catch(error => {
-                    console.error('CKEditor initialization failed:', error);
+                            // Lắng nghe sự kiện để cập nhật nội dung CKEditor
+                            Livewire.on(`contentUpdated-${id}`, jobDescription => {
+                                editor.setData(jobDescription);
+                            });
+                        })
+                        .catch(error => {
+                            console.error(`CKEditor initialization failed for ${id}:`, error);
+                        });
+                }
+            }
+
+            // Xử lý khi modal được mở lại
+            document.querySelectorAll('div[id^="company-detail-"]').forEach(modal => {
+                modal.addEventListener('shown.bs.modal', () => {
+                    const textarea = modal.querySelector('textarea[id^="content-"]');
+                    if (textarea) {
+                        initializeEditor(textarea);
+                    }
                 });
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    const textarea = modal.querySelector('textarea[id^="content-"]');
+                    const id = textarea?.id;
+
+                    // Hủy CKEditor khi modal đóng
+                    if (id && editors[id]) {
+                        editors[id].destroy().then(() => {
+                            delete editors[id];
+                        });
+                    }
+                });
+            });
         });
+
     </script>
 @endsection

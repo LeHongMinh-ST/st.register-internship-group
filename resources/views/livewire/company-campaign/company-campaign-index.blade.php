@@ -1,27 +1,48 @@
-<div class="card">
-    <div class="card-body">
-        <ul class="nav nav-tabs mb-3" role="tablist">
-            @foreach($campaigns as $campaign)
-                <li class="nav-item">
-                    <a href="#campaign-{{ $campaign->id }}"
-                       class="nav-link {{ $loop->first ? 'active' : '' }}"
-                       data-bs-toggle="tab"
-                       aria-selected="{{ $loop->first ? 'true' : 'false' }}"
-                       role="tab">
-                        {{ $campaign->name }}
-                    </a>
-                </li>
-            @endforeach
-        </ul>
-
-        <div class="tab-content">
-            @foreach($campaigns as $campaign)
-                <div class="tab-pane fade {{ $loop->first ? 'active show' : '' }}"
-                     id="campaign-{{ $campaign->id }}"
-                     role="tabpanel">
-                    <livewire:company-campaign.company-campaign-show :campaignId="$campaign->id" />
+<div>
+    <div class="card">
+        <div class="card-header py-3 d-flex justify-content-between">
+            <div class="d-flex gap-2">
+                <div>
+                    <input wire:model.live="search" type="text" class="form-control" placeholder="Tìm kiếm...">
                 </div>
-            @endforeach
+            </div>
+            <div class="d-flex gap-2">
+                <div>
+                    <button type="button" class="btn btn-light btn-icon px-2" @click="$wire.$refresh">
+                        <i class="ph-arrows-clockwise px-1"></i><span>Tải lại</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive-md">
+            <table class="table fs-table ">
+                <thead>
+                <tr class="table-light">
+                    <th>STT</th>
+                    <th>Đợt đăng ký</th>
+                    <th>Số công ty trong đợt</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($campaigns as $campaign)
+                    <tr>
+                        <td>{{ $loop->index + 1 + $campaigns->perPage() * ($campaigns->currentPage() - 1) }}</td>
+                        <td>
+                            <a href="{{ route('admin.company-campaign.show', $campaign->id) }}">
+                                {{ $campaign->name }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ $campaign->companies->count() ?? 0 }}
+                        </td>
+                    </tr>
+                @empty
+                    <x-table-empty :colspan="3"/>
+                @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
+    {{ $campaigns->links('vendor.pagination.theme') }}
 </div>
