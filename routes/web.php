@@ -67,6 +67,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
 
     Route::prefix('company-campaign')->group(function (): void {
         Route::get('/', [CompanyController::class, 'companyCampaignIndex'])->name('admin.company-campaign.index');
+        Route::get('/{campaign}/show', [CompanyController::class, 'companyCampaignShow'])->name('admin.company-campaign.show');
     });
 
 //    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');

@@ -26,10 +26,11 @@
                 <thead>
                     <tr class="table-light ">
                         <th class="w-10px">STT</th>
-{{--                        <th class="w-10px">Mã giảng viên</th>--}}
+                        <th class="w-10px">Mã giảng viên</th>
                         <th>Tên giảng viên</th>
                         <th>Bộ môn</th>
                         <th>Email</th>
+                        <th>Số điện thoại</th>
                         <th>Hướng đề tài</th>
                         <th>Mô tả</th>
                         <th>Số điện thoại</th>
@@ -43,9 +44,9 @@
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 {{ $loop->index + 1 + $teachers->perPage() * ($teachers->currentPage() - 1) }}
                             </td>
-{{--                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">--}}
-{{--                                {{ $teacher->code ?: 'Chưa có' }}--}}
-{{--                            </td>--}}
+                           <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                               {{ $teacher->code ?: 'Chưa có' }}
+                           </td>
                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#st{{ $teacher->id }}">
                                     {{ $teacher->name ?: 'Chưa có' }}
@@ -98,7 +99,7 @@
                             </td>
                         </tr>
                     @empty
-                        <x-table-empty :colspan="7" />
+                        <x-table-empty :colspan="11" />
                     @endforelse
                 </tbody>
             </table>

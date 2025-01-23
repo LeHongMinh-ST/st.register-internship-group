@@ -76,7 +76,7 @@ class InternShipEdit extends Component
         $group = Group::query()->where('id', $groupKey->group_id)->first();
         $students = $group->students;
         $this->topic = $group->topic;
-        $this->supervisor = $group->supervisor;
+        $this->supervisor = $group->supervisor ?? '';
         $this->campaignId = $group->campaign_id;
         foreach ($students as $student) {
             $this->dataStudent[$student->code] = [
