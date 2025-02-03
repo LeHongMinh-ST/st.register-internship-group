@@ -115,6 +115,7 @@ class ClientResearch extends Component
                 $groupKey = GroupKey::create([
                     'group_id' => $this->group->id,
                     'key' => Str::random(),
+                    'group_type' => Group::class
                 ]);
 
                 $groupKey->active = true;
