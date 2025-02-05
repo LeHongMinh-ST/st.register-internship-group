@@ -3,6 +3,7 @@
 namespace App\Livewire\Campaign;
 
 use App\Common\Constants;
+use App\Enums\CampaignStatusEnum;
 use App\Models\Campaign;
 use App\Models\Plan;
 use Exception;
@@ -114,6 +115,7 @@ class CampaignCreate extends Component
                     'end' => Carbon::make($this->end),
                     'max_student_group' => $this->max_student_group,
                     'plan_template_id' => $this->planId ?? null,
+                    'status' => CampaignStatusEnum::Active->value,
                 ]);
                 session()->flash('success', 'Tạo mới thành công!');
                 $this->isLoading = false;
