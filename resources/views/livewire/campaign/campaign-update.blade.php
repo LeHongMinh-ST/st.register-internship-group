@@ -18,6 +18,13 @@
                         @enderror
                     </div>
                 </div>
+                <div class="mt-3 d-flex justify-content-start gap-4">
+                    <label class="form-check-label" for="sc_li_c">Trạng thái </label>
+                    <div class="form-check form-check-inline form-switch">
+                        <input wire:model.live="status" type="checkbox" class="form-check-input" id="sc_li_c"
+                        @if($status == \App\Enums\CampaignStatusEnum::Active->value) checked @endif>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card">

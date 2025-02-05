@@ -16,7 +16,8 @@ class Teacher extends Model
     {
         if ($search) {
             $query->where('name', 'like', '%' . $search . '%')
-                ->orWhere('code', 'like', '%' . $search . '%');
+                ->orWhere('code', 'like', '%' . $search . '%')
+                ->orWhere('department', 'like', '%' . $search . '%');
         }
 
         return $query;
