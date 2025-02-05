@@ -3,6 +3,7 @@
 namespace App\Livewire\Campaign;
 
 use App\Common\Constants;
+use App\Enums\CampaignStatusEnum;
 use App\Models\Campaign;
 use App\Models\Plan;
 use Exception;
@@ -35,6 +36,8 @@ class CampaignUpdate extends Component
 
     public bool $isLoading = false;
 
+    public string $status;
+
     protected $listeners = [
         'update-start-date' => 'updateStartDate',
         'update-end-date' => 'updateEndDate',
@@ -60,6 +63,7 @@ class CampaignUpdate extends Component
         $this->official_end = Carbon::make($campaign->official_end ?? now())->format(Constants::FORMAT_DATE);
         $this->max_student_group = $campaign->max_student_group;
         $this->planId = $campaign->plan_template_id;
+        $this->status = $campaign->status;
     }
 
     public function rules(): array
@@ -75,6 +79,15 @@ class CampaignUpdate extends Component
                 'numeric'
             ]
         ];
+    }
+
+    public function updatedStatus($value)
+    {
+        if ($value) {
+            $this->status = CampaignStatusEnum::Active->value;
+        } else {
+            $this->status = CampaignStatusEnum::Inactive->value;
+        }
     }
 
     public function updatedMaxStudentGroup($value)
@@ -134,6 +147,7 @@ class CampaignUpdate extends Component
                     'official_end' => Carbon::make($this->official_end),
                     'max_student_group' => $this->max_student_group,
                     'plan_template_id' => $this->planId ?? null,
+                    'status' => $this->status
                 ]);
                 $this->dispatch('alert', type: 'success', message: 'Cập nhật thành công!');
             } catch (Exception $e) {

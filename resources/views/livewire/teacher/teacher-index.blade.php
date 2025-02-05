@@ -33,7 +33,6 @@
                         <th>Số điện thoại</th>
                         <th>Hướng đề tài</th>
                         <th>Mô tả</th>
-                        <th>Số điện thoại</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
