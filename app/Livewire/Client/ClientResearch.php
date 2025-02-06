@@ -51,13 +51,15 @@ class ClientResearch extends Component
 
     public function render()
     {
-        $campaign = Campaign::find($this->campaignId);
+        // $campaign = Campaign::find($this->campaignId);
+        $campaign = Campaign::with('planTemplate')->find($this->campaignId);
         $plans = PlanDetail::query()
             ->where('plan_template_id', $campaign->planTemplate->id ?? null)
             ->paginate(Constants::PER_PAGE_ADMIN);
         return view('livewire.client.client-research', [
             'campaign' => $campaign,
             'plans' => $plans,
+            'planName' => $campaign->planTemplate->name ?? 'Chưa có kế hoạch',
         ]);
     }
 
