@@ -61,6 +61,14 @@ class ClientResearch extends Component
         ]);
     }
 
+    public function resetData()
+    {
+        $this->group = null;
+        $this->student = null;
+        $this->dob = '';
+        $this->code = '';
+    }
+
     public function mount($campaignId)
     {
         $this->campaignId = $campaignId;
