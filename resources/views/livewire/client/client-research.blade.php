@@ -52,6 +52,13 @@
                                 <i class="ph-magnifying-glass"></i>
                                 Tra cứu
                             </button>
+                            @if($group)
+                                <button wire:click="resetData()" type="button"
+                                        class="btn btn-warning">
+                                    <i class="ph ph-arrow-clockwise"></i>
+                                    Đặt lại
+                                </button>
+                            @endif
                         </div>
                         @if(!$campaign->isExpired())
                             <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
