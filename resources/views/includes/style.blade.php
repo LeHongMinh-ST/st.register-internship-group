@@ -8,7 +8,36 @@
 @vite('resources/css/app.scss')
 @vite('resources/css/auth.scss')
 <!-- Scripts -->
-{{--<!-- Css custom -->--}}
+{{-- <!-- Css custom --> --}}
 @yield('style_custom')
-{{--<!-- /Css custom  -->--}}
+{{-- <!-- /Css custom  --> --}}
 
+<style>
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltip-text {
+        visibility: hidden;
+        background-color: none;
+        color: #007bff;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 4px;
+        position: absolute;
+        z-index: 1;
+        white-space: nowrap;
+    }
+
+    .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+    }
+
+    .tooltip-right {
+        left: 120%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
