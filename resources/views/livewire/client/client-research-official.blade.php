@@ -179,7 +179,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h5 class="modal-title text-white"> {{ $campaign->name }}</h5>
+                    <h5 class="modal-title text-white"> {{ $planName }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
