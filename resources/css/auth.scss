@@ -22,7 +22,7 @@
     .login-image {
         width: 400px;
         @include sp {
-            width: 300px;
+            width: 100%;
         }
     }
 

@@ -16,6 +16,12 @@
                             </div>
                             <span class="d-block text-muted">Tra cứu thông tin</span>
                             <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
+                            <a class="mt-2 tooltip-container" wire:click="openPlanModal">
+                                <i class="ph-calendar" style="position: relative; top: -20px;"></i>
+                                <span class="tooltip-text">
+                                    {{ $planName }}
+                                </span>
+                            </a>  
                         </div>
 
                         <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
@@ -79,15 +85,12 @@
                     @else
                         <div class="group-info">
                             <div class="card">
-                                <div class="card-header d-flex gap-2 justify-content-around">
+                                <div class="card-header d-flex gap-2">
                                     <div>
                                         <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
                                         <b>Học phần {{$this->student?->course?->name}}
                                             - {{$this->student?->course?->code}}</b>
                                     </div>
-                                    <a class="mt-2" wire:click="openPlanModal">
-                                        <i class="ph-calendar"></i>
-                                    </a>
                                 </div>
                                 <div class="card-body p-2">
                                     <div class="accordion" id="accordion_collapsed">
