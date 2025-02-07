@@ -11,7 +11,6 @@ use App\Models\GroupKey;
 use App\Models\PlanDetail;
 use App\Models\Student;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -25,11 +24,13 @@ class ClientResearch extends Component
 
     #[Validate(as: 'ngày sinh')]
     public string $dob = '';
+
     public int|string $campaignId;
 
     public bool $isLoading = false;
 
     public $group;
+
     public $student;
 
     public function updated($field): void
@@ -56,6 +57,7 @@ class ClientResearch extends Component
         $plans = PlanDetail::query()
             ->where('plan_template_id', $campaign->planTemplate->id ?? null)
             ->paginate(Constants::PER_PAGE_ADMIN);
+
         return view('livewire.client.client-research', [
             'campaign' => $campaign,
             'plans' => $plans,
@@ -100,11 +102,12 @@ class ClientResearch extends Component
             ->where('code', $this->code)
             ->whereDate('dob', Carbon::make($this->dob))
             ->where('campaign_id', $this->campaignId)
-            ->whereNotNull('group_id')
+            ->whereNotNull('groupid')
             ->first();
 
-        if (!$this->student) {
+        if (! $this->student) {
             $this->dispatch('alert', type: 'error', message: 'Không tìm thấy nhóm tương ứng');
+
             return;
         }
         $this->group = Group::query()
@@ -115,35 +118,41 @@ class ClientResearch extends Component
 
     public function sendMailEdit()
     {
-        if (!$this->student->groupStudent->is_captain) {
+        if (! $this->student->groupStudent->is_captain) {
             return;
         }
 
-        if (!$this->isLoading) {
+        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
+            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
+            return;
+        }
+
+        if (! $this->isLoading) {
             $this->isLoading = true;
             try {
                 $groupKey = GroupKey::create([
                     'group_id' => $this->group->id,
                     'key' => Str::random(),
-                    'group_type' => Group::class
+                    'group_type' => Group::class,
                 ]);
 
                 $groupKey->active = true;
                 $groupKey->save();
 
-                $mailTo = env('APP_ENV') == 'local' ? "hongminhle290@gmail.com" : $this->student->groupStudent->email;
+                $mailTo = env('APP_ENV') == 'local' ? 'hongminhle290@gmail.com' : $this->student->groupStudent->email;
 
                 SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
-//                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
-                $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.");
-            }catch (\Exception $exception) {
+                //                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
+                $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
+            } catch (\Exception $exception) {
                 Log::error('send mail edit group', [
                     'message' => $exception->getMessage(),
                 ]);
-                $this->dispatch('alert', type: "error", message: "Có lỗi sảy ra vui lòng thử lại sau!");
+                $this->dispatch('alert', type: 'error', message: 'Có lỗi sảy ra vui lòng thử lại sau!');
             }
             $this->isLoading = false;
         }
+
     }
 
     public function openPlanModal()
