@@ -30,6 +30,7 @@ class ClientResearch extends Component
     public bool $isLoading = false;
 
     public $group;
+    public $isCaptain;
     public $student;
 
     public function updated($field): void
@@ -109,6 +110,8 @@ class ClientResearch extends Component
             ->where('id', $this->student->group_id)
             ->with(['students', 'students.groupStudent'])
             ->first();
+
+        $this->isCaptain = $this->group->captain->code;
     }
 
     public function sendMailEdit()
