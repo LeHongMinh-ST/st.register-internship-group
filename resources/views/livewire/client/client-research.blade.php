@@ -100,7 +100,7 @@
                                                     <button class="accordion-button fw-semibold" type="button"
                                                             data-bs-toggle="collapse"
                                                             data-bs-target="#st{{$item->code}}">
-                                                        {{$item->name}} - Mã sinh viên: {{ $item->code }} -
+                                                        {{$item->name}} @if($item->code == $isCaptain) <span class="text-danger">*</span> @endif - Mã sinh viên: {{ $item->code }} -
                                                         Lớp: {{ $item->class }}
                                                     </button>
                                                 </h2>
