@@ -50,6 +50,10 @@
                                         <i class="ph-trash px-1"></i>
                                         Xóa
                                     </a>
+                                    <a type="button" wire:click="copy({{ $plan->id }})" class="dropdown-item">
+                                        <i class="ph-copy px-1"></i>
+                                        Sao chép
+                                    </a>
                                 </div>
                             </div>
                         </td>
