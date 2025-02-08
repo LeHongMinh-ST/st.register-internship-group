@@ -4,6 +4,7 @@ namespace App\Livewire\Plan;
 
 use App\Common\Constants;
 use App\Models\Plan;
+use App\Models\PlanDetail;
 use Livewire\Component;
 
 class PlanIndex extends Component
@@ -36,5 +37,23 @@ class PlanIndex extends Component
     {
         Plan::find($this->planId)->delete();
         $this->dispatch('alert', type: 'success', message: 'Xóa thành công');
+    }
+
+    public function copy($id)
+    {
+        $plan = Plan::find($id);
+        if ($plan) {
+            $newPlan = $plan->replicate();
+            $newPlan->name = $plan->name . ' - Bản sao';
+            $newPlan->save();
+
+            $planDetails = PlanDetail::where('plan_template_id', $plan->id)->get();
+            foreach ($planDetails as $detail) {
+                $newDetail = $detail->replicate();
+                $newDetail->plan_template_id = $newPlan->id;
+                $newDetail->save();
+            }
+            $this->dispatch('alert', type: 'success', message : 'Sao chép thành công');
+        }
     }
 }
