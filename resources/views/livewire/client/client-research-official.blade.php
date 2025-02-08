@@ -17,7 +17,7 @@
                             <span class="d-block text-muted">Tra cứu thông tin</span>
                             <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
                             <a class="mt-2 tooltip-container" wire:click="openPlanModal">
-                                <i class="ph-calendar" style="position: relative; top: -20px;"></i>
+                                <i class="ph-calendar" style="position: relative; top: -20px; font-size: 30px;"></i>
                                 <span class="tooltip-text">
                                     {{ $planName }}
                                 </span>
