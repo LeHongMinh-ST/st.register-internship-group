@@ -97,22 +97,45 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     'group_official_id' => $group->id,
                 ]);
 
+                // $countStudent = $group->students()->count();
+
+                // StudentGroupOfficial::query()->updateOrCreate([
+                //     'student_id' => $student->id,
+                // ], [
+                //     'student_id' => $student->id,
+                //     'internship_company' => $row['cong_ty_thuc_tap'],
+                //     'email' => $row['email'],
+                //     'phone_family' => $row['so_dien_thoai_phu_huynh'],
+                //     'phone' => $row['so_dien_thoai'],
+                //     'supervisor_company' => $row['ho_ten_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                //     'supervisor_company_email' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                //     'supervisor_company_phone' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                //     'is_captain' => $countStudent == 1,
+                // ]);
+
+
                 $countStudent = $group->students()->count();
-
-                StudentGroupOfficial::query()->updateOrCreate([
-                    'student_id' => $student->id,
-                ], [
-                    'student_id' => $student->id,
-                    'internship_company' => $row['cong_ty_thuc_tap'],
-                    'email' => $row['email'],
-                    'phone_family' => $row['so_dien_thoai_phu_huynh'],
-                    'phone' => $row['so_dien_thoai'],
-                    'supervisor_company' => $row['ho_ten_can_bo_huong_dan_tai_co_so_thuc_tap'],
-                    'supervisor_company_email' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
-                    'supervisor_company_phone' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
-                    'is_captain' => $countStudent == 1,
-                ]);
-
+                $isCaptain = ($countStudent == 0) || (!empty($row['nhom_truong']) && trim($row['nhom_truong']) === '*');
+                if ($isCaptain) {
+                    StudentGroupOfficial::whereHas('student', function ($query) use ($group) {
+                        $query->where('group_official_id', $group->id);
+                    })->update(['is_captain' => false]);
+                }
+                
+                StudentGroupOfficial::updateOrCreate(
+                    ['student_id' => $student->id],
+                    [
+                        'student_id' => $student->id,
+                        'internship_company' => $row['cong_ty_thuc_tap'],
+                        'email' => $row['email'],
+                        'phone_family' => $row['so_dien_thoai_phu_huynh'],
+                        'phone' => $row['so_dien_thoai'],
+                        'supervisor_company' => $row['ho_ten_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                        'supervisor_company_email' => $row['email_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                        'supervisor_company_phone' => $row['so_dien_thoai_cua_can_bo_huong_dan_tai_co_so_thuc_tap'],
+                        'is_captain' => $isCaptain,
+                    ]
+                );
 
             }
             DB::commit();

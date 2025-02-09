@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 class GroupOfficial extends Model
 {
@@ -43,5 +45,12 @@ class GroupOfficial extends Model
         }
 
         return $query;
+    }
+
+    public function captain(): HasOne
+    {
+        return $this->hasOne(Student::class)->whereHas('studentGroupOfficial', function ($q) {
+            $q->where('is_captain', true);
+        });
     }
 }
