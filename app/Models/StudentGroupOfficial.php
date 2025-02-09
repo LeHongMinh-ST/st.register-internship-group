@@ -15,8 +15,13 @@ class StudentGroupOfficial extends Model
 
     use HasFactory;
 
-    public function students(): HasMany
+    // public function students(): HasMany
+    // {
+    //     return $this->hasMany(Student::class);
+    // }
+
+    public function student()
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsTo(Student::class);
     }
 }
