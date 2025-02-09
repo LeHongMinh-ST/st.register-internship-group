@@ -114,10 +114,10 @@ class ClientResearchOfficial extends Component
 
     public function sendMailEdit()
     {
-        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
-            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
-            return;
-        }
+//        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
+//            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
+//            return;
+//        }
 
         if (!$this->isLoading) {
             $this->isLoading = true;
