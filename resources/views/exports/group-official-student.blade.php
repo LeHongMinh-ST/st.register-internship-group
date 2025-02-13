@@ -5,6 +5,7 @@
             <th>STT</th>
             <th>Nhóm</th>
             <th>Sô lượng sinh viên</th>
+            <th>Nhóm trưởng</th>
             <th>Họ đệm</th>
             <th>Tên</th>
             <th>Ngày sinh</th>
@@ -25,7 +26,6 @@
             <th>Email sinh viên</th>
             <th>Số điện thoại sinh viên</th>
             <th>Số điện thoại phụ huynh</th>
-            <th>Nhóm trưởng</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +41,7 @@
                     <td>{{ $index }}</td>
                     <td>{{ $group->code }}</td>
                     <td>{{ $group->students->count() }}</td>
+                    <td>{{ $student->id === $captainId ? '*' : '' }}</td>
                     <td>{{ Helpers::splitName($student->name)['lastName'] }}</td>
                     <td>{{ Helpers::splitName($student->name)['firstName'] }}</td>
                     <td>{{ \Carbon\Carbon::make($student->dob)->format('d/m/Y') }}</td>
@@ -61,7 +62,6 @@
                     <td>{{ $student->studentGroupOfficial->email }}</td>
                     <td>{{ $student->studentGroupOfficial->phone }}</td>
                     <td>{{ $student->studentGroupOfficial->phone_family }}</td>
-                    <td>{{ $student->id === $captainId ? '*' : '' }}</td>
                 </tr>
                 @php
                     $index++;
