@@ -55,7 +55,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single', 'discord', 'teams'],
+            'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
 
@@ -130,18 +130,18 @@ return [
 
         'discord' => [
             'driver' => 'custom',
-            'via'    => MarvinLabs\DiscordLogger\Logger::class,
-            'level'  => 'debug',
-            'url'    => env('LOG_DISCORD_WEBHOOK_URL'),
+            'via' => MarvinLabs\DiscordLogger\Logger::class,
+            'level' => 'debug',
+            'url' => env('LOG_DISCORD_WEBHOOK_URL'),
             'ignore_exceptions' => env('LOG_DISCORD_IGNORE_EXCEPTIONS', false),
         ],
         'teams' => [
-            'driver'    => 'custom',
-            'via'       => LoggerChannel::class,
-            'level'     => 'debug',
-            'url'       => env('INCOMING_WEBHOOK_URL'),
-            'style'     => 'simple',
-            'name'      => env('INCOMING_WEBHOOK_NAME', 'Intern Group'),
+            'driver' => 'custom',
+            'via' => LoggerChannel::class,
+            'level' => 'debug',
+            'url' => env('INCOMING_WEBHOOK_URL'),
+            'style' => 'simple',
+            'name' => env('INCOMING_WEBHOOK_NAME', 'Intern Group'),
         ],
 
     ],

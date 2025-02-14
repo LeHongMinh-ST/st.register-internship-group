@@ -14,7 +14,8 @@
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
         "margatampu/laravel-teams-logging": "^1.2",
-        "marvinlabs/laravel-discord-logger": "^1.4"
+        "marvinlabs/laravel-discord-logger": "^1.4",
+        "opcodesio/log-viewer": "^3.14"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
