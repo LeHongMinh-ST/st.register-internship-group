@@ -4,7 +4,9 @@ namespace App\Imports;
 
 use App\Enums\StudentAttributesEnum;
 use App\Models\Course;
+use App\Models\Group;
 use App\Models\GroupOfficial;
+use App\Models\GroupStudent;
 use App\Models\Student;
 use App\Models\StudentGroupOfficial;
 use App\Models\Teacher;
@@ -38,6 +40,12 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                 $student = Student::query()
                     ->where('code', $row['ma_sinh_vien'])
                     ->where('campaign_id', $this->campaignId)->first();
+
+                if (!$student->email) {
+                    $student->update([
+                        'email' => $row['email'],
+                    ]);
+                }
 
                 if (!$student) {
                     Log::error('student offical import not found ' . $row['ma_sinh_vien']);
@@ -121,7 +129,7 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                         $query->where('group_official_id', $group->id);
                     })->update(['is_captain' => false]);
                 }
-                
+
                 StudentGroupOfficial::updateOrCreate(
                     ['student_id' => $student->id],
                     [
