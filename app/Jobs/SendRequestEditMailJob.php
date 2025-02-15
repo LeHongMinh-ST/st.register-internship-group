@@ -20,11 +20,10 @@ class SendRequestEditMailJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        private readonly string  $email,
+        private readonly string $email,
         private readonly Student $student,
-        private readonly string  $key,
-    )
-    {
+        private readonly string $key,
+    ) {
         //
     }
 
@@ -42,7 +41,7 @@ class SendRequestEditMailJob implements ShouldQueue
             Mail::to($email)
                 ->send(new RequestEditMail($this->student, $this->key));
         } catch (\Exception $exception) {
-            Log::error("job send mail", [
+            Log::error('job send mail', [
                 'message' => $exception->getMessage(),
             ]);
         }

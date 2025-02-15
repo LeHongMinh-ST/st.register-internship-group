@@ -8,6 +8,7 @@ use App\View\Components\Layouts\ClientLayout;
 use App\View\Components\Table\TableEmpty;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Opcodes\LogViewer\Facades\LogViewer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('admin-layout', AdminLayout::class);
         Blade::component('client-layout', ClientLayout::class);
         Blade::component('table-empty', TableEmpty::class);
+        LogViewer::auth(function () {
+            return auth()->check();
+        });
     }
 }

@@ -30,7 +30,9 @@ class ClientResearch extends Component
     public bool $isLoading = false;
 
     public $group;
+
     public $isCaptain;
+
     public $student;
 
     public function updated($field): void
@@ -105,7 +107,7 @@ class ClientResearch extends Component
             ->whereNotNull('group_id')
             ->first();
 
-        if (!$this->student) {
+        if (! $this->student) {
             $this->dispatch('alert', type: 'error', message: 'Không tìm thấy nhóm tương ứng');
 
             return;
@@ -120,14 +122,14 @@ class ClientResearch extends Component
 
     public function sendMailEdit()
     {
-        if (!$this->student->groupStudent->is_captain) {
+        if (! $this->student->groupStudent->is_captain) {
             return;
         }
 
-        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
-            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
-            return;
-        }
+        //        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
+        //            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
+        //            return;
+        //        }
 
         if (! $this->isLoading) {
             $this->isLoading = true;

@@ -114,10 +114,10 @@ class ClientResearchOfficial extends Component
 
     public function sendMailEdit()
     {
-        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
-            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
-            return;
-        }
+//        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
+//            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
+//            return;
+//        }
 
         if (!$this->isLoading) {
             $this->isLoading = true;
@@ -131,7 +131,11 @@ class ClientResearchOfficial extends Component
                 $groupKey->active = true;
                 $groupKey->save();
 
-                $mailTo = env('APP_ENV') == 'local' ? "hongminhle290@gmail.com" : $this->student->groupStudent->email;
+                if (!$this->student->groupStudent) {
+                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->email;
+                } else {
+                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->groupStudent->email;
+                }
 
                 SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
 //                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));

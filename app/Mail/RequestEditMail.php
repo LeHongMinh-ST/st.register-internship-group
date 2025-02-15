@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\Student;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -19,9 +18,8 @@ class RequestEditMail extends Mailable
      */
     public function __construct(
         private Student $student,
-        private string  $key,
-    )
-    {
+        private string $key,
+    ) {
         //
     }
 
@@ -44,7 +42,7 @@ class RequestEditMail extends Mailable
             view: 'mail.request-edit-mail',
             with: [
                 'student' => $this->student,
-                'editLink' => route('internship.edit', $this->key)
+                'editLink' => route('internship.edit', $this->key),
             ]
         );
     }
