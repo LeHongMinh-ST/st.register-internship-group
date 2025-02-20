@@ -41,11 +41,11 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                     ->where('code', $row['ma_sinh_vien'])
                     ->where('campaign_id', $this->campaignId)->first();
 
-                if (!$student->email) {
+                //if (!$student->email) {
                     $student->update([
                         'email' => $row['email'],
                     ]);
-                }
+                //}
 
                 if (!$student) {
                     Log::error('student offical import not found ' . $row['ma_sinh_vien']);
