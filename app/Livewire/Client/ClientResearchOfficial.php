@@ -11,6 +11,7 @@ use App\Models\GroupKey;
 use App\Models\GroupOfficial;
 use App\Models\PlanDetail;
 use App\Models\Student;
+use App\Models\StudentGroupOfficial;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -131,11 +132,15 @@ class ClientResearchOfficial extends Component
                 $groupKey->active = true;
                 $groupKey->save();
 
-                if (!$this->student->groupStudent) {
-                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->email;
-                } else {
-                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->groupStudent->email;
-                }
+                $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : StudentGroupOfficial::query()
+                    ->where('student_id', $this->student->id)
+                    ->first()
+                    ->email;
+//                if (!$this->student->groupStudent) {
+//                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->email;
+//                } else {
+//                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->groupStudent->email;
+//                }
 
                 SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
 //                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
