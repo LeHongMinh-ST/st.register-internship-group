@@ -4,7 +4,7 @@
         <tr class="table-light">
             <th>STT</th>
             <th>Nhóm</th>
-            <th>Sô lượng sinh viên</th>
+            <th>Số lượng sinh viên</th>
             <th>Nhóm trưởng</th>
             <th>Họ đệm</th>
             <th>Tên</th>
