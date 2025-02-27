@@ -21,9 +21,7 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadingRow
 {
 
-    public function __construct(private int|string $campaignId)
-    {
-    }
+    public function __construct(private int|string $campaignId) {}
 
 
     public const START_ROW = 2;
@@ -36,16 +34,33 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
     {
         DB::beginTransaction();
         try {
+
+            // Xóa toàn bộ dữ liệu liên quan trước khi import mới
+            StudentGroupOfficial::whereHas('student', function ($query) {
+                $query->where('campaign_id', $this->campaignId);
+            })->delete();
+
+            GroupOfficial::where('campaign_id', $this->campaignId)->delete();
+
+            Student::where('campaign_id', $this->campaignId)->update(['group_official_id' => null]);
+
+
             foreach ($collection as $row) {
                 $student = Student::query()
                     ->where('code', $row['ma_sinh_vien'])
                     ->where('campaign_id', $this->campaignId)->first();
 
+                // if (!$student->email) {
+                //     $student->update([
+                //         'email' => $row['email'],
+                //     ]);
+                // }
+
                 if ($student && !$student->email) {
                     $student->update([
                         'email' => $row['email'],
                     ]);
-                }
+                }                
 
                 if (!$student) {
                     Log::error('student offical import not found ' . $row['ma_sinh_vien']);
@@ -144,7 +159,6 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
                         'is_captain' => $isCaptain,
                     ]
                 );
-
             }
             DB::commit();
         } catch (\Exception $e) {
