@@ -76,3 +76,27 @@ Route::get('internship/{campaign}/register', [RegisterController::class, 'index'
 Route::get('internship/{campaign}/research', [ResearchController::class, 'index'])->name('internship.research');
 Route::get('internship/{campaign}/research-official', [ResearchController::class, 'official'])->name('internship.research-official');
 Route::get('internship/{key}/edit', [EditGroupController::class, 'index'])->name('internship.edit');
+
+Route::prefix('teacher')->group(function (): void {
+    Route::get('/', [TeacherController::class, 'login'])->name('teacher.teacher-login');
+
+    Route::middleware('auth:teacher')->group(function (): void {
+        Route::get('/student-groups-campaign', [TeacherController::class, 'campaigns'])
+            ->name('teacher.student-groups-campaign');
+            
+        Route::get('/student-groups-campaign/{campaignId}/show', [TeacherController::class, 'groups'])
+            ->name('teacher.student-groups-campaign.show');
+            
+        Route::post('/logout', [TeacherController::class, 'logout'])
+            ->name('teacher.logout');
+
+        Route::get('/topic', [TeacherController::class, 'topic'])
+            ->name('teacher.topics');
+        
+        Route::get('/topic/create', [TeacherController::class, 'topicCreate'])
+            ->name('teacher.topics.create');
+
+        Route::get('/topic/edit/{id}', [TeacherController::class, 'topicEdit'])
+            ->name('teacher.topics.edit');
+    });
+});

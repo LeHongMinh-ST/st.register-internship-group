@@ -78,4 +78,10 @@ class Campaign extends Model
             Group::query()->where('campaign_id', $campaign->id)->delete();
         });
     }
+
+    public function officialGroups(): HasMany
+    {
+        return $this->hasMany(GroupOfficial::class);
+    }
+
 }

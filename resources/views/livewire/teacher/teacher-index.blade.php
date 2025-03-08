@@ -30,9 +30,7 @@
                         <th>Tên giảng viên</th>
                         <th>Bộ môn</th>
                         <th>Email</th>
-                        <th>Số điện thoại</th>
-                        <th>Hướng đề tài</th>
-                        <th>Mô tả</th>
+                        {{-- <th>Số điện thoại</th> --}}
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
@@ -40,33 +38,25 @@
                 <tbody>
                     @forelse($teachers as $teacher)
                         <tr>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                            <td class="bold">
                                 {{ $loop->index + 1 + $teachers->perPage() * ($teachers->currentPage() - 1) }}
                             </td>
-                           <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
-                               {{ $teacher->code ?: 'Chưa có' }}
-                           </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#st{{ $teacher->id }}">
+                            <td class="bold">
+                                {{ $teacher->code ?: 'Chưa có' }}
+                            </td>
+                            <td class="bold">
+                                <a href="#" wire:click="teacherDetail({{ $teacher->id }})" data-bs-toggle="modal"
+                                    data-bs-target="#teacherModal{{ $teacher->id }}">
                                     {{ $teacher->name ?: 'Chưa có' }}
                                 </a>
                             </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                            <td class="bold">
                                 {{ $teacher->department ?: 'Chưa có' }}
                             </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                            <td class="bold">
                                 {{ $teacher->email ?: 'Chưa có' }}
                             </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
-                                {{ $teacher->phone ?: 'Chưa có' }}
-                            </td>
-                             <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
-                                {{ $teacher->topic ?: 'Chưa có' }}
-                            </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
-                                {{ $teacher->description ?: 'Chưa có' }}
-                            </td>
-                            <td data-bs-toggle="collapse" class="bold" data-bs-target="#st{{ $teacher->id }}">
+                            <td class="bold">
                                 @if ($teacher->status === \App\Enums\TeacherStatusEnum::Refuse->value)
                                     <span class="badge bg-danger bg-opacity-20 text-danger">
                                         {{ \App\Enums\TeacherStatusEnum::Refuse->description() }}
@@ -93,9 +83,53 @@
                                             <i class="ph-x-circle me-2"></i>
                                             Tạm dừng
                                         </button>
+                                        <button type="button" wire:click="openDeleteModal({{ $teacher->id }})" class="dropdown-item text-danger">
+                                            <i class="ph-trash me-2"></i>
+                                            Xóa
+                                        </button>
                                     </div>
                                 </div>
                             </td>
+
+                            <div wire:ignore.self class="modal fade" id="teacherModal{{ $teacher->id }}"
+                                tabindex="-1" aria-labelledby="teacherModalLabel{{ $teacher->id }}"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="teacherModalLabel{{ $teacher->id }}">
+                                                Thông tin chi tiết giảng viên
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @if ($selectedTeacher && $selectedTeacher->id === $teacher->id)
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4 fw-bold">Mã giảng viên:</div>
+                                                    <div class="col-md-8">{{ $selectedTeacher->code }}</div>
+                                                    <div class="col-md-4 fw-bold">Tên giảng viên:</div>
+                                                    <div class="col-md-8">{{ $selectedTeacher->name }}</div>
+                                                    <div class="col-md-4 fw-bold">Ngày sinh:</div>
+                                                    <div class="col-md-8">
+                                                        {{ \Carbon\Carbon::parse($selectedTeacher->dob)->format('d/m/Y') }}
+                                                    </div>
+                                                    <div class="col-md-4 fw-bold">Bộ môn:</div>
+                                                    <div class="col-md-8">{{ $selectedTeacher->department }}</div>
+                                                    <div class="col-md-4 fw-bold">Email:</div>
+                                                    <div class="col-md-8">{{ $selectedTeacher->email }}</div>
+                                                    <div class="col-md-4 fw-bold">Số điện thoại:</div>
+                                                    <div class="col-md-8">{{ $selectedTeacher->phone }}</div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     @empty
                         <x-table-empty :colspan="11" />
@@ -106,9 +140,6 @@
     </div>
     {{ $teachers->links('vendor.pagination.groups-official') }}
     <livewire:teacher.teacher-import />
-    {{-- @foreach($teachers as $teacher)
-        <livewire:teacher.teacher-modal :id="$teacher->id"/>
-    @endforeach --}}
 </div>
 
 @script
@@ -121,5 +152,21 @@
         window.addEventListener('close-import-teacher-modal', () => {
             $('#model-import-group').modal('hide')
         })
+
+        window.addEventListener('openDeleteModal', () => {
+            new swal({
+                title: "Bạn có chắc chắn?",
+                text: "Dữ liệu sau khi xóa không thể phục hồi!",
+                showCancelButton: true,
+                confirmButtonColor: "#FF7043",
+                confirmButtonText: "Đồng ý!",
+                cancelButtonText: "Đóng!"
+            }).then((value) => {
+                if (value.isConfirmed) {
+                    Livewire.dispatch('deleteTeacher')
+                }
+            })
+        })
     </script>
+
 @endscript

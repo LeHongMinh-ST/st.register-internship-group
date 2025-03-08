@@ -39,17 +39,17 @@
                     </a>
                 </li>
 
-                {{-- <li class="pt-0 nav-item-header">
+                <li class="pt-0 nav-item-header">
                     <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý hệ thống</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                    <a href=""
+                       class="nav-link">
                         <i class="ph-user"></i>
                         <span>Người dùng</span>
                     </a>
-                </li> --}}
+                </li>
 
                 <li class="nav-item-header">
                     <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý giảng viên</div>
@@ -58,7 +58,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.teachers.index') }}"
                        class="nav-link {{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
-                        <i class="ph-user"></i>
+                        <i class="ph-chalkboard-teacher"></i>
                         <span>Giảng viên</span>
                     </a>
                 </li>
