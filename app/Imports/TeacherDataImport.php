@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use App\Models\Teacher;
+use Carbon\Carbon;
 
 class TeacherDataImport implements ToCollection, WithHeadingRow
 {
@@ -40,6 +41,7 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
                     'description' => $row['mo_ta'] ?? null,
                     'status' => 'accept',
                     'department' => $row['bo_mon'],
+                    'dob' => Carbon::createFromFormat('d/m/Y', $row['ngay_sinh'])->format('Y-m-d'),
                 ];
 
                 if (!empty($row['email'])) {
@@ -49,14 +51,6 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
                 if (!empty($row['so_dien_thoai'])) {
                     $dataTeacher['phone'] = $row['so_dien_thoai'] ?? null;
                 }
-
-                // if (!empty($row['huong_de_tai'])) {
-                //     $dataTeacher['topic'] = $row['huong_de_tai'] ?? null;
-                // }
-
-                // if (!empty($row['mo_ta'])) {
-                //     $dataTeacher['description'] = $row['mo_ta'] ?? null;
-                // }
 
                 if (!$teacher) {
                     Teacher::create($dataTeacher);

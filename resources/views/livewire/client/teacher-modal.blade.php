@@ -13,7 +13,7 @@
                                 <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#teacher{{ $teacher->id }}" aria-expanded="false"
                                     aria-controls="teacher{{ $teacher->id }}">
-                                    GVHD: {{ $teacher->name }} - {{ $teacher->code }}
+                                    GVHD: {{ $teacher->name }}
                                 </button>
                             </h2>
                             <div id="teacher{{ $teacher->id }}" class="accordion-collapse collapse"
@@ -28,15 +28,18 @@
                                         </div>
                                         <div class="col">{{ $teacher->phone }}</div>
                                     </div>
-                                    <div class="row mb-1 align-items-center">
-                                        <div class="col-3 fw-bold text-muted">Hướng nghiên
-                                            cứu:</div>
-                                        <div class="col">{{ $teacher->topic }}</div>
-                                    </div>
-                                    <div class="row mb-1 align-items-center">
-                                        <div class="col-3 fw-bold text-muted">Mô tả:</div>
-                                        <div class="col">{{ $teacher->description }}
-                                        </div>
+                                    <div class="mt-3">
+                                        <h6 class="fw-bold text-primary">Danh sách đề tài:</h6>
+                                        <ul class="list-group">
+                                            @forelse ($teacher->topics as $topic)
+                                                <li class="list-group-item">
+                                                    <strong>{{ $topic->title }}</strong>
+                                                    <p class="text-muted mb-0">{{ $topic->description }}</p>
+                                                </li>
+                                            @empty
+                                                <li class="list-group-item text-muted">Hiện chưa có đề tài nào.</li>
+                                            @endforelse
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
