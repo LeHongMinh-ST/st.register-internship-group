@@ -13,10 +13,11 @@ class TeacherIndex extends Component
 {
     use WithPagination;
     public $search;
-    public $teacherId;
+    public int $teacherId;
 
     protected $listeners = [
-        'refresh-teacher' => '$refresh'
+        'refresh-teacher' => '$refresh',
+        'deleteTeacher' => 'handleDeleteTeacher',
     ];
 
     public function updatingSearch()
@@ -56,5 +57,24 @@ class TeacherIndex extends Component
             $teacher->status = TeacherStatusEnum::Refuse->value;
             $teacher->save();
         }
+    }
+
+    public $selectedTeacher = null;
+
+    public function teacherDetail($id): void
+    {
+        $this->selectedTeacher = Teacher::find($id);
+    }
+
+    public function handleDeleteTeacher(): void
+    {
+        Teacher::destroy($this->teacherId);
+        $this->dispatch('alert', type: 'success', message: 'Xóa thành công');
+    }
+
+    public function openDeleteModal(int $id): void
+    {
+        $this->teacherId = $id;
+        $this->dispatch('openDeleteModal');
     }
 }
