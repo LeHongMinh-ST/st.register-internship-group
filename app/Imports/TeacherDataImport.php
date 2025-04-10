@@ -54,7 +54,11 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
 
                 if (!$teacher) {
                     Teacher::create($dataTeacher);
+                    $dataTeacher['password'] = bcrypt('Fita@2005');
                 } else {
+                    if (!$teacher->password) {
+                        $dataTeacher['password'] = bcrypt('Fita@2005'); // Chỉ đặt mật khẩu nếu chưa có
+                    }
                     $teacher->update($dataTeacher);
                 }
             }

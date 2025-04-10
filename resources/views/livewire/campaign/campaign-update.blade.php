@@ -99,6 +99,33 @@
         </div>
         <div class="card">
             <div class="card-header bold">
+                <i class="ph-clock"></i>
+                Thời hạn nộp báo cáo
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-12 col-md-6 ">
+                        <label for="title" class="col-form-label">
+                            Hạn nộp <span class="required">*</span>
+                        </label>
+                        <div class="input-group">
+                           <span class="input-group-text">
+												<i class="ph-calendar"></i>
+											</span>
+                            <input wire:model="report_deadline" type="text" id="reportDeadline" value="{{ $this->report_deadline }}"
+                                   class="form-control datepicker-basic datepicker-input ">
+                        </div>
+                        @error('report_deadline')
+                        <label id="error-username" class="validation-error-label text-danger"
+                               for="username">{{ $message }}</label>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header bold">
                 <i class="ph-user"></i>
                 Thành viên nhóm
             </div>
@@ -213,6 +240,25 @@
                 const selectedDate = new Date(event.detail.date);
                 const formattedDate = formatDateToString(selectedDate);
                 Livewire.dispatch('update-official-end-date', { value: formattedDate })
+            });
+        }
+
+        
+        const dpBasicElementReportDeadline = document.querySelector('#reportDeadline');
+        if (dpBasicElementReportDeadline) {
+            new Datepicker(dpBasicElementReportDeadline, {
+                container: '.content-inner',
+                buttonClass: 'btn',
+                prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                format: 'dd/mm/yyyy',
+                weekStart: 1,
+                language: 'vi',
+            });
+            dpBasicElementReportDeadline.addEventListener('changeDate', function (event) {
+                const selectedDate = new Date(event.detail.date);
+                const formattedDate = formatDateToString(selectedDate);
+                Livewire.dispatch('update-report-deadline', { value: formattedDate })
             });
         }
     });

@@ -143,7 +143,7 @@ class ClientResearch extends Component
                 $groupKey->active = true;
                 $groupKey->save();
 
-                $mailTo = env('APP_ENV') == 'local' ? 'hongminhle290@gmail.com' : $this->student->groupStudent->email;
+                $mailTo = env('APP_ENV') == 'local' ? 'hwanghaha123@gmail.com' : $this->student->groupStudent->email;
 
                 SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
                 //                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));

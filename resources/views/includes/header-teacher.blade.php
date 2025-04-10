@@ -25,6 +25,11 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end">
+                        <a href="{{route('teacher.account')}}" class="dropdown-item">
+                            <i class="ph-gear me-2"></i>
+                            Tài khoản
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <form action="{{ route('teacher.logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="dropdown-item">

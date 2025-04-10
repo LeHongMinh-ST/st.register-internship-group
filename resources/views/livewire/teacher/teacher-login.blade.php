@@ -3,14 +3,26 @@
         <div class="card-body">
             <div class="row login-row">
                 <div class="col-xl-6">
+                    <div class="login-image-wrapper text-center">
+                        <img class="login-image" src="{{ asset('assets/images/re_success.jpg') }}" alt="login">
+                        <div class="line"></div>
+                        <div class="text-muted" style="max-width: 100%; display: inline-block;">
+                            Lưu ý: Thầy cô cần thay mật khẩu ngay sau khi đăng nhập lần đầu tiên 
+                            để bảo mật tài khoản của mình.
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="col-xl-6">
                     <div>
                         @csrf
-
                         <div class="mb-3 text-center">
                             <div class="gap-1 mt-2 mb-4 d-inline-flex align-items-center justify-content-center">
                                 <img src="{{ asset('assets/images/FITA.png') }}" class="h-64px" alt="">
                                 <img src="{{ asset('assets/images/logoST.jpg') }}" class="h-64px" alt="">
                             </div>
+                            <span class="d-block text-muted">Chào mừng bạn đến với</span>
                             <h5 class="mb-0 p-2">Hệ thống quản lý nhóm TTNN & KLTN</h5>
                             <span class="d-block text-muted">Trang dành cho giảng viên hướng dẫn</span>
                         </div>
@@ -19,25 +31,29 @@
                             <label for="code" class="col-form-label">
                                 Mã giảng viên <span class="required">*</span>
                             </label>
-                            <input wire:model.defer="code" type="text" id="code" class="form-control">
-                            @error('code') 
-                                <label class="validation-error-label text-danger">{{ $message }}</label> 
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="ph-chalkboard-teacher"></i>
+                                </span>
+                                <input wire:model.defer="code" type="text" id="code" class="form-control">
+                            </div>
+                            @error('code')
+                                <label class="validation-error-label text-danger">{{ $message }}</label>
                             @enderror
                         </div>
 
                         <div class="mb-3 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
                             <label for="dob" class="col-form-label">
-                                Ngày sinh <span class="required">*</span>
+                                Mật khẩu <span class="required">*</span>
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text">
-                                    <i class="ph-calendar"></i>
+                                    <i class="ph-lock"></i>
                                 </span>
-                                <input wire:model.defer="dob" type="text" id="dob" 
-                                    class="form-control datepicker-basic datepicker-input">
+                                <input wire:model.defer="password" type="password" id="password" class="form-control">
                             </div>
-                            @error('dob') 
-                                <label class="validation-error-label text-danger">{{ $message }}</label> 
+                            @error('password')
+                                <label class="validation-error-label text-danger">{{ $message }}</label>
                             @enderror
                         </div>
 
@@ -48,41 +64,12 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-6">
-                    <div class="login-image-wrapper">
-                        <img class="login-image" src="{{ asset('assets/images/re_success.jpg') }}" alt="login">
-                        <div class="line"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 @script
     <script>
-        $(document).ready(function() {
-            const dpBasicElementStartDate = document.querySelector('#dob');
-            if (dpBasicElementStartDate) {
-                new Datepicker(dpBasicElementStartDate, {
-                    container: '.content-inner',
-                    buttonClass: 'btn',
-                    prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
-                    nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
-                    format: 'dd/mm/yyyy',
-                    weekStart: 1,
-                    language: 'vi',
-                });
-                dpBasicElementStartDate.addEventListener('changeDate', function(event) {
-                    const selectedDate = new Date(event.detail.date);
-                    const formattedDate = formatDateToString(selectedDate);
-                    Livewire.dispatch('update-dob', {
-                        value: formattedDate
-                    })
-                });
-            }
-        });
-
         window.addEventListener('open-plan-modal', () => {
             $('#modal-plan').modal('show')
         })

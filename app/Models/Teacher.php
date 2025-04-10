@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Teacher extends Authenticatable
 {
-    protected $fillable = ['code', 'name', 'email', 'phone', 'topic', 'description', 'status', 'department', 'dob'];
+    protected $fillable = 
+    ['code', 'name', 'email', 'phone', 'topic', 
+    'description', 'status', 'department', 'dob','password'];
 
 
     use HasFactory;

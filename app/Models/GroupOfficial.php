@@ -15,7 +15,7 @@ class GroupOfficial extends Model
     use HasFactory;
 
 
-    protected $fillable = ['supervisor', 'topic', 'campaign_id', 'teacher_id', 'department', 'code'];
+    protected $fillable = ['supervisor', 'topic', 'campaign_id', 'teacher_id', 'department', 'code','report_file','report_status'];
 
     public function students(): HasMany
     {
@@ -41,7 +41,11 @@ class GroupOfficial extends Model
             })
             ->orWhereHas('teacher', function ($q) use ($search) {
                 $q->where('name', 'like', '%'.$search.'%');
-            });
+            })
+            ->orWhereHas('teacher', function ($q) use ($search) {
+                $q->where('topic', 'like', '%'.$search.'%');
+            })
+            ->orWhere('topic', 'like', '%' . $search . '%');
         }
 
         return $query;
@@ -52,5 +56,10 @@ class GroupOfficial extends Model
         return $this->hasOne(Student::class)->whereHas('studentGroupOfficial', function ($q) {
             $q->where('is_captain', true);
         });
+    }
+
+    public function campaign(): BelongsTo
+    {
+        return $this->belongsTo(Campaign::class);
     }
 }

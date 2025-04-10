@@ -39,7 +39,15 @@
                     </a>
                 </li>
 
-                <li class="pt-0 nav-item-header">
+                <li class="nav-item">
+                    <a href="{{ route('admin.reports.index') }}"
+                       class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
+                        <i class="ph-file-doc"></i>
+                        <span>Báo cáo</span>
+                    </a>
+                </li>
+
+                {{-- <li class="pt-0 nav-item-header">
                     <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý hệ thống</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
@@ -49,7 +57,7 @@
                         <i class="ph-user"></i>
                         <span>Người dùng</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item-header">
                     <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý giảng viên</div>
