@@ -13,7 +13,7 @@ class Campaign extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'start', 'end', 'max_student_group', 'official_end', 'plan_template_id'];
+    protected $fillable = ['name', 'start', 'end', 'max_student_group', 'official_end', 'plan_template_id','report_deadline'];
 
     public function students(): HasMany
     {
@@ -61,6 +61,14 @@ class Campaign extends Model
         if (!$this->official_end) return true;
         $now = Carbon::now()->timestamp;
         $end = Carbon::make($this->official_end)->endOfDay()->timestamp;
+        return $end < $now;
+    }
+
+    public function isReportDeadlineExpired()
+    {
+        if (!$this->report_deadline) return true;
+        $now = Carbon::now()->timestamp;
+        $end = Carbon::make($this->report_deadline)->endOfDay()->timestamp;
         return $end < $now;
     }
 

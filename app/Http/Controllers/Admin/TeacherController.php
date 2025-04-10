@@ -63,4 +63,9 @@ class TeacherController extends Controller
     {
         return view('pages.teacher.topic.edit');
     }
+
+    public function teacherAccount()
+    {
+        return view('pages.teacher.account.edit');
+    }
 }

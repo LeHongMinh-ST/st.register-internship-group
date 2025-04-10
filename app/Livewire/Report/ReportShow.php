@@ -1,32 +1,29 @@
 <?php
 
-namespace App\Livewire\Teacher;
+namespace App\Livewire\Report;
 
 use Livewire\Component;
-use App\Models\Campaign;
 use App\Models\GroupOfficial;
-use Illuminate\Support\Facades\Auth;
+use App\Common\Constants;
 use Illuminate\Support\Str;
 
-
-class TeacherStudentGroup extends Component
+class ReportShow extends Component
 {
-    public int|string $campaignId;
+    public int|string $campaignId = '';
+
+    public string $search = '';
 
     public function mount($campaignId)
     {
-        $this->campaignId = is_object($campaignId) ? $campaignId->id : $campaignId;
+        $this->campaignId = $campaignId;
     }
 
     public function render()
     {
-        $teacherId = Auth::guard('teacher')->user()->id;
         $groups = GroupOfficial::where('campaign_id', $this->campaignId)
-            ->where('teacher_id', $teacherId)
-            ->with('students')
-            ->get();
-
-        return view('livewire.teacher.teacher-student-group', [
+            ->search($this->search)
+            ->paginate(Constants::PER_PAGE_ADMIN);
+        return view('livewire.report.report-show', [
             'groups' => $groups
         ]);
     }
@@ -40,7 +37,7 @@ class TeacherStudentGroup extends Component
         $extension = pathinfo($group->report_file, PATHINFO_EXTENSION);
 
         $campaignName = $group->campaign->name;
-        $campaignName = strtoupper(Str::slug($campaignName, '_') );
+        $campaignName = strtoupper(Str::slug($campaignName, '_'));
 
         $fileName = "BAO_CAO_{$campaignName}_NHOM_{$group->code}.{$extension}";
 

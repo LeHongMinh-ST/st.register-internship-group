@@ -11,8 +11,8 @@
 
                         <div class="mb-3 text-center">
                             <div class="gap-1 mt-2 mb-4 d-inline-flex align-items-center justify-content-center">
-                                <img src="{{asset('assets/images/FITA.png')}}" class="h-64px" alt="">
-                                <img src="{{asset('assets/images/logoST.jpg')}}" class="h-64px" alt="">
+                                <img src="{{ asset('assets/images/FITA.png') }}" class="h-64px" alt="">
+                                <img src="{{ asset('assets/images/logoST.jpg') }}" class="h-64px" alt="">
                             </div>
                             <span class="d-block text-muted">Tra cứu thông tin</span>
                             <h5 class="mb-0 p-2">{{ $campaign->name }}</h5>
@@ -21,7 +21,7 @@
                                 <span class="tooltip-text">
                                     {{ $planName }}
                                 </span>
-                            </a>            
+                            </a>
                         </div>
 
                         <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
@@ -29,10 +29,10 @@
                                 Mã sinh viên <span class="required">*</span>
                             </label>
                             <input wire:model.live="code" type="text" id="name" value="{{ $code }}"
-                                   class="form-control">
+                                class="form-control">
                             @error('code')
-                            <label id="error-code" class="validation-error-label text-danger"
-                                   for="code">{{ $message }}</label>
+                                <label id="error-code" class="validation-error-label text-danger"
+                                    for="code">{{ $message }}</label>
                             @enderror
                         </div>
                         <div class="mb-3 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
@@ -40,36 +40,34 @@
                                 Ngày sinh <span class="required">*</span>
                             </label>
                             <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="ph-calendar"></i>
-                                    </span>
+                                <span class="input-group-text">
+                                    <i class="ph-calendar"></i>
+                                </span>
                                 <input wire:model="dob" type="text" id="dob" value="{{ $this->dob }}"
-                                       class="form-control datepicker-basic datepicker-input">
+                                    class="form-control datepicker-basic datepicker-input">
                             </div>
 
                             @error('dob')
-                            <label id="error-dob" class="validation-error-label text-danger"
-                                   for="dob">{{ $message }}</label>
+                                <label id="error-dob" class="validation-error-label text-danger"
+                                    for="dob">{{ $message }}</label>
                             @enderror
                         </div>
                         <div class="mb-2 ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5">
-                            <button wire:click="filterGroup()" type="button"
-                                    class="btn btn-primary">
+                            <button wire:click="filterGroup()" type="button" class="btn btn-primary">
                                 <i class="ph-magnifying-glass"></i>
                                 Tra cứu
                             </button>
-                            @if($group)
-                                <button wire:click="resetData()" type="button"
-                                        class="btn btn-warning">
+                            @if ($group)
+                                <button wire:click="resetData()" type="button" class="btn btn-warning">
                                     <i class="ph ph-arrow-clockwise"></i>
                                     Đặt lại
                                 </button>
                             @endif
 
                         </div>
-                        @if(!$campaign->isExpired())
+                        @if (!$campaign->isExpired())
                             <div class="ps-2 pe-2 ps-md-3 pe-md-3 ps-lg-5 pe-lg-5 ">
-                                <a href="{{route('internship.register', $campaignId)}}" class="text-primary"> <i
+                                <a href="{{ route('internship.register', $campaignId) }}" class="text-primary"> <i
                                         class="ph-arrow-circle-left"></i>Đăng ký nhóm</a>
                             </div>
                         @endif
@@ -78,7 +76,7 @@
                 </div>
 
                 <div class="col-xl-6">
-                    @if(!$group)
+                    @if (!$group)
                         <div class="login-image-wrapper">
                             <img class="login-image" src="{{ asset('assets/images/search.jpg') }}" alt="login">
                             <div class="line"></div>
@@ -89,52 +87,55 @@
                                 <div class="card-header d-flex gap-2">
                                     <div>
                                         <div>Thông tin nhóm nguyện vọng TTCN/KLTN</div>
-                                        <b>Học phần {{$this->student?->course?->name}}
-                                            - {{$this->student?->course?->code}}</b>
+                                        <b>Học phần {{ $this->student?->course?->name }}
+                                            - {{ $this->student?->course?->code }}</b>
                                         <div><b>Nhóm {{ $group->code }}</b></div>
                                     </div>
                                 </div>
                                 <div class="card-body p-2">
                                     <div class="accordion" id="accordion_collapsed">
-                                        @foreach($group->students as $item)
+                                        @foreach ($group->students as $item)
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header">
                                                     <button class="accordion-button fw-semibold" type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#st{{$item->code}}">
-                                                        {{$item->name}} @if($item->studentGroupOfficial->is_captain)<span class="text-danger">*</span> @endif - Mã sinh viên: {{ $item->code }} -
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#st{{ $item->code }}">
+                                                        {{ $item->name }} @if ($item->studentGroupOfficial->is_captain)
+                                                            <span class="text-danger">*</span>
+                                                        @endif - Mã sinh viên: {{ $item->code }}
+                                                        -
                                                         Lớp: {{ $item->class }}
                                                     </button>
                                                 </h2>
-                                                <div id="st{{$item->code}}" class="accordion-collapse @if(count($group->students) <= 1) show @endif collapse "
-                                                     wire:ignore.self>
+                                                <div id="st{{ $item->code }}"
+                                                    class="accordion-collapse @if (count($group->students) <= 1) show @endif collapse "
+                                                    wire:ignore.self>
                                                     <div class="accordion-body">
                                                         <div>Email:
-                                                            <b>{{ $item->studentGroupOfficial->email ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial->email ?: 'Chưa có' }}</b>
                                                         </div>
                                                         <div>Số điện thoại:
-                                                            <b>{{ $item->studentGroupOfficial->phone ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial->phone ?: 'Chưa có' }}</b>
                                                         </div>
                                                         <div>Số điện thoại phụ huynh:
-                                                            <b>{{ $item->studentGroupOfficial->phone_family ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial->phone_family ?: 'Chưa có' }}</b>
                                                         </div>
 
                                                         <div>Công ty thực tập:
-                                                            <b>{{ $item->studentGroupOfficial->internship_company ?: "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial->internship_company ?: 'Chưa có' }}</b>
                                                         </div>
                                                         <div>Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company ?? "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company ?? 'Chưa có' }}</b>
                                                         </div>
                                                         <div>Email Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_email ?? "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_email ?? 'Chưa có' }}</b>
                                                         </div>
                                                         <div>SĐT Cán bộ hướng dẫn thực tập:
-                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_phone ?? "Chưa có" }}</b>
+                                                            <b>{{ $item->studentGroupOfficial?->supervisor_company_phone ?? 'Chưa có' }}</b>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         @endforeach
                                     </div>
                                 </div>
@@ -144,14 +145,40 @@
                                     Thông tin đề tài và GVHD
                                 </div>
                                 <div class="card-body p-2">
-                                    <div>Tên đề tài: <b>{{ $group->topic ?: "Chưa có" }}</b></div>
-                                    <div>Giảng viên hướng dẫn: <b>{{ $group->teacher?->name ?: "Chưa có" }}</b></div>
-                                    <div>Email Giảng viên hướng dẫn: <b>{{ $group->teacher?->email ?: "Chưa có" }}</b></div>
-                                    <div>SĐT Giảng viên hướng dẫn: <b>{{ $group->teacher?->phone ?: "Chưa có" }}</b></div>
-                                    <div>Bộ môn quản lý: <b>{{ $group->department ?: "Chưa có" }}</b></div>
+                                    <div>Tên đề tài: <b>{{ $group->topic ?: 'Chưa có' }}</b></div>
+                                    <div>Giảng viên hướng dẫn: <b>{{ $group->teacher?->name ?: 'Chưa có' }}</b></div>
+                                    <div>Email Giảng viên hướng dẫn: <b>{{ $group->teacher?->email ?: 'Chưa có' }}</b>
+                                    </div>
+                                    <div>SĐT Giảng viên hướng dẫn: <b>{{ $group->teacher?->phone ?: 'Chưa có' }}</b>
+                                    </div>
+                                    <div>Bộ môn quản lý: <b>{{ $group->department ?: 'Chưa có' }}</b></div>
                                 </div>
                             </div>
-                            @if( !$campaign->isEditOfficialExpired() && $this->student->studentGroupOfficial->is_captain)
+                            <div class="card">
+                                <div class="card-header">
+                                    Trạng thái báo cáo tổng kết: &nbsp;
+                                    @if (is_null($group->report_file))
+                                    <span class="badge bg-secondary bg-opacity-20 text-secondary">
+                                        Chưa nộp báo cáo
+                                    </span>
+                                    @else
+                                    @if ($group->report_status === \App\Enums\ReportStatusEnum::PENDING->value)
+                                        <span class="badge bg-warning bg-opacity-20 text-warning">
+                                            Báo cáo đã được nộp. Vui lòng chờ duyệt ...
+                                        </span>
+                                    @elseif($group->report_status === \App\Enums\ReportStatusEnum::APPROVED->value)
+                                        <span class="badge bg-success bg-opacity-20 text-success">
+                                            Tuyệt vời!!! Báo cáo đã được duyệt
+                                        </span>
+                                    @elseif($group->report_status === \App\Enums\ReportStatusEnum::REJECTED->value)
+                                        <span class="badge bg-danger bg-opacity-20 text-danger">
+                                            Báo cáo chưa đáp ứng yêu cầu. Vui lòng chỉnh sửa và nộp lại !!!
+                                        </span>
+                                    @endif
+                                    @endif
+                                </div>
+                            </div>
+                            @if (!$campaign->isEditOfficialExpired() && $this->student->studentGroupOfficial->is_captain)
                                 <div class="mt-2">
                                     <button wire:loading class="btn btn-primary" wire:target="sendMailEdit">
                                         <i class="ph-circle-notch spinner"></i>
@@ -161,6 +188,20 @@
                                     <button wire:loading.remove class="btn btn-primary" wire:click="sendMailEdit">
                                         <i class="ph-paper-plane-tilt"></i>
                                         Yêu cầu chỉnh sửa
+                                    </button>
+                                </div>
+                            @endif
+
+                            @if (!$campaign->isReportDeadlineExpired() && $this->student->studentGroupOfficial->is_captain)
+                                <div class="mt-2">
+                                    <button wire:loading class="btn btn-teal" wire:target="sendMailReport">
+                                        <i class="ph-circle-notch spinner"></i>
+                                        Yêu cầu nộp báo cáo
+                                    </button>
+
+                                    <button wire:loading.remove class="btn btn-teal" wire:click="sendMailReport">
+                                        <i class="ph-file-doc"></i>
+                                        Yêu cầu nộp báo cáo
                                     </button>
                                 </div>
                             @endif
@@ -175,7 +216,7 @@
         </div>
     </div>
 
-    <div id="modal-plan" wire:ignore.self class="modal fade" >
+    <div id="modal-plan" wire:ignore.self class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
@@ -187,29 +228,31 @@
                     <div class="table-responsive table-scrollable border-top">
                         <table class="table fs-table">
                             <thead>
-                            <tr class="table-light">
-                                <th>STT</th>
-                                <th>Thời gian</th>
-                                <th>Nội dung thực hiện</th>
-                            </tr>
+                                <tr class="table-light">
+                                    <th>STT</th>
+                                    <th>Thời gian</th>
+                                    <th>Nội dung thực hiện</th>
+                                </tr>
                             </thead>
 
                             <tbody>
-                            @forelse($plans as $plan)
-                                <tr>
-                                    <td>{{ $loop->index + 1 + $plans->perPage() * ($plans->currentPage() - 1) }}</td>
-                                    <td>
-                                        @if($plan->time)
-                                            {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
-                                        @else
-                                            {{ \Carbon\Carbon::make($plan->start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
-                                        @endif
-                                    </td>
-                                    <td>{!! $plan->content  !!}</td>
-                                </tr>
-                            @empty
-                                <x-table-empty :colspan="3"/>
-                            @endforelse
+                                @forelse($plans as $plan)
+                                    <tr>
+                                        <td>{{ $loop->index + 1 + $plans->perPage() * ($plans->currentPage() - 1) }}
+                                        </td>
+                                        <td>
+                                            @if ($plan->time)
+                                                {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
+                                            @else
+                                                {{ \Carbon\Carbon::make($plan->start_date)->format('d/m/Y') }} -
+                                                {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
+                                            @endif
+                                        </td>
+                                        <td>{!! $plan->content !!}</td>
+                                    </tr>
+                                @empty
+                                    <x-table-empty :colspan="3" />
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -219,37 +262,31 @@
     </div>
 </div>
 @script
-<script>
-    $(document).ready(function () {
-        const dpBasicElementStartDate = document.querySelector('#dob');
-        if (dpBasicElementStartDate) {
-            new Datepicker(dpBasicElementStartDate, {
-                container: '.content-inner',
-                buttonClass: 'btn',
-                prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
-                nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
-                format: 'dd/mm/yyyy',
-                weekStart: 1,
-                language: 'vi',
-            });
-            dpBasicElementStartDate.addEventListener('changeDate', function (event) {
-                const selectedDate = new Date(event.detail.date);
-                const formattedDate = formatDateToString(selectedDate);
-                Livewire.dispatch('update-dob', {
-                    value: formattedDate
-                })
-            });
-        }
-    });
+    <script>
+        $(document).ready(function() {
+            const dpBasicElementStartDate = document.querySelector('#dob');
+            if (dpBasicElementStartDate) {
+                new Datepicker(dpBasicElementStartDate, {
+                    container: '.content-inner',
+                    buttonClass: 'btn',
+                    prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                    nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                    format: 'dd/mm/yyyy',
+                    weekStart: 1,
+                    language: 'vi',
+                });
+                dpBasicElementStartDate.addEventListener('changeDate', function(event) {
+                    const selectedDate = new Date(event.detail.date);
+                    const formattedDate = formatDateToString(selectedDate);
+                    Livewire.dispatch('update-dob', {
+                        value: formattedDate
+                    })
+                });
+            }
+        });
 
-    window.addEventListener('open-plan-modal', () => {
-        $('#modal-plan').modal('show')
-    })
-
-
-</script>
+        window.addEventListener('open-plan-modal', () => {
+            $('#modal-plan').modal('show')
+        })
+    </script>
 @endscript
-
-
-
-
