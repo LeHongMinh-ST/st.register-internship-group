@@ -38,11 +38,14 @@ class CampaignUpdate extends Component
 
     public string $status;
 
+    public string $report_deadline = '';
+
     protected $listeners = [
         'update-start-date' => 'updateStartDate',
         'update-end-date' => 'updateEndDate',
         'update-official-end-date' => 'updateOfficialEndDate',
-        'selectedPlan' => 'updatePlan'
+        'selectedPlan' => 'updatePlan',
+        'update-report-deadline' => 'updateReportDeadline',
     ];
 
     public function render()
@@ -61,6 +64,7 @@ class CampaignUpdate extends Component
         $this->start = Carbon::make($campaign->start)->format(Constants::FORMAT_DATE);
         $this->end = Carbon::make($campaign->end)->format(Constants::FORMAT_DATE);
         $this->official_end = Carbon::make($campaign->official_end ?? now())->format(Constants::FORMAT_DATE);
+        $this->report_deadline = Carbon::make($campaign->report_deadline ?? now())->format(Constants::FORMAT_DATE);
         $this->max_student_group = $campaign->max_student_group;
         $this->planId = $campaign->plan_template_id;
         $this->status = $campaign->status;
@@ -124,6 +128,14 @@ class CampaignUpdate extends Component
         $this->official_end = str_replace('/', '-', $value);
     }
 
+    public function updateReportDeadline($value): void
+    {
+        if ($value) {
+            $this->resetValidation('report_deadline');
+        }
+        $this->report_deadline = str_replace('/', '-', $value);
+    }
+
     public function updatePlan($id): void
     {
         $this->planId = $id;
@@ -145,6 +157,7 @@ class CampaignUpdate extends Component
                     'start' => Carbon::make($this->start),
                     'end' => Carbon::make($this->end),
                     'official_end' => Carbon::make($this->official_end),
+                    'report_deadline' => Carbon::make($this->report_deadline),
                     'max_student_group' => $this->max_student_group,
                     'plan_template_id' => $this->planId ?? null,
                     'status' => $this->status

@@ -10,6 +10,7 @@ use App\Http\Controllers\Client\ResearchController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,12 +71,19 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
         Route::get('/{campaign}/show', [CompanyController::class, 'companyCampaignShow'])->name('admin.company-campaign.show');
     });
 
+    Route::prefix('report')->group(function (): void {
+        Route::get('/', [ReportController::class, 'index'])->name('admin.reports.index');
+        Route::get('/{campaignId}/show', [ReportController::class, 'show'])->name('admin.reports.show');
+        
+    });
+
 //    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
 });
 Route::get('internship/{campaign}/register', [RegisterController::class, 'index'])->name('internship.register');
 Route::get('internship/{campaign}/research', [ResearchController::class, 'index'])->name('internship.research');
 Route::get('internship/{campaign}/research-official', [ResearchController::class, 'official'])->name('internship.research-official');
 Route::get('internship/{key}/edit', [EditGroupController::class, 'index'])->name('internship.edit');
+Route::get('internship/{key}/report', [EditGroupController::class, 'report'])->name('internship.report');
 
 Route::prefix('teacher')->group(function (): void {
     Route::get('/', [TeacherController::class, 'login'])->name('teacher.teacher-login');
@@ -98,5 +106,8 @@ Route::prefix('teacher')->group(function (): void {
 
         Route::get('/topic/edit/{id}', [TeacherController::class, 'topicEdit'])
             ->name('teacher.topics.edit');
+
+        Route::get('/account', [TeacherController::class, 'teacherAccount'])
+            ->name('teacher.account');  
     });
 });

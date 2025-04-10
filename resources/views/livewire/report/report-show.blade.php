@@ -1,7 +1,10 @@
 <div xmlns:livewire="http://www.w3.org/1999/html">
     <div class="card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
-            <div class="gap-2 d-flex">
+            <div class="d-flex gap-2">
+                <div>
+                    <input wire:model.live="search" type="text" class="form-control" placeholder="Tìm kiếm...">
+                </div>
             </div>
         </div>
 
@@ -11,7 +14,6 @@
                     <tr class="table-light">
                         <th class="w-16px">Nhóm</th>
                         <th>Tên đề tài</th>
-                        {{-- <th>Bộ môn quản lý</th> --}}
                         <th>Số lượng sinh viên</th>
                         <th>Link nộp báo cáo</th>
                         <th>Trạng thái</th>
@@ -127,7 +129,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <x-table-empty :colspan="4" />
+                            <x-table-empty :colspan="5" />
                         </tr>
                     @endforelse
                 </tbody>

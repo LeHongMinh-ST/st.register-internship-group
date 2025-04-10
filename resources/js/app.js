@@ -29,3 +29,5 @@ import './fullcalendar.js'
 $('#filter-select-year').change(function () {
   $('#frm-filter-seminar').submit()
 })
+
+import "./docx-viewer";

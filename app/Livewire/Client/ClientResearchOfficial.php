@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use App\Jobs\SendReportMailJob;
 
 class ClientResearchOfficial extends Component
 {
@@ -115,10 +116,10 @@ class ClientResearchOfficial extends Component
 
     public function sendMailEdit()
     {
-//        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
-//            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
-//            return;
-//        }
+        //        if (isset($this->group->groupKey) && $this->group->groupKey->active && $this->group->groupKey->isExpired()) {
+        //            $this->dispatch('alert', type: 'success', message: 'Hệ thống đã gửi email, vui lòng mở email và kích vào link để chỉnh sửa thông tin.');
+        //            return;
+        //        }
 
         if (!$this->isLoading) {
             $this->isLoading = true;
@@ -132,20 +133,20 @@ class ClientResearchOfficial extends Component
                 $groupKey->active = true;
                 $groupKey->save();
 
-                $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : StudentGroupOfficial::query()
+                $mailTo = env('APP_ENV') == 'local' ? "hwanghaha123@gmail.com" : StudentGroupOfficial::query()
                     ->where('student_id', $this->student->id)
                     ->first()
                     ->email;
-//                if (!$this->student->groupStudent) {
-//                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->email;
-//                } else {
-//                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->groupStudent->email;
-//                }
+                //                if (!$this->student->groupStudent) {
+                //                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->email;
+                //                } else {
+                //                    $mailTo = env('APP_ENV') == 'local' ? "nguyenphuongnam12a9@gmail.com" : $this->student->groupStudent->email;
+                //                }
 
                 SendRequestEditMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
-//                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
+                //                Mail::to($mailTo)->send(new RequestEditMail($this->student, $groupKey->key));
                 $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi yêu cầu chỉnh sửa. Vui lòng check email bạn đã đăng ký để có thể nhận mã yêu cầu!");
-            }catch (\Exception $exception) {
+            } catch (\Exception $exception) {
                 Log::error('send mail edit group', [
                     'message' => $exception->getMessage(),
                 ]);
@@ -153,9 +154,43 @@ class ClientResearchOfficial extends Component
             }
             $this->isLoading = false;
         }
-
-
     }
+
+    public function sendMailReport()
+    {
+        // Log::info('sendMailReport function is triggered');
+        // Log::info('Student:', ['student' => $this->student]);
+        // Log::info('Group:', ['group' => $this->group]);
+        if (!$this->isLoading) {
+            $this->isLoading = true;
+            try {
+                $groupKey = GroupKey::create([
+                    'group_id' => $this->group->id,
+                    'key' => Str::random(),
+                    'group_type' => GroupOfficial::class
+                ]);
+
+                $groupKey->active = true;
+                $groupKey->save();
+
+                $mailTo = env('APP_ENV') == 'local' ? "hwanghaha123@gmail.com" : StudentGroupOfficial::query()
+                    ->where('student_id', $this->student->id)
+                    ->first()
+                    ->email;
+                //Log::info('Mail will be sent to:', ['email' => $mailTo]);
+
+                SendReportMailJob::dispatch($mailTo, $this->student, $groupKey->key)->onQueue('mail');
+                $this->dispatch('alert', type: "success", message: "Hệ thống đã gửi yêu cầu nộp báo cáo. Vui lòng check email bạn đã đăng ký để có thể nhận mã yêu cầu!");
+            } catch (\Exception $exception) {
+                Log::error('send mail edit group', [
+                    'message' => $exception->getMessage(),
+                ]);
+                $this->dispatch('alert', type: "error", message: "Có lỗi sảy ra vui lòng thử lại sau!");
+            }
+            $this->isLoading = false;
+        }
+    }
+
 
     public function openPlanModal()
     {
