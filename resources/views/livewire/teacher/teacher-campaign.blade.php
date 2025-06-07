@@ -14,7 +14,7 @@
                     <tr class="table-light">
                         <th>STT</th>
                         <th>Đợt đăng ký</th>
-                        <th>Số nhóm đã nhận</th>
+                        <th>Số sinh viên /nhóm</th>
                     </tr>
                 </thead>
                 <tbody>

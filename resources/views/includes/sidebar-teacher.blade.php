@@ -36,7 +36,7 @@
                     <a href="{{ route('teacher.student-groups-campaign') }}"
                        class="nav-link {{ request()->routeIs('teacher.student-groups-campaign') ? 'active' : '' }}">
                         <i class="ph-users"></i>
-                        <span>Nhóm sinh viên nhận hướng dẫn</span>
+                        <span>Sinh viên đã nhận hướng dẫn</span>
                     </a>
                 </li>
 
