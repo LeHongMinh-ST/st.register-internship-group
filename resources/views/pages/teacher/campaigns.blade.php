@@ -4,7 +4,7 @@
             <div class="page-header-content d-lg-flex">
                 <div class="d-flex">
                     <h4 class="mb-0 page-title">
-                        Nhóm sinh viên nhận hướng dẫn theo đợt - <span class="fw-normal">Danh sách </span>
+                        Sinh viên đã nhận hướng dẫn - <span class="fw-normal">Danh sách </span>
                     </h4>
                 </div>
 

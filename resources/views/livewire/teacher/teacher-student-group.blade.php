@@ -1,7 +1,10 @@
 <div xmlns:livewire="http://www.w3.org/1999/html">
     <div class="card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
-            <div class="gap-2 d-flex">
+            <div class="ms-auto">
+                <a href="{{ route('teacher.student-groups-campaign') }}" type="button" class="btn btn-warning">
+                    <i class="ph-arrow-counter-clockwise"></i> Trở lại
+                </a>
             </div>
         </div>
 
