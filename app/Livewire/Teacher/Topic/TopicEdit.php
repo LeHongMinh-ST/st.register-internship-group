@@ -58,7 +58,7 @@ class TopicEdit extends Component
         return [
             'title' => 'required',
             'campaign_id' => 'required',
-            'description' => 'max:100',
+            'description' => 'max:1000',
         ];
     }
 }
