@@ -136,4 +136,5 @@
             </table>
         </div>
     </div>
+    {{ $groups->links('vendor.pagination.theme') }}
 </div>
