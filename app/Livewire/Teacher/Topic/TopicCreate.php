@@ -48,7 +48,7 @@ class TopicCreate extends Component
         return [
             'title' => 'required',
             'campaign_id' => 'required',
-            'description' => 'max:1000',
+            'description' => 'max:600',
         ];
     }
 }
