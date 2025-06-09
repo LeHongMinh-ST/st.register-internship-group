@@ -19,28 +19,31 @@
                             </div>
 
                             <div class="card-body">
-                                <div class="mb-4">
-                                    <div class="row mb-3">
-                                        <label class="col-form-label col-lg-3">
-                                            File báo cáo nhóm <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-9">
-                                            <input type="file" wire:model="groupReportFile" class="form-control"
-                                                accept=".doc,.docx" required>
-                                            @error('groupReportFile')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                <form wire:submit.prevent="submit" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-4">
+                                        <div class="row mb-3">
+                                            <label class="col-form-label col-lg-3">
+                                                File báo cáo nhóm <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-9">
+                                                <input type="file" wire:model="groupReportFile" class="form-control"
+                                                    accept=".docx" required>
+                                                @error('groupReportFile')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <button wire:loading wire:target="submit" class="btn btn-primary">
-                                    <i class="ph-circle-notch spinner"></i>
-                                    Nộp báo cáo
-                                </button>
-                                <button wire:click="submit" wire:loading.remove class="btn btn-primary">
-                                    <i class="ph-floppy-disk"></i>
-                                    Nộp báo cáo
-                                </button>
+                                    <button wire:loading wire:target="submit" class="btn btn-primary">
+                                        <i class="ph-circle-notch spinner"></i>
+                                        Nộp báo cáo
+                                    </button>
+                                    <button type="submit" wire:loading.remove class="btn btn-primary">
+                                        <i class="ph-floppy-disk"></i>
+                                        Nộp báo cáo
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
