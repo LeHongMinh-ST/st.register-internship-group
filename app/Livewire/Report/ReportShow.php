@@ -6,9 +6,12 @@ use Livewire\Component;
 use App\Models\GroupOfficial;
 use App\Common\Constants;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
 
 class ReportShow extends Component
 {
+    use WithPagination;
+
     public int|string $campaignId = '';
 
     public string $search = '';
