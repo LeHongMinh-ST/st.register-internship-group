@@ -83,7 +83,13 @@
                                             <i class="ph-x-circle me-2"></i>
                                             Tạm dừng
                                         </button>
-                                        <button type="button" wire:click="openDeleteModal({{ $teacher->id }})" class="dropdown-item text-danger">
+                                        <button type="button" wire:click="resetPassword({{ $teacher->id }})"
+                                            class="dropdown-item text-primary">
+                                            <i class="ph-lock me-2"></i>
+                                            Đặt lại mật khẩu
+                                        </button>
+                                        <button type="button" wire:click="openDeleteModal({{ $teacher->id }})"
+                                            class="dropdown-item text-danger">
                                             <i class="ph-trash me-2"></i>
                                             Xóa
                                         </button>
@@ -168,5 +174,4 @@
             })
         })
     </script>
-
 @endscript

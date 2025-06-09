@@ -42,7 +42,8 @@ class Report extends Component
     public function rules(): array
     {
         return [
-            'groupReportFile' => 'required|file|mimes:doc,docx',
+            // 'groupReportFile' => 'required|file|mimes:docx|max:30720', // 30MB 
+            'groupReportFile' => 'required|file|mimetypes:application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:30720',
         ];
     }
 
