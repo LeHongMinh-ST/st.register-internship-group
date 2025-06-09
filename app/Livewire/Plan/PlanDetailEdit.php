@@ -18,7 +18,7 @@ class PlanDetailEdit extends Component
     public int|string $planTemplateId;
 
     #[Validate(as: 'ngày bắt đầu')]
-    public string $start= '';
+    public string $start = '';
 
     #[Validate(as: 'ngày kết thúc')]
     public string $end = '';
@@ -27,6 +27,34 @@ class PlanDetailEdit extends Component
     public string $content = '';
 
     public bool $isLoading = false;
+
+    protected $listeners = [
+        'update-start-date' => 'updateStartDate',
+        'update-end-date' => 'updateEndDate',
+        'contentUpdated' => 'updateContent',
+    ];
+
+    public function updateStartDate($value): void
+    {
+        if ($value) {
+            $this->resetValidation('start');
+        }
+        $this->start = str_replace('/', '-', $value);
+    }
+
+    public function updateEndDate($value): void
+    {
+        if ($value) {
+            $this->resetValidation('end');
+        }
+        $this->end = str_replace('/', '-', $value);
+    }
+
+    public function updateContent($value): void
+    {
+        $this->content = $value;
+        $this->validateOnly('content');
+    }
 
     public function render()
     {
@@ -83,5 +111,4 @@ class PlanDetailEdit extends Component
 
         return null;
     }
-
 }

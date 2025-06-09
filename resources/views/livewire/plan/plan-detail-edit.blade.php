@@ -80,7 +80,7 @@
         }
 
         const dpBasicElementEndDate = document.querySelector('#endDate');
-        if (dpBasicElementStartDate) {
+        if (dpBasicElementEndDate) {
             new Datepicker(dpBasicElementEndDate, {
                 container: '.content-inner',
                 buttonClass: 'btn',

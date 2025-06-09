@@ -28,10 +28,10 @@ class TeacherIndex extends Component
     public function render()
     {
         $teachers = Teacher::query()
-        ->search($this->search)
-        ->orderBy('code', 'asc')
-        ->paginate(Constants::PER_PAGE, ['*'], 'groupsPageOfficial');
-        return view('livewire.teacher.teacher-index' ,[
+            ->search($this->search)
+            ->orderBy('code', 'asc')
+            ->paginate(Constants::PER_PAGE, ['*'], 'groupsPageOfficial');
+        return view('livewire.teacher.teacher-index', [
             'teachers' => $teachers,
         ]);
     }
@@ -76,5 +76,17 @@ class TeacherIndex extends Component
     {
         $this->teacherId = $id;
         $this->dispatch('openDeleteModal');
+    }
+
+    public function resetPassword($teacherId): void
+    {
+        $teacher = Teacher::find($teacherId);
+
+        if ($teacher) {
+            $teacher->password = bcrypt('Fita@2005');
+            $teacher->save();
+
+            $this->dispatch('alert', type: 'success', message: 'Đã đặt lại mật khẩu mặc định');
+        }
     }
 }
