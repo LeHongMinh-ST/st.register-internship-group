@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-
+use App\Jobs\ProcessReportFileJob;
 
 class Report extends Component
 {
@@ -42,8 +42,7 @@ class Report extends Component
     public function rules(): array
     {
         return [
-            // 'groupReportFile' => 'required|file|mimes:docx|max:30720', // 30MB 
-            'groupReportFile' => 'required|file|mimetypes:application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:30720',
+            'groupReportFile' => 'required|file|mimes:docx|max:20480', // 30MB 
         ];
     }
 
@@ -57,13 +56,20 @@ class Report extends Component
         $this->campaignId = $this->groupOfficial->campaign_id;
     }
 
-    public function submit(){
+    public function submit()
+    {
         $this->validate();
-        $path = $this->groupReportFile->store('reports','public');
-        $this->groupOfficial->update([
-            'report_file' => $path,
-            'report_status' => \App\Enums\ReportStatusEnum::PENDING->value,
-        ]);
+
+        // Lưu file tạm
+        $path = $this->groupReportFile->store('reports', 'public');
+
+        // Đẩy vào hàng đợi
+        ProcessReportFileJob::dispatch($this->groupOfficial->id, $path)->onQueue('default');
+
+        // $this->groupOfficial->update([
+        //     'report_file' => $path,
+        //     'report_status' => \App\Enums\ReportStatusEnum::PENDING->value,
+        // ]);
 
         $this->dispatch('alert', type: "success", message: "Nộp thông báo thành công");
     }
