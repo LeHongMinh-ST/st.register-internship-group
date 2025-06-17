@@ -1,9 +1,14 @@
 <div xmlns:livewire="http://www.w3.org/1999/html">
     <div class="card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
-            <div class="ms-auto">
+            <div>
+                <button wire:click="openPlanModal" class="btn btn-primary">
+                    <i class="ph-calendar"></i>&nbsp;Kế hoạch thực tập
+                </button>
+            </div>
+            <div>
                 <a href="{{ route('teacher.student-groups-campaign') }}" type="button" class="btn btn-warning">
-                    <i class="ph-arrow-counter-clockwise"></i> Trở lại
+                    <i class="ph-arrow-counter-clockwise"></i>&nbsp;Trở lại
                 </a>
             </div>
         </div>
@@ -136,5 +141,55 @@
                 </tbody>
             </table>
         </div>
+        <div id="modal-plan" wire:ignore.self class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white"> {{ $planName }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="table-responsive table-scrollable border-top">
+                            <table class="table fs-table">
+                                <thead>
+                                    <tr class="table-light">
+                                        <th>STT</th>
+                                        <th>Thời gian</th>
+                                        <th>Nội dung thực hiện</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @forelse($plans as $plan)
+                                        <tr>
+                                            <td>{{ $loop->index + 1 + $plans->perPage() * ($plans->currentPage() - 1) }}
+                                            </td>
+                                            <td>
+                                                @if ($plan->time)
+                                                    {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
+                                                @else
+                                                    {{ \Carbon\Carbon::make($plan->start_date)->format('d/m/Y') }} -
+                                                    {{ \Carbon\Carbon::make($plan->end_date)->format('d/m/Y') }}
+                                                @endif
+                                            </td>
+                                            <td>{!! $plan->content !!}</td>
+                                        </tr>
+                                    @empty
+                                        <x-table-empty :colspan="3" />
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+    window.addEventListener('open-plan-modal', () => {
+        $('#modal-plan').modal('show')
+    })
+</script>
