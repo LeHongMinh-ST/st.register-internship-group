@@ -8,10 +8,10 @@
             </div>
             <div class="d-flex gap-1">
                 <div>
-                    <a href="{{route('teacher.topics.create')}}" class="btn btn-teal">
+                    <a href="{{ route('teacher.topics.create') }}" class="btn btn-teal">
                         <i class="ph-plus-circle me-1">
-                            </i> Tạo mới</a>                
-                    </div>
+                        </i> Tạo mới</a>
+                </div>
             </div>
         </div>
 
@@ -42,81 +42,90 @@
                                             <i class="ph-eye me-2"></i>
                                             Xem chi tiết
                                         </button>
-                                        <a href="{{route('teacher.topics.edit',  ['id' => $topic->id])}}" class="dropdown-item">
-                                            <i class="ph-pencil me-2"></i>
-                                            Chỉnh sửa
-                                        </a>
-                                        <button type="button" wire:click="openDeleteModal({{ $topic->id }})" class="dropdown-item text-danger">
+                                        @unless ($topic->campaign->isEditOfficialExpired())
+                                            <a href="{{ route('teacher.topics.edit', ['id' => $topic->id]) }}"
+                                                class="dropdown-item">
+                                                <i class="ph-pencil me-2"></i>
+                                                Chỉnh sửa
+                                            </a>
+                                        @endunless
+                                        <button type="button" wire:click="openDeleteModal({{ $topic->id }})"
+                                            class="dropdown-item text-danger">
                                             <i class="ph-trash me-2"></i>
                                             Xóa
                                         </button>
+                                        @if($topic->campaign->isEditOfficialExpired())
+                                            <a type="button" wire:click="copy({{ $topic->id }})" class="dropdown-item">
+                                                <i class="ph-copy me-2"></i>
+                                                Sao chép
+                                            </a>
+                                        </div>
+                                        @endif
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <div wire:ignore.self class="modal fade" id="topicModal" tabindex="-1"
-                                aria-labelledby="topicsModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="companyModalLabel">
-                                                Thông tin chi tiết đề tài
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            @if ($selectedTopic)
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4 fw-bold">Tên đề tài:</div>
-                                                    <div class="col-md-8">{{ $selectedTopic->title }}</div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4 fw-bold">Tên đợt đăng ký:</div>
-                                                    <span class="badge bg-primary bg-opacity-20 text-primary w-auto">{{ $selectedTopic->campaign->name }}</sp>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4 fw-bold">Mô tả:</div>
-                                                    <div class="col-md-8">{{ $selectedTopic->description }}</div>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Đóng</button>
+                                <div wire:ignore.self class="modal fade" id="topicModal" tabindex="-1"
+                                    aria-labelledby="topicsModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="companyModalLabel">
+                                                    Thông tin chi tiết đề tài
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @if ($selectedTopic)
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4 fw-bold">Tên đề tài:</div>
+                                                        <div class="col-md-8">{{ $selectedTopic->title }}</div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4 fw-bold">Tên đợt đăng ký:</div>
+                                                        <span
+                                                            class="badge bg-primary bg-opacity-20 text-primary w-auto">{{ $selectedTopic->campaign->name }}
+                                                            </sp>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4 fw-bold">Mô tả:</div>
+                                                        <div class="col-md-8">{{ $selectedTopic->description }}</div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </tr>
-                    @empty
-                        <x-table-empty :colspan="5" />
-                    @endforelse
-                </tbody>
-            </table>
+                            </tr>
+                            @empty
+                                <x-table-empty :colspan="5" />
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {{ $topics->links('vendor.pagination.theme') }}
         </div>
-    </div>
-    {{ $topics->links('vendor.pagination.theme') }}
-</div>
 
-@script
-<script>
-
-    window.addEventListener('openDeleteModal', () => {
-        new swal({
-            title: "Bạn có chắc chắn?",
-            text: "Dữ liệu sau khi xóa không thể phục hồi!",
-            showCancelButton: true,
-            confirmButtonColor: "#FF7043",
-            confirmButtonText: "Đồng ý!",
-            cancelButtonText: "Đóng!"
-        }).then((value) => {
-            if (value.isConfirmed) {
-                Livewire.dispatch('deleteTopic')
-            }
-        })
-    })
-
-
-</script>
-@endscript
+        @script
+            <script>
+                window.addEventListener('openDeleteModal', () => {
+                    new swal({
+                        title: "Bạn có chắc chắn?",
+                        text: "Dữ liệu sau khi xóa không thể phục hồi!",
+                        showCancelButton: true,
+                        confirmButtonColor: "#FF7043",
+                        confirmButtonText: "Đồng ý!",
+                        cancelButtonText: "Đóng!"
+                    }).then((value) => {
+                        if (value.isConfirmed) {
+                            Livewire.dispatch('deleteTopic')
+                        }
+                    })
+                })
+            </script>
+        @endscript

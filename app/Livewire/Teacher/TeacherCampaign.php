@@ -20,6 +20,7 @@ class TeacherCampaign extends Component
         ->withCount(['officialGroups' => function ($query) use ($teacher) {
             $query->where('teacher_id', $teacher->id);
         }])
+        ->orderBy('created_at', 'desc')
         ->paginate(Constants::PER_PAGE_ADMIN);
 
         return view('livewire.teacher.teacher-campaign') ->with([

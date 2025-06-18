@@ -135,7 +135,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <x-table-empty :colspan="4" />
+                            <x-table-empty :colspan="7" />
                         </tr>
                     @endforelse
                 </tbody>
