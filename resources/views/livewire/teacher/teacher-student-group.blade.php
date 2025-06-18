@@ -1,12 +1,15 @@
 <div xmlns:livewire="http://www.w3.org/1999/html">
     <div class="card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
-            <div>
+            <div class="d-flex gap-2">
+                <div>
+                    <input wire:model.live="search" type="text" class="form-control" placeholder="Tìm kiếm...">
+                </div>
+            </div>
+            <div class="d-flex gap-2 ms-auto">
                 <button wire:click="openPlanModal" class="btn btn-primary">
                     <i class="ph-calendar"></i>&nbsp;Kế hoạch thực tập
                 </button>
-            </div>
-            <div>
                 <a href="{{ route('teacher.student-groups-campaign') }}" type="button" class="btn btn-warning">
                     <i class="ph-arrow-counter-clockwise"></i>&nbsp;Trở lại
                 </a>

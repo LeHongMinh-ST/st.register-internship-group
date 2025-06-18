@@ -12,6 +12,8 @@ use App\Models\PlanDetail;
 
 class TeacherStudentGroup extends Component
 {
+    public string $search = '';
+
     public int|string $campaignId;
 
     public function mount($campaignId)
@@ -25,6 +27,7 @@ class TeacherStudentGroup extends Component
         $teacherId = Auth::guard('teacher')->user()->id;
         $groups = GroupOfficial::where('campaign_id', $this->campaignId)
             ->where('teacher_id', $teacherId)
+            ->search($this->search)
             ->with('students')
             ->get();
         $plans = PlanDetail::query()
