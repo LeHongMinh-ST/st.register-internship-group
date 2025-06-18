@@ -9,6 +9,7 @@ use App\View\Components\Table\TableEmpty;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,5 +33,9 @@ class AppServiceProvider extends ServiceProvider
         LogViewer::auth(function () {
             return auth()->check();
         });
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
+
     }
 }
