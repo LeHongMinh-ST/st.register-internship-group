@@ -51,17 +51,33 @@ class TopicIndex extends Component
         $this->selectedTopic = Topic::find($id);
     }
 
+    // public function copy($id)
+    // {
+    //     $original = Topic::find($id);
+
+    //     if ($original) {
+    //         $newTopic = $original->replicate(); 
+    //         $newTopic->title = $original->title . ' - bản sao';
+    //         $newTopic->description = $original->description;
+    //         $newTopic->save();
+    //     }
+
+    //     $this->dispatch('alert', type: 'success', message: 'Sao chép đề tài thành công!');
+    // }
     public function copy($id)
     {
         $original = Topic::find($id);
 
-        if ($original) {
-            $newTopic = $original->replicate(); 
-            $newTopic->title = $original->title . ' - bản sao';
-            $newTopic->description = $original->description;
-            $newTopic->save();
+        if (!$original) {
+            $this->dispatch('alert', type: 'error', message: 'Không tìm thấy đề tài.');
+            return;
         }
 
-        $this->dispatch('alert', type: 'success', message: 'Sao chép đề tài thành công!');
+        // Gửi dữ liệu sang component tạo mới
+        session()->flash('copied_title', $original->title);
+        session()->flash('copied_description', $original->description);
+
+        // Redirect sang route tạo đề tài
+        return redirect()->route('teacher.topics.create');
     }
 }

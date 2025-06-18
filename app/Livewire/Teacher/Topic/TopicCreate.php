@@ -19,7 +19,7 @@ class TopicCreate extends Component
 
     #[Validate(as: 'mô tả')]
     public $description;
-    
+
     public function render()
     {
         $campaigns = Campaign::where('status', CampaignStatusEnum::Active)->get();
@@ -27,6 +27,13 @@ class TopicCreate extends Component
             'campaigns' => $campaigns
         ]);
     }
+
+    public function mount(): void
+    {
+        $this->title = session('copied_title', '');
+        $this->description = session('copied_description', '');
+    }
+
 
     public function store()
     {
@@ -38,7 +45,7 @@ class TopicCreate extends Component
             'campaign_id' => $this->campaign_id,
             'teacher_id' => Auth::guard('teacher')->user()->id,
         ]);
-        
+
         session()->flash('success', 'Tạo chủ đề thành công!');
         return redirect()->route('teacher.topics');
     }
