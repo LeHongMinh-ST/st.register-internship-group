@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 use App\Common\Constants;
 
 class TopicIndex extends Component
-{    
+{
     use WithPagination;
 
     public string $search = '';
@@ -26,8 +26,9 @@ class TopicIndex extends Component
     {
         $teacherId = Auth::guard('teacher')->user()->id;
         $topics = Topic::where('teacher_id', $teacherId)
-        ->search($this->search)
-        ->paginate(Constants::PER_PAGE_ADMIN);
+            ->search($this->search)
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::PER_PAGE_ADMIN);
         return view('livewire.teacher.topic.topic-index', compact('topics'));
     }
 
@@ -36,7 +37,7 @@ class TopicIndex extends Component
         $this->topicId = $id;
         $this->dispatch('openDeleteModal');
     }
-    
+
     public function handleDeleteTopic(): void
     {
         Topic::destroy($this->topicId);
@@ -48,5 +49,19 @@ class TopicIndex extends Component
     public function topicDetail($id): void
     {
         $this->selectedTopic = Topic::find($id);
+    }
+
+    public function copy($id)
+    {
+        $original = Topic::find($id);
+
+        if ($original) {
+            $newTopic = $original->replicate(); 
+            $newTopic->title = $original->title . ' - bản sao';
+            $newTopic->description = $original->description;
+            $newTopic->save();
+        }
+
+        $this->dispatch('alert', type: 'success', message: 'Sao chép đề tài thành công!');
     }
 }

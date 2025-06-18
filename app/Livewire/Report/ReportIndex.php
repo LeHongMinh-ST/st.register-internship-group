@@ -15,6 +15,7 @@ class ReportIndex extends Component
     {
         $campaigns = Campaign::query()
         ->search($this->search)
+        ->orderBy('created_at', 'desc')
         ->paginate(Constants::PER_PAGE_ADMIN);
         return view('livewire.report.report-index', [
             'campaigns' => $campaigns,
