@@ -42,18 +42,20 @@
                                             <i class="ph-eye me-2"></i>
                                             Xem chi tiết
                                         </button>
-                                        @unless ($topic->campaign->isEditOfficialExpired())
+                                        @unless($topic->campaign->isEditOfficialExpired())
                                             <a href="{{ route('teacher.topics.edit', ['id' => $topic->id]) }}"
                                                 class="dropdown-item">
                                                 <i class="ph-pencil me-2"></i>
                                                 Chỉnh sửa
                                             </a>
                                         @endunless
+                                        @unless ($topic->campaign->isEditOfficialExpired())
                                         <button type="button" wire:click="openDeleteModal({{ $topic->id }})"
                                             class="dropdown-item text-danger">
                                             <i class="ph-trash me-2"></i>
                                             Xóa
                                         </button>
+                                        @endunless
                                         @if($topic->campaign->isEditOfficialExpired())
                                             <a type="button" wire:click="copy({{ $topic->id }})" class="dropdown-item">
                                                 <i class="ph-copy me-2"></i>
