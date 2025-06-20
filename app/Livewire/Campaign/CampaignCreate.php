@@ -17,7 +17,7 @@ use Livewire\Component;
 
 class CampaignCreate extends Component
 {
-    #[Validate(as: 'tên đợt chiến dịch')]
+    #[Validate(as: 'tên đợt đăng ký')]
     public string $name = '';
 
     #[Validate('required', as: 'ngày bắt đầu')]

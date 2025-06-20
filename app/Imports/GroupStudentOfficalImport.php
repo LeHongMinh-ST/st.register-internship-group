@@ -24,8 +24,8 @@ class GroupStudentOfficalImport implements ToCollection, WithStartRow, WithHeadi
     public function __construct(private int|string $campaignId) {}
 
 
-    public const START_ROW = 2;
-    public const HEADER_INDEX = 1;
+    public const START_ROW = 3;
+    public const HEADER_INDEX = 2;
 
     /**
      * @param Collection $collection
