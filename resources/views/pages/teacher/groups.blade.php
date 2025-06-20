@@ -14,7 +14,8 @@
                 <div class="d-flex">
                     <div class="py-2 breadcrumb">
                         <a href="" class="breadcrumb-item"><i class="ph-house"></i></a>
-                        <span class="breadcrumb-item active">Danh sách</span>
+                        <a href="{{route('teacher.student-groups-campaign')}}" class="breadcrumb-item">Danh sách</a>
+                        <span class="breadcrumb-item active">{{$campaignId->name}}</span>
                     </div>
 
                     <a href="#breadcrumb_elements" class="p-0 border-transparent btn btn-light align-self-center collapsed d-lg-none rounded-pill ms-auto" data-bs-toggle="collapse">
