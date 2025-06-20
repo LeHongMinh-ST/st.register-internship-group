@@ -13,7 +13,7 @@ class Campaign extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'start', 'end', 'max_student_group', 'official_end', 'plan_template_id','report_deadline'];
+    protected $fillable = ['name', 'start', 'end', 'max_student_group', 'official_end', 'plan_template_id', 'report_deadline'];
 
     public function students(): HasMany
     {
@@ -42,8 +42,15 @@ class Campaign extends Model
 
     public function scopeSearch($query, $search)
     {
+        // if ($search) {
+        //     $query->where('name', 'like', '%' . $search . '%');
+        // }
         if ($search) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhereHas('officialGroups.students', function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('code', 'like', '%' . $search . '%');
+                });
         }
 
         return $query;
@@ -91,5 +98,4 @@ class Campaign extends Model
     {
         return $this->hasMany(GroupOfficial::class);
     }
-
 }

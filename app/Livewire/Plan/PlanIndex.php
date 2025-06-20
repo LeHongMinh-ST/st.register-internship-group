@@ -20,6 +20,7 @@ class PlanIndex extends Component
     {
         $plans = Plan::query()
             ->search($this->search)
+            ->orderBy('created_at', 'desc')
             ->paginate(Constants::PER_PAGE_ADMIN);
 
         return view('livewire.plan.plan-index')->with([
