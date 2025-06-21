@@ -86,7 +86,7 @@ public function collection(Collection $collection)
                     'department' => $row['bo_mon_quan_ly'],
                     'teacher_id' => $teacher?->id,
                     'supervisor' => $row['giao_vien_huong_dan_da_nhan_sinh_vien'] ?: $student->group?->supervisor,
-                    'topic' => $row['de_tai_thuc_tap'] ?: $student->group?->topic,
+                    'topic' => $row['de_tai_thuc_tap'] ?: null,
                 ]);
             } else {
                 GroupOfficial::where('id', $group->id)->update([
@@ -95,7 +95,7 @@ public function collection(Collection $collection)
                     'department' => $row['bo_mon_quan_ly'],
                     'teacher_id' => $teacher?->id,
                     'supervisor' => $row['giao_vien_huong_dan_da_nhan_sinh_vien'] ?: $student->group?->supervisor,
-                    'topic' => $row['de_tai_thuc_tap'] ?: $student->group?->topic,
+                    'topic' => $row['de_tai_thuc_tap'] ?: null,
                 ]);
             }
 
