@@ -73,13 +73,13 @@ class TeacherDataImport implements ToCollection, WithHeadingRow
         }
     }
 
-    // public function startRow(): int
-    // {
-    //     return self::START_ROW;
-    // }
+    public function startRow(): int
+    {
+        return self::START_ROW;
+    }
 
-    // public function headingRow(): int
-    // {
-    //     return self::HEADER_INDEX;
-    // }
+    public function headingRow(): int
+    {
+        return self::HEADER_INDEX;
+    }
 }
