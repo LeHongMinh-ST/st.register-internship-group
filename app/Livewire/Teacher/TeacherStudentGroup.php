@@ -19,6 +19,7 @@ class TeacherStudentGroup extends Component
     public function mount($campaignId)
     {
         $this->campaignId = is_object($campaignId) ? $campaignId->id : $campaignId;
+        $this->search = request()->query('search', '');
     }
 
     public function render()
