@@ -22,7 +22,7 @@
                         <tr>
                             <td>{{ $loop->index + 1 + $campaigns->perPage() * ($campaigns->currentPage() - 1) }}</td>
                             <td>
-                                <a href="{{ route('teacher.student-groups-campaign.show', $campaign->id) }}">
+                                <a href="{{ route('teacher.student-groups-campaign.show', $campaign->id) }}?search={{ urlencode($search) }}">
                                     {{ $campaign->name }}
                                 </a>
                             </td>
