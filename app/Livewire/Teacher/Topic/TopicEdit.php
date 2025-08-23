@@ -33,7 +33,9 @@ class TopicEdit extends Component
 
     public function render()
     {
-        $campaigns = Campaign::where('status', CampaignStatusEnum::Active)->get();
+        $campaigns = Campaign::where('status', CampaignStatusEnum::Active)
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('livewire.teacher.topic.topic-edit', [
             'campaigns' => $campaigns
         ]);
@@ -48,7 +50,7 @@ class TopicEdit extends Component
             'description' => $this->description,
             'campaign_id' => $this->campaign_id,
         ]);
-        
+
         session()->flash('success', 'Cập nhật đề tài thành công!');
         return redirect()->route('teacher.topics');
     }

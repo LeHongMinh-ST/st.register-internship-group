@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +30,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('handleLogin');
 Route::post('/logout', [AuthController::class, 'logout'])->name('handleLogout');
 
 Route::prefix('admin')->middleware(['auth'])->group(function (): void {
-    Route::get('/', fn () => redirect()->route('admin.campaigns.index'));
-    Route::get('/dashboard', fn () => view('pages.dashboard'))->name('admin.dashboard');
+    Route::get('/', fn() => redirect()->route('admin.campaigns.index'));
+    Route::get('/dashboard', fn() => view('pages.dashboard'))->name('admin.dashboard');
     Route::prefix('campaigns')->group(function (): void {
         Route::get('/', [CampaignController::class, 'index'])->name('admin.campaigns.index');
         Route::get('/create', [CampaignController::class, 'create'])->name('admin.campaigns.create');
@@ -38,7 +39,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
         Route::get('/download-template-student-group', [CampaignController::class, 'downloadTemplateStudentGroup'])->name('admin.campaigns.downloadTemplateStudentGroup');
         Route::get('/{campaign}', [CampaignController::class, 'show'])->name('admin.campaigns.show');
         Route::get('/{campaign}/edit', [CampaignController::class, 'edit'])->name('admin.campaigns.edit');
-
     });
     Route::prefix('plans')->group(function (): void {
         Route::get('/', [PlanController::class, 'index'])->name('admin.plans.index');
@@ -74,10 +74,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
     Route::prefix('report')->group(function (): void {
         Route::get('/', [ReportController::class, 'index'])->name('admin.reports.index');
         Route::get('/{campaignId}/show', [ReportController::class, 'show'])->name('admin.reports.show');
-        
     });
 
-//    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
+    Route::prefix('topic')->group(function (): void {
+        Route::get('/', [TopicController::class, 'index'])->name('admin.topics.index');
+        Route::get('/{campaignId}/show', [TopicController::class, 'show'])->name('admin.topics.show');
+    });
+
+    //    Route::get('coming-soon', fn () => view('coming-soon'))->name('admin.coming-soon');
 });
 Route::get('internship/{campaign}/register', [RegisterController::class, 'index'])->name('internship.register');
 Route::get('internship/{campaign}/research', [ResearchController::class, 'index'])->name('internship.research');
@@ -91,16 +95,16 @@ Route::prefix('teacher')->group(function (): void {
     Route::middleware('auth:teacher')->group(function (): void {
         Route::get('/student-groups-campaign', [TeacherController::class, 'campaigns'])
             ->name('teacher.student-groups-campaign');
-            
+
         Route::get('/student-groups-campaign/{campaignId}/show', [TeacherController::class, 'groups'])
             ->name('teacher.student-groups-campaign.show');
-            
+
         Route::post('/logout', [TeacherController::class, 'logout'])
             ->name('teacher.logout');
 
         Route::get('/topic', [TeacherController::class, 'topic'])
             ->name('teacher.topics');
-        
+
         Route::get('/topic/create', [TeacherController::class, 'topicCreate'])
             ->name('teacher.topics.create');
 
@@ -108,6 +112,6 @@ Route::prefix('teacher')->group(function (): void {
             ->name('teacher.topics.edit');
 
         Route::get('/account', [TeacherController::class, 'teacherAccount'])
-            ->name('teacher.account');  
+            ->name('teacher.account');
     });
 });
