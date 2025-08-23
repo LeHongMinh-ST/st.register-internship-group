@@ -6,9 +6,12 @@ use App\Common\Constants;
 use App\Models\Plan;
 use App\Models\PlanDetail;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class PlanIndex extends Component
 {
+    use WithPagination;
+    
     public string $search = '';
     public int|string $planId;
 

@@ -22,7 +22,9 @@ class TopicCreate extends Component
 
     public function render()
     {
-        $campaigns = Campaign::where('status', CampaignStatusEnum::Active)->get();
+        $campaigns = Campaign::where('status', CampaignStatusEnum::Active)
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('livewire.teacher.topic.topic-create', [
             'campaigns' => $campaigns
         ]);

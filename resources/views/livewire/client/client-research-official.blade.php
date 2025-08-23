@@ -192,7 +192,7 @@
                                 </div>
                             @endif
 
-                            @if (!$campaign->isReportDeadlineExpired() && $this->student->studentGroupOfficial->is_captain)
+                            {{-- @if (!$campaign->isReportDeadlineExpired() && $this->student->studentGroupOfficial->is_captain)
                                 <div class="mt-2">
                                     <button wire:loading class="btn btn-teal" wire:target="sendMailReport">
                                         <i class="ph-circle-notch spinner"></i>
@@ -204,7 +204,7 @@
                                         Yêu cầu nộp báo cáo
                                     </button>
                                 </div>
-                            @endif
+                            @endif --}}
 
                         </div>
                     @endif
