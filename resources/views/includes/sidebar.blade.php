@@ -10,12 +10,12 @@
 
                 <div>
                     <button type="button"
-                            class="border-transparent btn btn-flat-white btn-icon btn-sm rounded-pill sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
+                        class="border-transparent btn btn-flat-white btn-icon btn-sm rounded-pill sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
                         <i class="ph-arrows-left-right"></i>
                     </button>
 
                     <button type="button"
-                            class="border-transparent btn btn-flat-white btn-icon btn-sm rounded-pill sidebar-mobile-main-toggle d-lg-none">
+                        class="border-transparent btn btn-flat-white btn-icon btn-sm rounded-pill sidebar-mobile-main-toggle d-lg-none">
                         <i class="ph-x"></i>
                     </button>
                 </div>
@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.campaigns.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.campaigns.*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.campaigns.*') ? 'active' : '' }}">
                         <i class="ph-telegram-logo"></i>
                         <span>Đợt đăng ký</span>
                     </a>
@@ -41,23 +41,11 @@
 
                 <li class="nav-item">
                     <a href="{{ route('admin.reports.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
                         <i class="ph-file-doc"></i>
                         <span>Báo cáo</span>
                     </a>
                 </li>
-
-                {{-- <li class="pt-0 nav-item-header">
-                    <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý hệ thống</div>
-                    <i class="ph-dots-three sidebar-resize-show"></i>
-                </li>
-                <li class="nav-item">
-                    <a href=""
-                       class="nav-link">
-                        <i class="ph-user"></i>
-                        <span>Người dùng</span>
-                    </a>
-                </li> --}}
 
                 <li class="nav-item-header">
                     <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý giảng viên</div>
@@ -65,37 +53,50 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.teachers.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
                         <i class="ph-chalkboard-teacher"></i>
                         <span>Giảng viên</span>
                     </a>
                 </li>
+
+                <li class="nav-item-header">
+                    <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý hướng đề tài</div>
+                    <i class="ph-dots-three sidebar-resize-show"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.topics.index') }}" class="nav-link {{ request()->routeIs('admin.topics.*') ? 'active' : '' }}">
+                        <i class="ph-books"></i>
+                        <span>Đề tài TTNN & KLTN</span>
+                    </a>
+                </li>
+
                 <li class="pt-0 nav-item-header mt-2">
                     <div class="opacity-50 text-uppercase fs-sm lh-sm sidebar-resize-hide">Quản lý kế hoạch</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.plans.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.plans.*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.plans.*') ? 'active' : '' }}">
                         <i class="ph-calendar"></i>
                         <span>Kế hoạch</span>
                     </a>
                 </li>
 
                 <li class="nav-item-header">
-                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý công ty thực tập</div>
+                    <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Quản lý công ty thực tập
+                    </div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('admin.companies.index')}}"
-                       class="nav-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.companies.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
                         <i class="ph-briefcase"></i>
                         <span>Danh sách công ty thực tập</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.company-campaign.index') }}"
-                       class="nav-link {{ request()->routeIs('admin.company-campaign.*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.company-campaign.*') ? 'active' : '' }}">
                         <i class="ph-folder-open"></i>
                         <span>Phân công công ty theo đợt</span>
                     </a>
